@@ -171,3 +171,5 @@ T add(T t1, T t2) {
 // Il compilatore non sa cosa fare con l'operatore '+'.
 // Lo saprà solo quando scoprirà di che tipo saranno le variabili 't1' e 't2'.
 ```
+
+_[Torna all'indice](#dichiarazioni-e-definizioni)_
