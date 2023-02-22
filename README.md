@@ -3,7 +3,7 @@ Corso _"Metodologie di Programmazione"_ presso l'Università degli Studi di Parm
 ```
 Guida directory:
 .
-└── lezioni: esercizi visti a lezione
+└── lezioni: esercizi e teoria visti a lezione
 ```
 
 > Appunti teoria: _[merendamattia.com/uni](https://www.merendamattia.com/uni.html)_
