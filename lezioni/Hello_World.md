@@ -1,6 +1,6 @@
 # Hello World
 1. [A cosa serve questo programma?](#a-cosa-serve-questo-programma)
-2. [Processo di compilazione](#processo-di-compilazione)
+2. [Processo di compilazione](<#processo di compilazione>)
 	- [Comandi step-by-step](#comandi-step-by-step)
 	- [Considerazioni sul contenuto dei files prodotti](#considerazioni-sul-contenuto-dei-files-prodotti)
 3. [Ricapitolando](#ricapitolando)
@@ -41,7 +41,7 @@ int main() {
 }
 ```
 
-_[Torna all'indice](#hello+world)_
+_[Torna all'indice](#hello-world)_
 
 ---
 
