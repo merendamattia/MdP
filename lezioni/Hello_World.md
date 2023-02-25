@@ -2,7 +2,7 @@
 1. [A cosa serve questo programma?](#a-cosa-serve-questo-programma)
 2. [Processo di compilazione](#processo-di-compilazione)
 	- [Comandi step-by-step](#comandi-step-by-step)
-	- [Considerazioni sul contenuto dei files prodotti](#1considerazioni-sul-contenuto-dei-files-prodotti)
+	- [Considerazioni sul contenuto dei files prodotti](#considerazioni-sul-contenuto-dei-files-prodotti)
 3. [Ricapitolando](#ricapitolando)
 
 ---
