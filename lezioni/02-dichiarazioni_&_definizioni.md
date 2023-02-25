@@ -18,35 +18,33 @@ la struttura interna di un tipo di dato, l'implementazione del
 corpo di una funzione, ecc.).
 
 Le dichiarazioni che NON sono anche definizioni vengono talvolta
-chiamate dichiarazioni "forward" (perché rimandano la definizione
-ad un momento successivo) o anche dichiarazioni "pure".  
+chiamate dichiarazioni "*forward*" (perché rimandano la definizione
+ad un momento successivo) o anche dichiarazioni "*pure*".  
 Vediamo la differenza tra dichiarazioni pure e definizioni
 per varie tipologie di entità.
 
 ---
 
 ## Tipi di dato
+
 Dichiarazione pura del tipo `S`:
 ```c++
 struct S;
 ```
 
-Dichiarazione del tipo `T`:
+Definizione del tipo `T`:
 ```c++
 struct T { int a; };
 ```
 
 Nel primo caso, non conosco la struttura del tipo `S` e, di conseguenza, non posso creare oggetti del tipo `S` (per esempio, il compilatore non saprebbe quanta memoria allocare per memorizzare un tale oggetto). 
 
-Nel secondo caso, siccome `T` è definita, ne conosco la struttura
-e posso creare oggetti di tipo `T`.
+Nel secondo caso, siccome `T` è definita, ne conosco la struttura e posso creare oggetti di tipo `T`.
 
-Ci si potrebbe chiedere quale sia l'utilità di avere una dichiarazione
-pura di tipo, visto che non si possono creare valori di quel tipo. 
+Ci si potrebbe chiedere quale sia l'utilità di avere una dichiarazione pura di tipo, visto che non si possono creare valori di quel tipo. 
 
-In realtà sono utili quando occorre definire puntatori o riferimenti
-a valori del tipo `T`, senza dover conoscere il tipo `T`; si parla in
-questo caso di puntatori (o riferimenti) opachi:
+In realtà sono utili quando occorre definire puntatori o riferimenti a valori del tipo `T`, senza dover conoscere il tipo `T`; si parla in questo caso di puntatori (o riferimenti) opachi:
+
 ```c++
 struct T;
 T* t_ptr; // un puntatore "opaco" a T
@@ -54,9 +52,8 @@ T* t_ptr; // un puntatore "opaco" a T
 
 Ci si potrebbe anche chiedere perché il linguaggio insista, nel caso di dichiarazioni pure, a richiedere che il programmatore dichiari se il nome introdotto è un tipo o un valore (cioè, perché occorre indicare la parola _`struct` / `class`_ per dire che è un tipo).  
 
-La risposta è che questa informazione è essenziale per poter
-fare il parsing (cioè l'analisi sintattica) del codice.  
-Consideriamo infatti una variante dell'esempio precedente:
+La risposta è che questa informazione è essenziale per poter fare il *parsing* (cioè l'analisi sintattica) del codice. Consideriamo infatti una variante dell'esempio precedente:
+
 ```c++
 nome1 * nome2
 ```
@@ -72,7 +69,7 @@ se vede che è invece un _valore_, sceglie la seconda.
 _[Torna all'indice](#dichiarazioni-e-definizioni)_
 
 ### Un caso speciale
-Nel caso del C++ 2011 (o successivo), è possibile anche fornire una dichiarazione pura per un tipo enumerazione, cosa che non era possibile fare con il C++ 2003:
+Nel caso del C++ 2011 (o successivo), è possibile anche fornire una dichiarazione pura per un tipo *enumerazione* `enum`, cosa che non era possibile fare con il C++ 2003:
 
 ```c++
 enum E : int;                   // dichiarazione pura
@@ -85,11 +82,13 @@ _[Torna all'indice](#dichiarazioni-e-definizioni)_
 
 ## Variabili
 Dichiarazione pura di variabile (globale):
+
 ```c++
 extern int a;
 ```
 
 Definizione di variabile:
+
 ```c++
 int b;
 int c = 1;
@@ -127,11 +126,11 @@ void foo(int a) {
     std::cout << a; 
 }
 ```
+
 La parola chiave `extern` è opzionale e, in pratica, è usata raramente: _le definizioni hanno il corpo._
 
-Possiamo anche interfacciarci al mondo interno cambiando le regole di collegamento.
+Possiamo anche interfacciarci al mondo interno cambiando le regole di collegamento; in questo caso la funzione `foo` utilizzerà i metodi del C e non C++:
 
-In questo caso la funzione `foo` utilizzerà i metodi del C e non C++: 
 ```c++
 extern "C" void foo(int a);
 ```
@@ -141,7 +140,7 @@ _[Torna all'indice](#dichiarazioni-e-definizioni)_
 --- 
 
 ## Template (di classe e di funzione)
-_I template di classe non sono classi._  
+_I [template](x-templates.md) di classe non sono classi;_  essi infatti si possono considerare come uno schema, che indica al compilatore come dichiarare e/o definire ciò che segue attorno a dei **tipi parametrici**.
 
 Dichiarazione pura di template di classe:
 ```c++
