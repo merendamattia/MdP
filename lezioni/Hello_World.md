@@ -1,6 +1,6 @@
 # Hello World
 1. [A cosa serve questo programma?](#a-cosa-serve-questo-programma)
-2. [Processo di compilazione](<#processo di compilazione>)
+2. [Processo di compilazione](#processo-di-compilazione)
 	- [Comandi step-by-step](#comandi-step-by-step)
 	- [Considerazioni sul contenuto dei files prodotti](#considerazioni-sul-contenuto-dei-files-prodotti)
 3. [Ricapitolando](#ricapitolando)
@@ -104,7 +104,7 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 	Quando NON si specifica nessuna delle opzioni `-E`, `-S`, `-c`, il compilatore termina dopo avere effettuato il collegamento, utilizzando il linker (ld), producendo il file eseguibile `hello` (senza suffisso, come consuetudine per l'ambiente Linux).
 	In questo caso, avendo un solo file oggetto, il collegamento avviene tra questo file e i file che formano la libreria standard del C++ (che vengono coinvolti implicitamente, senza doverli specificare come argomenti per il compilatore). In altri casi, si può indicare il percorso degli headers da includere con l'opzione `-I`.
 
-_[Torna all'indice](#hello+world)_
+_[Torna all'indice](#hello-world)_
 
 ### Considerazioni sul contenuto dei files prodotti
 
@@ -185,7 +185,7 @@ int main() {
 }
 ```
 
-_[Torna all'indice](#hello+world)_
+_[Torna all'indice](#hello-world)_
 
 ---
 
@@ -198,4 +198,4 @@ Giunti al termine di questa discussione su `"Hello, world!"` è forse il caso di
 
 3) In generale, ogni volta che si scrive qualche linea di codice è necessario chiedersi qual è la sua funzione, evitando di dare la risposta: "Non ne ho idea, so solo che si è sempre fatto così". <b>_Questa è la risposta di un programmatore che NON sa risolvere eventuali problemi tecnici che si dovessero presentare e deve per forza chiedere consiglio a programmatori più esperti_</b>. La nostra ambizione dovrebbe essere quella di (iniziare il lungo cammino per) diventare noi stessi programmatori esperti e sapere come affrontare i problemi tecnici legati alla programmazione. Si noti che queste competenze sono ben separate ed indipendenti rispetto alla conoscenza dello specifico dominio applicativo per il quale si è deciso di sviluppare uno strumento software.
 
-_[Torna all'indice](#hello+world)_
+_[Torna all'indice](#hello-world)_
