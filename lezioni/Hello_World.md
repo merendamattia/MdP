@@ -1,8 +1,8 @@
 # Hello World
-1. [A cosa serve questo programma?](#a%20cosa%20serve%20questo%20programma)
-2. [Processo di compilazione](#processo%20di%20compilazione)
-	- [Comandi step-by-step](##comandi%20step-by-step)
-	- [Considerazioni sul contenuto dei files prodotti](##considerazioni%20sul%20contenuto%20dei%20files%20prodotti)
+1. [A cosa serve questo programma?](#a+cosa+serve+questo+programma)
+2. [Processo di compilazione](#processo+di+compilazione)
+	- [Comandi step-by-step](##comandi+step-by-step)
+	- [Considerazioni sul contenuto dei files prodotti](##considerazioni+sul+contenuto+dei+files+prodotti)
 3. [Ricapitolando](#ricapitolando)
 
 ---
@@ -41,7 +41,7 @@ int main() {
 }
 ```
 
-_[Torna all'indice](#helloworld)_
+_[Torna all'indice](#hello+world)_
 
 ---
 
@@ -104,6 +104,8 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 	Quando NON si specifica nessuna delle opzioni `-E`, `-S`, `-c`, il compilatore termina dopo avere effettuato il collegamento, utilizzando il linker (ld), producendo il file eseguibile `hello` (senza suffisso, come consuetudine per l'ambiente Linux).
 	In questo caso, avendo un solo file oggetto, il collegamento avviene tra questo file e i file che formano la libreria standard del C++ (che vengono coinvolti implicitamente, senza doverli specificare come argomenti per il compilatore). In altri casi, si può indicare il percorso degli headers da includere con l'opzione `-I`.
 
+_[Torna all'indice](#hello+world)_
+
 ### Considerazioni sul contenuto dei files prodotti
 
 Anzitutto le dimensioni sono molto variabili:
@@ -128,7 +130,7 @@ I nomi di questi file (e la loro posizione nel filesystem) si possono ottenere o
 ```
 Queste direttive servono al compilatore per generare **messaggi di errore** che facciano riferimento ai nomi dei file e ai numeri di riga dei file sorgenti (e non al numero di riga dell'unità di traduzione, cosa che sarebbe alquanto scomoda per il programmatore).
 
-Si deve notare che gli header files inclusi sono necessari in quanto contengono la [dichiarazione](./Dichiarazioni%20&%20definizioni.md) della variabile `std::cout`(e del corrispondente tipo), dell'operatore di output `operator<<` e del modificatore `std::endl`. 
+Si deve notare che gli header files inclusi sono necessari in quanto contengono la [dichiarazione](Dichiarazioni_&_definizioni.md) della variabile `std::cout`(e del corrispondente tipo), dell'operatore di output `operator<<` e del modificatore `std::endl`. 
 
 ``` cpp
 namespace std {
@@ -183,7 +185,7 @@ int main() {
 }
 ```
 
-_[Torna all'indice](#helloworld)_
+_[Torna all'indice](#hello+world)_
 
 ---
 
@@ -196,4 +198,4 @@ Giunti al termine di questa discussione su `"Hello, world!"` è forse il caso di
 
 3) In generale, ogni volta che si scrive qualche linea di codice è necessario chiedersi qual è la sua funzione, evitando di dare la risposta: "Non ne ho idea, so solo che si è sempre fatto così". <b>_Questa è la risposta di un programmatore che NON sa risolvere eventuali problemi tecnici che si dovessero presentare e deve per forza chiedere consiglio a programmatori più esperti_</b>. La nostra ambizione dovrebbe essere quella di (iniziare il lungo cammino per) diventare noi stessi programmatori esperti e sapere come affrontare i problemi tecnici legati alla programmazione. Si noti che queste competenze sono ben separate ed indipendenti rispetto alla conoscenza dello specifico dominio applicativo per il quale si è deciso di sviluppare uno strumento software.
 
-_[Torna all'indice](#helloworld)_
+_[Torna all'indice](#hello+world)_
