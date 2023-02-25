@@ -1,2 +1,2 @@
-# x-namespaces
+# x-templates
 Coming soon ...
