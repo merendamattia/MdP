@@ -1,8 +1,8 @@
 # Hello World
-1. [A cosa serve questo programma?](#a+cosa+serve+questo+programma)
-2. [Processo di compilazione](#processo+di+compilazione)
-	- [Comandi step-by-step](##comandi+step-by-step)
-	- [Considerazioni sul contenuto dei files prodotti](##considerazioni+sul+contenuto+dei+files+prodotti)
+1. [A cosa serve questo programma?](#a-cosa-serve-questo-programma)
+2. [Processo di compilazione](#processo-di-compilazione)
+	- [Comandi step-by-step](##comandi-step-by-step)
+	- [Considerazioni sul contenuto dei files prodotti](##considerazioni-sul-contenuto-dei-files-prodotti)
 3. [Ricapitolando](#ricapitolando)
 
 ---
@@ -152,7 +152,7 @@ Osserviamo che:
 - la prima occorrenza di `operator<<` è una chiamata a una funzione templatica, specializzata su `ostream` e `const char*`;
 - la seconda occorrenza di `operator<<` fa riferimento invece ad un altro tipo di funzione che prende come argomento due parametri di tipo `ostream`.
 
-> Perchè non è necessario qualificare l'operatore `<<` all'interno del proprio *[namespace](/lezioni/Namespaces)* (`std::<<`)?
+> Perchè non è necessario qualificare l'operatore `<<` all'interno del proprio *[namespace](Namespaces.md)* (`std::<<`)?
 > Il C++ utilizza l'[**Argument-Dependent Lookup**](https://en.cppreference.com/w/cpp/language/adl) (ADL): se viene utilizzato un argomento definito dall'utente come argomento di una funzione (o operatore) e non viene esplicitato il namespace di quest'ultima, si cerca nell'ordine
 > 1) nello scope del chiamante
 > 2) in tutti i namespace a cui appartengono gli argomenti, partendo dal primo a sinistra.
