@@ -224,3 +224,5 @@ Il cast è necessario perché le `enum class` impediscono anche le conversioni i
 _[Torna all'indice](#scope-campo-dazione)_
 
 ---
+
+TODO: da finire
