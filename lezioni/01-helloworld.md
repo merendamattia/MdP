@@ -70,7 +70,7 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 	# 37 "/usr/include/c++/12.2.1/iostream" 3
 	```
 	
-1) `g++ -Wall -Wextra -S hello.cc -o hello.s`
+2) `g++ -Wall -Wextra -S hello.cc -o hello.s`
 	L'opzione `-S` permette di fermarsi alla fase di compilazione in senso stretto, con la generazione del codice assembler.
 	``` intel-x86
 		.file	"hello.cpp"
@@ -100,7 +100,7 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 3) `g++ -Wall -Wextra -c hello.cpp -o hello.o`
 	L'opzione `-c` produce il codice oggetto (scritto in linguaggio macchina) fermandosi prima del collegamento.
 	
-1) `g++ -Wall -Wextra hello.cc -o hello`
+4) `g++ -Wall -Wextra hello.cc -o hello`
 	Quando NON si specifica nessuna delle opzioni `-E`, `-S`, `-c`, il compilatore termina dopo avere effettuato il collegamento, utilizzando il linker (ld), producendo il file eseguibile `hello` (senza suffisso, come consuetudine per l'ambiente Linux).
 	In questo caso, avendo un solo file oggetto, il collegamento avviene tra questo file e i file che formano la libreria standard del C++ (che vengono coinvolti implicitamente, senza doverli specificare come argomenti per il compilatore). In altri casi, si può indicare il percorso degli headers da includere con l'opzione `-I`.
 

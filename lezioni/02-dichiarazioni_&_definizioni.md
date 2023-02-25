@@ -9,19 +9,13 @@ Indice
 ---
 
 ## Dichiarazione vs Definizione
-Una _<b>DICHIARAZIONE</b>_ è un costrutto del linguaggio che introduce (dichiara) un nome per una entità (tipo di dato, variabile, funzione,
-template di classe, template di funzione, ecc.).
+Una _<b>DICHIARAZIONE</b>_ è un costrutto del linguaggio che introduce (dichiara) un nome per una entità (tipo di dato, variabile, funzione, template di classe, template di funzione, ecc.).
 
-Una _<b>DEFINIZIONE</b>_ è una dichiarazione che, oltre al nome, fornisce
-ulteriori elementi per caratterizzare l'entità (per esempio,
-la struttura interna di un tipo di dato, l'implementazione del
-corpo di una funzione, ecc.).
+Una _<b>DEFINIZIONE</b>_ è una dichiarazione che, oltre al nome, fornisce ulteriori elementi per caratterizzare l'entità (per esempio, la struttura interna di un tipo di dato, l'implementazione del corpo di una funzione, ecc.).
 
-Le dichiarazioni che NON sono anche definizioni vengono talvolta
-chiamate dichiarazioni "*forward*" (perché rimandano la definizione
-ad un momento successivo) o anche dichiarazioni "*pure*".  
-Vediamo la differenza tra dichiarazioni pure e definizioni
-per varie tipologie di entità.
+
+Le dichiarazioni che NON sono anche definizioni vengono talvolta chiamate dichiarazioni "*forward*" (perché rimandano la definizione ad un momento successivo) o anche dichiarazioni "*pure*".  
+Vediamo la differenza tra dichiarazioni pure e definizioni per varie tipologie di entità.
 
 ---
 
@@ -67,6 +61,8 @@ Se il compilatore vede che `nome1` è un _tipo_, sceglie la prima opzione;
 se vede che è invece un _valore_, sceglie la seconda.
 
 _[Torna all'indice](#dichiarazioni-e-definizioni)_
+
+--- 
 
 ### Un caso speciale
 Nel caso del C++ 2011 (o successivo), è possibile anche fornire una dichiarazione pura per un tipo *enumerazione* `enum`, cosa che non era possibile fare con il C++ 2003:

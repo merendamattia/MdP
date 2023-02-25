@@ -206,3 +206,7 @@ void foo() {
 >Il cast è necessario perché le `enum class` impediscono anche le conversioni implicite di tipo verso gli interi.
 
 _[Torna all'indice](#scope-campo-dazione)_
+
+---
+
+TODO: da finire
