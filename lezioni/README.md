@@ -8,6 +8,22 @@ Gli appunti presenti in questa cartella sono stati presi durante le lezioni del 
 
 La cartella è organizzata in modo da facilitare la ricerca di specifici argomenti, con file distinti per ogni argomento trattato durante il corso. In questo modo, potrete facilmente trovare gli appunti relativi al tema che vi interessa.
 
+Vi informo inoltre che questa cartella è un progetto aperto e tutti sono invitati a partecipare alla raccolta degli appunti. Se avete preso degli appunti durante le lezioni del corso e volete condividerli con gli altri studenti, siete liberi di contribuire creando una pull request su GitHub.
+
+Per mantenere l'ordine e la coerenza della cartella, vi chiediamo gentilmente di seguire le [linee guida](#linee-guida) per la formattazione e l'organizzazione degli appunti, che troverete nella cartella stessa.
+
 Vi ricordo che gli appunti presenti in questa cartella sono forniti a titolo informativo e non sostituiscono in alcun modo lo studio dei testi di riferimento consigliati dal docente.
 
 Buono studio!
+
+# Linee Guida
+Ecco un semplice elenco di linee guida da seguire per mantenere il codice il più ordinato e leggibile possibile.
+- Effettuare sempre un `git pull` prima di qualsiasi `git push` e/o `git commit`
+- Non utilizzare caratteri in stampato nel nome dei file
+- Utilizzare sempre la numerazione dei file nel nome (i numeri indicano l'ordine degli argomenti trattati a lezione)
+- Nel file `.md` inserire sempre un indice e un "ritorna all'indice" alla fine di ogni paragrafo / argomento
+- Utilizzare il carattere `_` al posto degli "spazi" nel nome dei file
+
+### Esempio 
+Il primo argoemento trattato a lezione è stato quello del significato di "Hello, world!".
+Nome file: `01-helloworld.md`.
