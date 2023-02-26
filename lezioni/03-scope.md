@@ -209,4 +209,4 @@ _[Torna all'indice](#scope-campo-dazione)_
 
 ---
 
-TODO: da finire
+TODO: lezione da finire
