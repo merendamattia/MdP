@@ -23,7 +23,8 @@ Ecco un semplice elenco di linee guida da seguire per mantenere il codice il pi�
 - Utilizzare sempre la numerazione dei file nel nome (i numeri indicano l'ordine degli argomenti trattati a lezione)
 - Nel file `.md` inserire sempre un indice e un "ritorna all'indice" alla fine di ogni paragrafo / argomento
 - Utilizzare il carattere `_` al posto degli "spazi" nel nome dei file
+- Nel titolo della `pull request`, oltre ad inserire il tema trattato, aggiungere anche il proprio username. Ad esempio il titolo di questa `pull request` sarà: `Aggiunta linee guida (@merendamattia)`
 
-### Esempio 
-Il primo argoemento trattato a lezione è stato quello del significato di "Hello, world!".
+### Esempio ridenominazione file
+Il primo argomento trattato a lezione è stato quello del significato di "Hello, world!".
 Nome file: `01-helloworld.md`.
