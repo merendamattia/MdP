@@ -2,7 +2,7 @@
 
 Ogni [dichiarazione](02-dichiarazioni_&_definizioni.md) presente in una unità di traduzione introduce un nome per una entità.
 
-Tale nome può essere utilizzato solo in alcuni punti dell'unità di traduzione: le porzioni di codice in cui il nome è "visibile" sono dette essere il campo di azione (in inglese, **scope**) per quel nome.
+Tale nome può essere utilizzato solo in alcuni punti dell'unità di traduzione: le porzioni di codice in cui il nome è "visibile" sono dette essere il _campo di azione_ (in inglese, **scope**) per quel nome.
 L'ampiezza dello scope per un nome varia a seconda della tipologia di dichiarazione e del contesto in cui questa appare.
 
 Si distinguono pertanto diverse tipologie di scope:
@@ -209,4 +209,121 @@ _[Torna all'indice](#scope-campo-dazione)_
 
 ---
 
-TODO: lezione da finire
+# Riduzioni ed estensioni dello scope di una dichiarazione
+Quello introdotto precedentemente è il cosiddetto scope potenziale di una dichiarazione.   
+Lo scope potenziale può essere modificato da alcuni costrutti del linguaggio.
+
+## Hiding (mascheramento) di un nome
+Quando si annidano campi di azione, è possibile che una dichiarazione nello scope interno nasconda un'altra dichiarazione (con lo stesso nome) dello scope esterno.   
+Si parla di "hiding" di un nome.
+
+```cpp
+int a = 1; // scope globale
+
+int main() {
+	std::cout << a << std::endl;   // stampa 1
+	int a = 5;
+	std::cout << a << std::endl;   // stampa 5
+	{
+		int a = 10; // la 'a' esterna viene nascosta
+	    std::cout << a << std::endl; // stampa 10
+	} // lo scope della 'a' esterna riprende da questo punto
+	std::cout << a << std::endl;   // stampa 5
+}
+```
+
+Si può avere hiding anche per i membri ereditati da una classe, perché lo scope della classe derivata è considerato essere incluso nello scope della classe base:
+```cpp
+struct Base {
+	int a;
+	void foo(int);
+};
+
+struct Derived : public Base {
+	double a;           // hiding del data member Base::a
+	void foo(double d); // hiding del metodo Base::foo()
+};
+```
+
+## Estensioni della visibilità di un nome
+Per accedere ad un nome dichiarato in uno scope differente, è spesso possibile utilizzare la versione qualificata del nome.  
+Per esempio, dentro la classe `Derived` vista sopra, si può accedere ai dati e ai metodi della classe `Base` scrivendo `Base::a` e `Base::foo`.
+Lo stesso dicasi nel caso dello scope di namespace (si ricordi l'uso di `std::cout`).
+
+Se però un nome deve essere utilizzato molto spesso in una posizione in cui non è visibile senza qualificazione, può essere scomodo doverlo qualificare in ogni suo singolo uso.   
+Per evitare ciò, si possono usare le dichiarazioni di using (_using declaration_):
+```cpp
+void foo() {
+	using std::cout;
+	using std::endl;
+	cout << "Hello" << endl;
+	cout << "Hello, again" << endl;
+	cout << "Hello, again and again and again ..." << endl;
+}
+```
+
+### _Nota bene_
+Una dichiarazione di _using_ può rendere disponibili solo nomi che erano stati precedentemente dichiarati (o resi visibili) nel namespace indicato.   
+In particolare, nel caso precedente, è comunque necessario includere l'header file `iostream`, altrimenti si ottiene un errore.
+
+La dichiarazione di _using_ rende disponibile (nel contesto in cui viene inserita) il nome riferito, che da lì in poi potrà essere usato senza qualificazione.   
+Chiaramente, nel caso di un nome di tipo o di una variabile, è necessario che nello stesso contesto _NON_ sia già presente un'altra entità con lo stesso nome.
+
+```cpp
+void foo() {
+	int cout = 5;
+	using std::cout; // error: 'cout' is already declared in this scope
+}
+```
+
+La cosa è invece legittima nel caso di funzioni, perché in quel caso entra in gioco il meccanismo dell'overloading.
+Nell'esempio seguente, la dichiarazione di _using_ crea l'overloading per i metodi di nome `foo` (evitando l'_hiding_):
+
+```cpp
+struct Base {
+	void foo(int);
+	void foo(float);
+};
+
+struct Derived : public Base {
+	// rendo visibili in questo scope tutti i metodi 
+	// di nome "foo" presenti in Base
+	using Base::foo; 
+	
+	// foo(double) va in overloading con foo(int) e foo(float)
+	void foo(double d);
+};
+```
+
+## Direttive using
+Cosa ben distinta rispetto alle dichiarazioni di _using_ sono le direttive di using (_using directive_).   
+La sintassi è la seguente:
+```cpp
+void foo() {
+	using namespace std;
+	cout << "Hello" << endl;
+	cout << "Hello, again" << endl;
+	cout << "Hello, again and again and again ..." << endl;
+}
+```
+
+La direttiva di using _NON_ introduce dichiarazioni nel punto in cui viene usata; piuttosto, aggiunge il namespace indicato tra gli scope nei quali è possibile cercare un nome per il quale _NON_ si trovino dichiarazioni nello scope corrente.  
+
+Per capire la differenza, consideriamo l'esempio seguente:
+```cpp
+#include <iostream>
+
+void foo() {
+	int endl = 42;
+	using namespace std;
+	cout << "Hello" << endl;
+}
+```
+
+Vedendo l'uso del nome `cout`, il compilatore lo cerca nello scope corrente (il blocco della funzione).   
+Non trovandolo, continua la ricerca negli scope che racchiudono la funzione `foo` e, grazie alla direttiva di _using_, anche nello scope del `namespace std` (trovandolo).   
+
+Vedendo l'uso del nome `endl`, il compilatore lo cerca nello scope corrente e trova la dichiarazione della variabile intera, completando la ricerca.
+La direttiva di _using_ in questo caso _NON_ entra in gioco e la funzione stamperà la stringa "Hello42" (senza andare a capo).
+
+_[Torna all'indice](#scope-campo-dazione)_
