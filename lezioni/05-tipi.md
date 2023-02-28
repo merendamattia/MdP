@@ -47,7 +47,7 @@ Per esempio:
 struct S {
 	int v;
 	const int c;
-	S(int cc) : c(cc) { v = 10; }
+	S(int cc) : c(cc) { v = 10; } // lista di inizializzaione delle classi basi e dei dati membro
 };
 
 int main() {
@@ -119,6 +119,12 @@ Per i **_floating point_** si può scegliere tra notazione decimale e "scientifi
 
 Il tipo associato al letterale è `const char[6]`, cioè un array di 6 caratteri costanti (5 + 1 per il terminatore 0).
 E' possibile specificare un prefisso di encoding `(u8, u, U, L)` come nel caso delle costanti carattere, che modifica in modo analogo il tipo degli elementi dell'array.
+
+Nel nuovo standard sono stati implementati anche i letterali di stringa grezza (raw string literal), che utilizzano il prefisso R, un delimitatore a scelta e le parentesi tonde, come segue:
+`R"DELIMITATORE(...)DELIMITATORE"`
+
+Al posto dei ... è possibile inserire qualunque tipo di carattere escludendo le stringhe "DELIMITATORE(" e ")DELIMITATORE", ad esempio posso scrivere:
+`R"$(Esempio di scrittura all'interno della stringa)$"`
 
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
