@@ -32,7 +32,7 @@ namespace N {
 } // namespace N
 ```
   
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
@@ -104,7 +104,7 @@ catch (const std::string& s) {
 }
 ```
 
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
@@ -138,7 +138,7 @@ I membri di una classe posso essere acceduti dall'esterno della classe nei modi 
 I membri di una classe `S` possono essere acceduti anche da classi che sono derivate (anche indirettamente) dalla classe `S` (in quanto sono ereditati dalle classi derivate).
 In caso di *overloading* di metodi si può accedere a quelli della classe base usando il risolutore di scope `::`.
 
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
@@ -170,7 +170,7 @@ void foo() {
 
 L'uso dei `goto` e delle etichette è considerato cattivo stile e andrebbe limitato ai casi (pochissimi) in cui risultano essenziali.
 
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
@@ -205,7 +205,7 @@ void foo() {
 
 >Il cast è necessario perché le `enum class` impediscono anche le conversioni implicite di tipo verso gli interi.
 
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
@@ -295,6 +295,8 @@ struct Derived : public Base {
 };
 ```
 
+_[Torna all'indice](#scope%20campo%20d'azione)_
+
 ## Direttive using
 Cosa ben distinta rispetto alle dichiarazioni di _using_ sono le direttive di using (_using directive_).   
 La sintassi è la seguente:
@@ -326,4 +328,4 @@ Non trovandolo, continua la ricerca negli scope che racchiudono la funzione `foo
 Vedendo l'uso del nome `endl`, il compilatore lo cerca nello scope corrente e trova la dichiarazione della variabile intera, completando la ricerca.
 La direttiva di _using_ in questo caso _NON_ entra in gioco e la funzione stamperà la stringa "Hello42" (senza andare a capo).
 
-_[Torna all'indice](#scope-campo-dazione)_
+_[Torna all'indice](#scope%20campo%20d'azione)_
