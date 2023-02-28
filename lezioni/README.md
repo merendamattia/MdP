@@ -19,6 +19,7 @@ Buono studio!
 # Linee Guida
 Ecco un semplice elenco di linee guida da seguire per mantenere il codice il più ordinato e leggibile possibile.
 - Effettuare sempre un `git pull` prima di qualsiasi `git push` e/o `git commit`
+- Utilizzare il workframe di _Obsidian_
 - Non utilizzare caratteri in stampato nel nome dei file
 - Utilizzare sempre la numerazione dei file nel nome (i numeri indicano l'ordine degli argomenti trattati a lezione)
 - Nel file `.md` inserire sempre un indice e un "ritorna all'indice" alla fine di ogni paragrafo / argomento
