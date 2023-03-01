@@ -153,6 +153,71 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 ==TODO: da finire lezione di oggi (01-03-2023)==
 
+## Gli alias di tipo
+
+Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la "filosofia" **write once**.
+
+==TODO: citazione dichiara una volta sola==
+
+```cpp
+using customName = int; // in questo caso customName sarà un alias per i tipi interi
+
+int main(){
+	customName x = 1; // il tipo di x sarà quello attribuito a customName
+}
+```
+L'utilizzo degli alias può tornare utile in codici lunghi e complessi così da non riscontrare problemi nel caso in cui avvenagano dei cambiamenti di tipo.
+```cpp
+#include <iostream>
+
+using typeAlias = int;
+typeAlias fact(tyoeAlias n){
+
+if(n == 0) return 1;
+
+return n * fact(n - 1);
+}
+
+int main(){
+	for(typeAlias i = 0; i < 10; i++){
+		std::cout<<"fact("<<i<<") = "<<fact(i)<<std::endl;
+	}
+	return 0;
+}
+```
+
+#### NOTA
+Gli alias seguono lo scope del blocco in cui si trovano
+
+## Oltre ai quantificatori di base
+
+Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. Nell'esempio seguente il fattoriale viene calcolato fino al valore di n = 13 per i tipi interi 
+e n = 19 per i tipi long.
+
+```cpp
+using typeAlias = int;
+tyoeAlias fact(tyoeAlias n){
+
+if(n == 0) return 1;
+
+return n * fact(n - 1);
+}
+```
+Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue
+
+```cpp
+#include <iostream>
+#include <limits>
+int main(){
+	std::cout<<"Il valore massimo rappresentabile da un intero e' "<<std::numeric_limits<int>::max()<<std::endl;
+	std::cout<<"Il valore massimo rappresentabile da un long e' "<<std::numeric_limits<long>::max()<<std::endl;
+	std::cout<<"Il valore massimo rappresentabile da un long long e' "<<std::numeric_limits<long>::max()<<std::endl;
+	return 0;
+}
+
+```
+
+==TODO:libreria gmp== (simone)
 ```cpp
 #include <iostream>
 
