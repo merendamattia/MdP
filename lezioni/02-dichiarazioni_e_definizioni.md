@@ -1,5 +1,4 @@
 # Dichiarazioni e Definizioni
-Indice
 1. [Differenza tra dichiarazione e definizione](#dichiarazione-vs-definizione)
 2. [Tipi di dato](#tipi-di-dato)
     - [Caso speciale](#un-caso-speciale)
