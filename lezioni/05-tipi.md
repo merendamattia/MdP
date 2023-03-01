@@ -155,11 +155,9 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 
 ## Gli alias di tipo
-
 Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la "filosofia" **write once**.
 
 ==TODO: citazione dichiara una volta sola==
-
 ```cpp
 using typeAlias = int; // in questo caso customName sarà un alias per i tipi interi
 
@@ -167,6 +165,7 @@ int main(){
 	typeAlias x = 1; // il tipo di x sarà quello attribuito a typeAlias
 }
 ```
+
 L'utilizzo degli alias può tornare utile in codici lunghi e complessi così da non riscontrare problemi nel caso in cui avvenagano dei cambiamenti di tipo.
 ```cpp
 #include <iostream>
@@ -192,6 +191,7 @@ Gli alias seguono lo scope del blocco in cui si trovano
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ---
+
 ## La keyword auto
 
 Nel 2011 è stata attribuita la keyword `auto`, che precedentemente aveva un altro utilizzo, per inizializzazione di una varibile senza esplicitarne il tipo. 
@@ -206,25 +206,26 @@ int main(){
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ---
+
 ## La libreria GMP
 
-Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. 
-Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue
-
+Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue:
 ```cpp
 #include <iostream>
 #include <limits>
 int main(){
-	std::cout<<"Il valore massimo rappresentabile da un intero e' "<<std::numeric_limits<int>::max()<<std::endl;
-	std::cout<<"Il valore massimo rappresentabile da un long e' "<<std::numeric_limits<long>::max()<<std::endl;
-	std::cout<<"Il valore massimo rappresentabile da un long long e' "<<std::numeric_limits<long>::max()<<std::endl;
+	std::cout << "Il valore massimo rappresentabile da un intero e' " << std::numeric_limits<int>::max() << std::endl;
+	
+	std::cout << "Il valore massimo rappresentabile da un long e' " << std::numeric_limits<long>::max() << std::endl;
+	
+	std::cout << "Il valore massimo rappresentabile da un long long e' " << std::numeric_limits<long>::max() << std::endl;
+	
 	return 0;
 }
-
 ```
 
-Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Un esempio di libreria opensource è _[gnu multiple precision library](https://gmplib.org/)_ che alloca spazio sulla ram per riuscire a rappresentare i numeri richiesti.
-
+Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Un esempio è _[GNU multiple precision library](https://gmplib.org/)_: una libreria open-source che permette di allocare spazio sulla ram per riuscire a rappresentare i numeri richiesti.
+Un esempio: 
 ```cpp
 #include <iostream>
 #include <limits>
@@ -241,16 +242,15 @@ typeAlias fact(typeAlias n){
 int main(){
 	  
 	for(typeAlias i = 0; i < 50; i++)
-		std::cout<<"fact("<<i<<") = "<<fact(i)<< std::endl;
+		std::cout << "fact(" << i << ") = " << fact(i) << std::endl;
 	
 	return 0;
-
 }
 ```
 
 In fase di compilazione devo esplicitare le librerie:
-- lmpxx
-- lgmp (libreria c)
+- `gmpxx`
+- `gmp` (libreria c)
 ```bash
 g++ -Wall -Wextra -o fact fact.cpp -lgmpxx -lgmp
 ```
