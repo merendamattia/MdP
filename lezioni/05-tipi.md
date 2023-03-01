@@ -6,7 +6,7 @@
 4. [User Defined Literal](#user%20defined%20literal)
 5. [Gli alias di tipo](#gli%20alias%20di%20tipo)
 6. [La keyword auto](#la%20keyword%20auto)
-7. [Oltre ai quantificatori di base](#oltre%20ai%20quantificatori%20di%20base)
+7. [La libreria GMP](#la%20libreria%20gmp)
 
 ## I tipi fondamentali (non strutturati)
 - Booleani: `bool`
@@ -206,7 +206,7 @@ int main(){
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ---
-## Oltre ai quantificatori di base
+## La libreria GMP
 
 Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. 
 Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue
@@ -223,7 +223,7 @@ int main(){
 
 ```
 
-Per "superare" i limiti imposti dai quantidicatori di base si possono utilizzare delle librerie apposite. Un esempio di libreria opensource è _[gnu multiple precision library](https://gmplib.org/)_ che alloca spazio sulla ram per riuscire a rappresentare i numeri richiesti.
+Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Un esempio di libreria opensource è _[gnu multiple precision library](https://gmplib.org/)_ che alloca spazio sulla ram per riuscire a rappresentare i numeri richiesti.
 
 ```cpp
 #include <iostream>
