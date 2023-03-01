@@ -130,7 +130,7 @@ I nomi di questi file (e la loro posizione nel filesystem) si possono ottenere o
 ```
 Queste direttive servono al compilatore per generare **messaggi di errore** che facciano riferimento ai nomi dei file e ai numeri di riga dei file sorgenti (e non al numero di riga dell'unità di traduzione, cosa che sarebbe alquanto scomoda per il programmatore).
 
-Si deve notare che gli header files inclusi sono necessari in quanto contengono la [dichiarazione](02-dichiarazioni_&_definizioni.md) della variabile `std::cout`(e del corrispondente tipo), dell'operatore di output `operator<<` e del modificatore `std::endl`. 
+Si deve notare che gli header files inclusi sono necessari in quanto contengono la [dichiarazione](02-dichiarazioni_e_definizioni.md) della variabile `std::cout`(e del corrispondente tipo), dell'operatore di output `operator<<` e del modificatore `std::endl`. 
 
 ``` cpp
 namespace std {

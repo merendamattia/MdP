@@ -1,6 +1,6 @@
 # Scope (campo d'azione)
 
-Ogni [dichiarazione](02-dichiarazioni_&_definizioni.md) presente in una unità di traduzione introduce un nome per una entità.
+Ogni [dichiarazione](02-dichiarazioni_e_definizioni.md) presente in una unità di traduzione introduce un nome per una entità.
 
 Tale nome può essere utilizzato solo in alcuni punti dell'unità di traduzione: le porzioni di codice in cui il nome è "visibile" sono dette essere il _campo di azione_ (in inglese, **scope**) per quel nome.
 L'ampiezza dello scope per un nome varia a seconda della tipologia di dichiarazione e del contesto in cui questa appare.
