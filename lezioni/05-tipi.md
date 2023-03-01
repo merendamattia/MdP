@@ -4,7 +4,9 @@
 2. [Tipi qualificati: il qualificatore const](#tipi%20qualificati%20il%20qualificatore%20const)
 3. [Costanti letterali](#costanti%20letterali)
 4. [User Defined Literal](#user%20defined%20literal)
-5. ==TODO: da sistemare indice con argomenti della lezione di oggi 01-03-2023==
+5. [Gli alias di tipo](#gli%20alias%20di%20tipo)
+6. [La keyword auto](#la%20keyword%20auto)
+7. [La libreria GMP](#la%20libreria%20gmp)
 
 ## I tipi fondamentali (non strutturati)
 - Booleani: `bool`
@@ -151,58 +153,106 @@ int main() {
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ---
-==TODO: da finire lezione di oggi (01-03-2023)==
 
+## Gli alias di tipo
+
+Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la "filosofia" **write once**.
+
+==TODO: citazione dichiara una volta sola==
+
+```cpp
+using typeAlias = int; // in questo caso customName sarà un alias per i tipi interi
+
+int main(){
+	typeAlias x = 1; // il tipo di x sarà quello attribuito a typeAlias
+}
+```
+L'utilizzo degli alias può tornare utile in codici lunghi e complessi così da non riscontrare problemi nel caso in cui avvenagano dei cambiamenti di tipo.
 ```cpp
 #include <iostream>
 
-#include <limits>
-
-  
-
-//#include "/opt/homebrew/include/gmp.h"
-
-#include <gmp.h>
-
-  
-
-// lo uso come alias
-
-using Integer = mpz_class;
-
-  
-
-Integer fact(Integer n){
-
-if(n == 0) return 1;
-
-return n * fact(n - 1);
-
+using typeAlias = int;
+typeAlias fact(typeAlias n){
+	if(n == 0)
+		return 1;
+	return n * fact(n - 1);
 }
 
-  
+int main(){
+	for(typeAlias i = 0; i < 10; i++){
+		std::cout<<"fact("<<i<<") = "<<fact(i)<<std::endl;
+	}
+	return 0;
+}
+```
+
+#### NOTA
+Gli alias seguono lo scope del blocco in cui si trovano
+
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
+
+---
+## La keyword auto
+
+Nel 2011 è stata attribuita la keyword `auto`, che precedentemente aveva un altro utilizzo, per inizializzazione di una varibile senza esplicitarne il tipo. 
+```cpp
+#include <iostream>
 
 int main(){
+	auto a = 1; // a è di tipo intero
+}
+```
 
-std::cout << "Il mio int più grande è: " << std::numeric_limits<int>::max() << std::endl;
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
-std::cout << "Il mio long più grande è: " << std::numeric_limits<long>::max() << std::endl;
+---
+## La libreria GMP
 
-std::cout << "Il mio long long più grande è: " << std::numeric_limits<long long>::max() << std::endl;
+Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. 
+Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue
 
-  
+```cpp
+#include <iostream>
+#include <limits>
+int main(){
+	std::cout<<"Il valore massimo rappresentabile da un intero e' "<<std::numeric_limits<int>::max()<<std::endl;
+	std::cout<<"Il valore massimo rappresentabile da un long e' "<<std::numeric_limits<long>::max()<<std::endl;
+	std::cout<<"Il valore massimo rappresentabile da un long long e' "<<std::numeric_limits<long>::max()<<std::endl;
+	return 0;
+}
 
-for(Integer i = 0; i < 50; i++)
+```
 
-std::cout << "fact(" << i << ") = " << fact(i) << std::endl;
+Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Un esempio di libreria opensource è _[gnu multiple precision library](https://gmplib.org/)_ che alloca spazio sulla ram per riuscire a rappresentare i numeri richiesti.
 
-// int: arriva a 'i = 13'
+```cpp
+#include <iostream>
+#include <limits>
+#include <gmpxx.h> // "interfaccia" per c++
 
-// long: arriva a 'i = 20'
+using typeAlias = mpz_class; // sfrutto un'alias
 
-  
+typeAlias fact(typeAlias n){
+	if(n == 0)
+		return 1;
+	return n * fact(n - 1);
+}
 
-return 0;
+int main(){
+	  
+	for(typeAlias i = 0; i < 50; i++)
+		std::cout<<"fact("<<i<<") = "<<fact(i)<< std::endl;
+	
+	return 0;
 
 }
 ```
+
+In fase di compilazione devo esplicitare le librerie:
+- lmpxx
+- lgmp (libreria c)
+```bash
+g++ -Wall -Wextra -o fact fact.cpp -lgmpxx -lgmp
+```
+
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
