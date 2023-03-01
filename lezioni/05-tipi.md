@@ -4,8 +4,8 @@
 2. [Tipi qualificati: il qualificatore const](#tipi%20qualificati%20il%20qualificatore%20const)
 3. [Costanti letterali](#costanti%20letterali)
 4. [User Defined Literal](#user%20defined%20literal)
-5. [La keyword auto](#la%20keyword%20auto)
-6. [Gli alias di tipo](#gli%20alias%20di%20tipo)
+5. [Gli alias di tipo](#gli%20alias%20di%20tipo)
+6. [La keyword auto](#la%20keyword%20auto)
 7. [Oltre ai quantificatori di base](#oltre%20ai%20quantificatori%20di%20base)
 
 ## I tipi fondamentali (non strutturati)
