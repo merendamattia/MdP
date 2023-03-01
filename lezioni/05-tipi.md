@@ -4,6 +4,7 @@
 2. [Tipi qualificati: il qualificatore const](#tipi%20qualificati%20il%20qualificatore%20const)
 3. [Costanti letterali](#costanti%20letterali)
 4. [User Defined Literal](#user%20defined%20literal)
+5. ==TODO: da sistemare indice con argomenti della lezione di oggi 01-03-2023==
 
 ## I tipi fondamentali (non strutturati)
 - Booleani: `bool`
@@ -148,3 +149,60 @@ int main() {
 ```
 
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
+
+---
+==TODO: da finire lezione di oggi (01-03-2023)==
+
+```cpp
+#include <iostream>
+
+#include <limits>
+
+  
+
+//#include "/opt/homebrew/include/gmp.h"
+
+#include <gmp.h>
+
+  
+
+// lo uso come alias
+
+using Integer = mpz_class;
+
+  
+
+Integer fact(Integer n){
+
+if(n == 0) return 1;
+
+return n * fact(n - 1);
+
+}
+
+  
+
+int main(){
+
+std::cout << "Il mio int più grande è: " << std::numeric_limits<int>::max() << std::endl;
+
+std::cout << "Il mio long più grande è: " << std::numeric_limits<long>::max() << std::endl;
+
+std::cout << "Il mio long long più grande è: " << std::numeric_limits<long long>::max() << std::endl;
+
+  
+
+for(Integer i = 0; i < 50; i++)
+
+std::cout << "fact(" << i << ") = " << fact(i) << std::endl;
+
+// int: arriva a 'i = 13'
+
+// long: arriva a 'i = 20'
+
+  
+
+return 0;
+
+}
+```
