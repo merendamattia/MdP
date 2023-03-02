@@ -19,7 +19,6 @@ Vediamo la differenza tra dichiarazioni pure e definizioni per varie tipologie d
 ---
 
 ## Tipi di dato
-
 Dichiarazione pura del tipo `S`:
 ```c++
 struct S;

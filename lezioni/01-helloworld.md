@@ -8,7 +8,6 @@
 ---
 
 ## A cosa serve questo programma?
-
 Lo scopo di questo programma, in realtà, è quello di effettuare un test sulla corretta installazione dell'ambiente di sviluppo scelto per il C++.  
 Ovvero, ci si vuole assicurare di avere un compilatore funzionante, le librerie di sistema correttamente installate, eccetera.
 
@@ -31,7 +30,6 @@ Esempi di domande (<b>_da esame_</b>):
  * sono invocazioni di operatori built-in o si tratta di funzioni
    definite dall'utente?
   
-
 Esempio di helloworld:
 ``` cpp
 #include <iostream>
@@ -106,7 +104,9 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 
 _[Torna all'indice](#hello-world)_
 
-### Considerazioni sul contenuto dei files prodotti
+---
+
+## Considerazioni sul contenuto dei files prodotti
 
 Anzitutto le dimensioni sono molto variabili:
 ``` bash
@@ -160,7 +160,8 @@ Osserviamo che:
 > Ad esempio `operator<<(ostream&, const char*)` prende in input un tipo `ostream&` dichiarato all'interno del namespace `std`; in esso si trova anche la definizione dell'operatore da utilizzare. 
 
 ___
-#### Esempio: ADL
+
+### Esempio: ADL
 ``` cpp
 #include <iostream>
 #include <string>

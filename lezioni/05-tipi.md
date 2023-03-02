@@ -1,12 +1,7 @@
 # Tipi, qualificatori, costanti letterali
-
-1. [Tipi fondamentali](#i%20tipi%20fondamentali%20(non%20strutturati))
-2. [Tipi qualificati: il qualificatore const](#tipi%20qualificati%20il%20qualificatore%20const)
-3. [Costanti letterali](#costanti%20letterali)
-4. [User Defined Literal](#user%20defined%20literal)
-5. [Gli alias di tipo](#gli%20alias%20di%20tipo)
-6. [La keyword auto](#la%20keyword%20auto)
-7. [La libreria GMP](#la%20libreria%20gmp)
+```toc
+```
+---
 
 ## I tipi fondamentali (non strutturati)
 - Booleani: `bool`
@@ -26,7 +21,7 @@ Booleani, caratteri narrow e short sono detti tipi integrali "piccoli", in quant
 ```
 - `std::nullptr_t`: è un tipo puntatore convertibile implicitamente in qualunque altro tipo puntatore; ha un solo valore possibile, la costante letterale `nullptr`, che indica il puntatore nullo (non dereferenziabile).
 
-## I tipi composti
+### I tipi composti
 - Riferimenti a `lvalue`: `T&`
 - Riferimenti a `rvalue`: `T&&`
 - Puntatori: `T*`
@@ -36,7 +31,9 @@ Booleani, caratteri narrow e short sono detti tipi integrali "piccoli", in quant
 
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
-## Tipi qualificati: il qualificatore const
+---
+
+## Qualificatore const
 I tipi elencati sopra sono detti non qualificati.
 Nel linguaggio C++ esistono i qualificatori `const` e `volatile`. Nel discorso che segue consideriamo solo il qualificatore `const`, il cui uso è essenziale per una corretta progettazione e uso delle interfacce software e come strumento di ausilio alla manutenzione
 del software.
@@ -91,22 +88,19 @@ Il linguaggio mette a disposizione varie sintassi per definire valori costanti; 
 - short, unsigned short: `<nessuna>`
 - int: `12345`
 
-#### NOTA
-L'elenco NON è esaustivo; serve a dare un'idea delle potenziali complicazioni; per esempio, nel caso degli interi consideriamo solo la sintassi decimale, ma esistono anche:
- - la sintassi binaria (`0b1100`, che rappresenta il numero decimale 12)
- - la sintassi ottale (`014`, che rappresenta il numero decimale 12)
- - la sintassi esadecimale (`0xC`, che rappresenta il numero decimale 12)
+### NOTE
+- L'elenco NON è esaustivo; serve a dare un'idea delle potenziali complicazioni; per esempio, nel caso degli interi consideriamo solo la sintassi decimale, ma esistono anche:
+	 - la sintassi binaria (`0b1100`, che rappresenta il numero decimale 12)
+	 - la sintassi ottale (`014`, che rappresenta il numero decimale 12)
+	 - la sintassi esadecimale (`0xC`, che rappresenta il numero decimale 12)
 
-#### NOTA
-In assenza di suffissi `(U, L, LL)` ad una costante *decimale* intera viene attribuito il *primo* tipo tra `int`, `long` e `long long` che sia in grado di rappresentarne il valore.
-Il tipo dipende quindi dalla particolare implementazione utilizzata: ad un valore molto grande può essere assegnato il tipo `long` o` long long`.
+- In assenza di suffissi `(U, L, LL)` ad una costante *decimale* intera viene attribuito il *primo* tipo tra `int`, `long` e `long long` che sia in grado di rappresentarne il valore. Il tipo dipende quindi dalla particolare implementazione utilizzata: ad un valore molto grande può essere assegnato il tipo `long` o` long long`.
 
-#### NOTA
-Le regole per le altre sintassi (booleana, ottale, esadecimale) prendono in considerazione anche i tipi `unsigned`.
+- Le regole per le altre sintassi (booleana, ottale, esadecimale) prendono in considerazione anche i tipi `unsigned`.
 
-#### NOTA
-I suffissi delle costanti intere e floating point sono case insensitive; le convenzioni di solito privilegiano la versione maiuscola (raramente la minuscola) per maggiore leggibilità.
+- I suffissi delle costanti intere e floating point sono case insensitive; le convenzioni di solito privilegiano la versione maiuscola (raramente la minuscola) per maggiore leggibilità.
 
+### Altre costanti letterali
 In presenza del suffisso `U`, si sceglie la variante `unsigned`.
 In presenza del suffisso `L`, l'ampiezza è scelta tra `long` e `long long`.
 In presenza del suffisso `LL`, l'ampiezza è `long long`.
@@ -185,21 +179,19 @@ int main(){
 }
 ```
 
-#### NOTA
-Gli alias seguono lo scope del blocco in cui si trovano
+Gli alias seguono lo scope del blocco in cui si trovano.
 
 _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ---
 
 ## La keyword auto
-
 Nel 2011 è stata attribuita la keyword `auto`, che precedentemente aveva un altro utilizzo, per inizializzazione di una varibile senza esplicitarne il tipo. 
 ```cpp
 #include <iostream>
 
 int main(){
-	auto a = 1; // a è di tipo intero
+	auto a = 1; // 'a' è di tipo intero
 }
 ```
 
@@ -208,7 +200,6 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 
 ## La libreria GMP
-
 Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue:
 ```cpp
 #include <iostream>
@@ -224,8 +215,8 @@ int main(){
 }
 ```
 
-Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Un esempio è _[GNU multiple precision library](https://gmplib.org/)_: una libreria open-source che permette di allocare spazio sulla ram per riuscire a rappresentare i numeri richiesti.
-Un esempio: 
+Per "superare" i limiti imposti dai qualificatori di base si possono utilizzare delle librerie apposite. Una di queste è _[GNU (multiple precision library)](https://gmplib.org/)_: una libreria open-source che permette di allocare spazio sulla ram per riuscire a rappresentare i numeri richiesti.
+Un esempio pratico: 
 ```cpp
 #include <iostream>
 #include <limits>

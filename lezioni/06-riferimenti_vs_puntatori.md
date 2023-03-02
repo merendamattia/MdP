@@ -1,9 +1,8 @@
-  
-# Tipi riferimento e tipi puntatore
-1. [Osservazioni](#osservazioni)
-2. [Esempi](#esempi)
-3. [Somiglianze](#somiglianze)
+```toc
+```
+--- 
 
+## Tipi riferimento e tipi puntatore
 I tipi riferimento e i tipi puntatore vengono spesso confusi tra loro dai programmatori che prendono in considerazione gli aspetti implementativi del linguaggio, in quanto entrambi sono rappresentati internamente utilizzando l'indirizzo dell'oggetto riferito o puntato.
 
 Una visione a più alto livello mette in evidenza alcune differenze, sia a livello sintattico che (cosa più importante) a livello semantico. Un modo intuitivamente semplice (anche se formalmente non esatto) di capirne la differenza è il seguente:
@@ -70,7 +69,7 @@ Evidenziate le differenze, possiamo ora discutere alcune somiglianze (magari non
 
 1) Quando termina il tempo di vita di un puntatore (ad esempio, quando si esce dal blocco di codice nel quale era stato definito come variabile locale), viene distrutto l'oggetto puntatore, ma NON viene distrutto l'oggetto puntato (cosa che potrebbe dare origine ad un memory leak). Analogamente, quando un riferimento va fuori scope, l'oggetto riferito non viene distrutto.
 
-### NOTA
+### NOTA - Il caso speciale
 Esiste però il caso speciale del riferimento inizializzato con un oggetto temporaneo, che viene distrutto insieme al riferimento stesso (se ne era parlato nella discussione sul tempo di vita degli oggetti).
 
 2) Analogamente al dangling pointer (un puntatore non nullo che contiene l'indirizzo di un oggetto non più esistente), è possibile creare un dangling reference, ovvero un riferimento che si riferisce ad un oggetto non più esistente. 
@@ -87,8 +86,5 @@ S& foo() {
 
 Si tratta chiaramente di un ***GRAVE ERRORE*** di programmazione: la funzione ritorna per riferimento un oggetto che è stato allocato automaticamente all'interno della funzione stessa; tale oggetto, però, viene automaticamente distrutto quando si esce dal blocco nel quale è stato definito e quindi il riferimento restituito al chiamante è invalido.
 L'approccio corretto è di modificare l'interfaccia della funzione `foo` affinché ritorni per valore, invece che per riferimento.
-
-### NOTA
-Nella discussione precedente, abbiamo considerato esclusivamente i riferimenti a `lvalue` (`T&`). Molte delle osservazioni fatte sono valide anche per il caso di riferimenti a `rvalue` (`T&&`), il cui approfondimento è però rimandato ad un altro momento.
 
 _[Ritorna all'indice](#Tipi%20riferimento%20e%20tipi%20puntatore)_

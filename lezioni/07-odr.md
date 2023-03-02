@@ -1,6 +1,8 @@
-# ODR: One Definition Rule
-==TODO: fare indice==
+```toc
+```
+--- 
 
+## ODR: One Definition Rule
 Quando il codice di un programma deve essere suddiviso in più unità di traduzione, si pone il problema di come fare interagire correttamente le varie porzioni del programma. 
 Intuitivamente, le varie unità di traduzione devono concordare su una interfaccia comune. 
 Tale interfaccia è formata quindi da dichiarazioni di tipi, variabili, funzioni, ecc.
@@ -22,11 +24,8 @@ _[Torna all'indice](#odr%20one%20definition%20rule)_
 
 ## Esempi
 Forniamo alcuni esempi per chiarire i vari punti della ODR; in particolare, ci concentreremo sulle possibili violazioni della regola.
-- [Violazione punto 1](#)
-- [Violazione punto 2](#)
-- [Violazione punto 4](#)
 
-### Esempi di violazione del punto 1
+### Violazione del punto 1
 Definizione multipla di tipo in una unità di traduzione:
 ```cpp
 struct S { int a; };
@@ -68,7 +67,7 @@ void foo() { }        // definizione
 extern void foo();    // dichiarazione pura
 ```
 
-### Esempi di violazione del punto 2
+### Violazione del punto 2
 Un caso banale è quello dell'uso di una variabile o funzione che è stata
 dichiarata ma non è stata mai definita nel programma (zero definizioni):
 la compilazione in senso stretto andrà a buon fine, ma il linker segnalerà
@@ -271,7 +270,7 @@ class Razionale {
 };
 
 #endif /* RAZIONALE_HH_INCLUDE_GUARD */
----
+
 
 La prima volta che il file viene incluso la "guardia"
 (ovvero, il flag del preprocessore RAZIONALE_HH_INCLUDE_GUARD)
