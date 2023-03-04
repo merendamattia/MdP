@@ -149,9 +149,8 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 
 ## Gli alias di tipo
-Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la "filosofia" **write once**.
+Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la filosofia *"write once"*.
 
-==TODO: citazione dichiara una volta sola==
 ```cpp
 using typeAlias = int; // in questo caso customName sarà un alias per i tipi interi
 

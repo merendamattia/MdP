@@ -147,12 +147,12 @@ namespace std {
 ```
 
 Osserviamo che:
-- `std::ostream` è un alias per la classe `basic_ostream<char>` ottenuta instanziando il **template di classe** `basic_ostream` con il tipo `char`;
+- `std::ostream` è un alias per la classe `basic_ostream<char>` ottenuta instanziando il **[template](99-definizioni#templates) di classe** `basic_ostream` con il tipo `char`;
 - il modificatore `std::endl` è una funzione templatica specializzata con il tipo `ostream`;
 - la prima occorrenza di `operator<<` è una chiamata a una funzione templatica, specializzata su `ostream` e `const char*`;
 - la seconda occorrenza di `operator<<` fa riferimento invece ad un altro tipo di funzione che prende come argomento due parametri di tipo `ostream`.
 
-> Perchè non è necessario qualificare l'operatore `<<` all'interno del proprio *[namespace](x-namespaces.md)* (`std::<<`)?
+> Perchè non è necessario qualificare l'operatore `<<` all'interno del proprio *[namespace](99-definizioni#namespaces)* (`std::<<`)?
 > Il C++ utilizza l'[**Argument-Dependent Lookup**](https://en.cppreference.com/w/cpp/language/adl) (ADL): se viene utilizzato un argomento definito dall'utente come argomento di una funzione (o operatore) e non viene esplicitato il namespace di quest'ultima, si cerca nell'ordine
 > 1) nello scope del chiamante
 > 2) in tutti i namespace a cui appartengono gli argomenti, partendo dal primo a sinistra.

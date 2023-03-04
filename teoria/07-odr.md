@@ -7,7 +7,7 @@ Quando il codice di un programma deve essere suddiviso in più unità di traduzi
 Intuitivamente, le varie unità di traduzione devono concordare su una interfaccia comune. 
 Tale interfaccia è formata quindi da dichiarazioni di tipi, variabili, funzioni, ecc.
 
-Per ridurre il rischio che una delle unità di traduzione si trovi ad operare con una versione diversa (inconsistente) dell'interfaccia, si cerca di seguire la regola ***DRY*** ("<u>Don't Repeat Yourself</u>"): le dichiarazioni dell'interfaccia vengono scritte una volta sola, in uno o più header file. 
+Per ridurre il rischio che una delle unità di traduzione si trovi ad operare con una versione diversa (inconsistente) dell'interfaccia, si cerca di seguire la regola <mark style="background: #FFB86CA6;">DRY</mark> ("<u>Don't Repeat Yourself</u>"): le dichiarazioni dell'interfaccia vengono scritte una volta sola, in uno o più header file. 
 
 Le varie unità di traduzione includeranno gli header file di cui hanno bisogno, evitando di ripetere le corrispondenti dichiarazioni.
 Il meccanismo è intuitivamente semplice, ma se usato senza la necessaria cautela, può dare luogo a problemi che, in ultima analisi, si possono ricondurre a violazioni della "One Definition Rule".
@@ -15,7 +15,7 @@ Il meccanismo è intuitivamente semplice, ma se usato senza la necessaria cautel
 La **ODR** (regola della definizione unica) stabilisce quanto segue:
 1. Ogni <u>unità di traduzione</u> che forma un programma può contenere non più di una definizione di una data variabile, funzione, classe, enumerazione o template.
 2. Ogni <u>programma</u> deve contenere esattamente una definizione di ogni variabile e di ogni funzione non-inline usate nel programma.
-3. Ogni <u>funzione inline</u> ==(TODO: che cosa sono queste funzioni inline?)== deve essere definita in ogni unità di traduzione che la utilizza.
+3. Ogni [funzione inline](99-definizioni#funzioni%20inline) deve essere definita in ogni unità di traduzione che la utilizza.
 4. In un programma vi possono essere più definizioni di una classe, enumerazione, funzione inline, template di classe e template di funzione a condizione che:
 	- tali definizioni siano sintatticamente identiche;
 	- tali definizioni siano semanticamente identiche.
@@ -68,33 +68,36 @@ extern void foo();    // dichiarazione pura
 ```
 
 ### Violazione del punto 2
-Un caso banale è quello dell'uso di una variabile o funzione che è stata
-dichiarata ma non è stata mai definita nel programma (zero definizioni):
-la compilazione in senso stretto andrà a buon fine, ma il linker segnalerà
-l'errore al momento di generare il codice eseguibile.
+Un caso banale è quello dell'uso di una variabile o funzione che è stata dichiarata ma non è stata mai definita nel programma (zero definizioni): la compilazione in senso stretto andrà a buon fine, ma il linker segnalerà l'errore al momento di generare il codice eseguibile.
 
-Più interessante è il caso delle definizioni multiple (magari pure
-inconsistenti) effettuate in unità di traduzione diverse:
+Più interessante è il caso delle definizioni multiple (magari pure inconsistenti) effettuate in unità di traduzione diverse:
 
 ==TODO: siamo arrivati qui==
 
---- foo.hh
+*foo.hh*
+```cpp
 int foo(int a);
+```
 
---- file1.cc
+*file1.cc*
+```cpp
 #include "foo.hh"
 int foo(int a) { return a + 1; }
+```
 
---- file2.cc
+*file2.cc*
+```cpp
 #include "foo.hh"
 int foo(int a) { return a + 2; }
+```
 
---- file3.cc
+*file3.cc*
+```cpp
 #include "foo.hh"
 int bar(int a) { return foo(a); }
+```
 
-Il linker, al momento di collegare (l'object file prodotto dalla compilazione
-di) file3.cc con il resto del programma potrebbe indifferentemente invocare
+Il linker, al momento di collegare (l'object file prodotto dalla compilazione di) file3.cc con il resto del programma potrebbe indifferentemente invocare
 la funzione foo definita in file1.cc o quella definita in file2.cc, ottenendo
 effetti non prevedibili. Tipicamente, il linker segnalerà l'errore,
 ma in realtà le regole del linguaggio dicono che non è tenuto a farlo
