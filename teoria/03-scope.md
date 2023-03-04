@@ -13,6 +13,7 @@ Si distinguono pertanto diverse tipologie di scope:
 5. [Scope delle costanti di enumerazione](#scope-delle-costanti-di-enumerazione-un-caso-speciale)
 
 ## Scope di namespace (incluso lo scope globale)
+I [namespaces](99-definizioni#namespaces) sono utilizzati per organizzare il codice in gruppi logici, allo scopo di evitare conflitti di nomi e migliorare la leggibilità del codice.
 Una dichiarazione che non è racchiusa all'interno di una `struct`/`class` e/o all'interno di una funzione ha scope di `namespace`; si noti che lo scope globale è anche esso uno scope di `namespace` (al quale ci si può riferire usando il qualificatore di scope `::`).
 
 Il nome è visibile, all'interno di quel `namespace`, a partire dal punto di dichiarazione e fino al termine dell'unità di traduzione (in particolare, <u>NON è visibile prima del punto di dichiarazione</u>). In sostanza, questo è il motivo per il quale le inclusioni degli header file sono collocate all'inizio dei file sorgente).

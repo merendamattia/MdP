@@ -134,7 +134,7 @@ _[Torna all'indice](#dichiarazioni-e-definizioni)_
 --- 
 
 ## Template (di classe e di funzione)
-_I [template](x-templates.md) di classe non sono classi;_  essi infatti si possono considerare come uno schema, che indica al compilatore come dichiarare e/o definire ciò che segue attorno a dei **tipi parametrici**.
+_I [template](99-definizioni#templates) di classe non sono classi;_ essi infatti si possono considerare come uno schema, che indica al compilatore come dichiarare e/o definire ciò che segue attorno a dei **tipi parametrici**.
 
 Dichiarazione pura di template di classe:
 ```c++
