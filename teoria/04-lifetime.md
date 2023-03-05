@@ -141,8 +141,7 @@ L'oggetto temporaneo viene _distrutto_ quando termina la valutazione dell'espres
 Nell'esempio precedente, il temporaneo è distrutto al termine dell'esecuzione di foo, ma prima della stampa di _"fine"_.
 
 #### NOTA
-Il lifetime di un oggetto temporaneo può essere esteso se l'oggetto viene utilizzato per inizializzare un riferimento; in tale caso, l'oggetto verrà distrutto nel momento in cui verrà
-distrutto il riferimento.  
+Il lifetime di un oggetto temporaneo può essere esteso se l'oggetto viene utilizzato per inizializzare un riferimento; in tale caso, l'oggetto verrà distrutto nel momento in cui verrà distrutto il riferimento.  
 Per esempio:
 ```cpp
 void bar2() {

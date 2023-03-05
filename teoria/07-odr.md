@@ -51,8 +51,7 @@ int incr(int a) { return a + 1; }
 long incr(long a) { return a + 1; }
 ```
 
-Si noti inoltre che si parla di definizioni. È lecito avere più dichiarazioni della stessa entità, a condizione che solo una di esse sia una definizione (ovvero, le altre devono essere
-dichiarazioni pure). 
+Si noti inoltre che si parla di *definizioni*: è lecito avere più *dichiarazioni* della stessa entità, a condizione che solo una di esse sia una definizione (ovvero, le altre devono essere dichiarazioni pure). 
 L'esempio seguente NON contiene violazioni ODR:
 
 ```cpp
