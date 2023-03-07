@@ -54,10 +54,11 @@ for (int i = 0; i != 100; ++i) {
 // iterazione basata su puntatore
 for (int* p = a; p != a + 100; ++p) {
 	// fai qualcosa con *p
+	// I puntatori sono iteratori per gli array
 }
 ```
 
-La seconda forma si presta bene a generalizzazioni che non richiedono di conoscere il punto di inizio dell'array e la sua dimensione;.
+La seconda forma si presta bene a generalizzazioni che non richiedono di conoscere il punto di inizio dell'array e la sua dimensione.
 Se sono sicuro che `p1` e `p2` sono puntatori validi sull'interno dell'array e sono anche sicuro che `p1` non viene dopo `p2`, allora posso iterare su tutti gli elementi compresi tra l'elemento puntato da `p1` (incluso) e l'elemento puntato da `p2` (escluso), nel modo seguente:
 ```cpp
 // iterazione basata su coppie di puntatori
@@ -69,6 +70,6 @@ for ( ; p1 != p2; ++p1) {
 Spesso, per la coppia `p1` e `p2` si usano i nomi first e last, con l'accortezza di ricordarsi che last, in effetti, si riferisce alla posizione *successiva* all'ultimo elemento che si vuole processare.
 
 Se si vuole specificare una sequenza vuota, è sufficiente fornire una coppia di puntatori identici (ottenendo quindi un ciclo che non effettua alcuna iterazione).
-Questo idioma è stato esteso nel $C$++ al caso degli iteratori sulle sequenze generiche e sui contenitori della libreria standard (e quindi è di estrema rilevanza per la programmazione in        $C$++).
+Questo i dioma è stato esteso nel $C$++ al caso degli iteratori sulle sequenze generiche e sui contenitori della libreria standard (e quindi è di estrema rilevanza per la programmazione in        $C$++).
 
 [_Torna all'indice_](#array%20e%20puntatori)

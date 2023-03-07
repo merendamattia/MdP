@@ -17,6 +17,7 @@ In $C$++, un <mark style="background: #ABF7F7A6;">lvalue</mark> è un'espression
 D'altra parte, un <mark style="background: #ABF7F7A6;">rvalue</mark> è un'espressione che rappresenta un valore che non ha un indirizzo di memoria associato. Ad esempio, un valore costante come 5, una stringa letterale come "hello" o il risultato di una chiamata a una funzione che restituisce un valore sono tutti esempi di *rvalue*.
 
 In breve, <mark style="background: #BBFABBA6;">la differenza principale tra lvalue e rvalue sta nell'indirizzo di memoria.</mark> Gli *lvalue* sono identificabili dalla memoria e possono essere modificati, mentre i *rvalue* sono solo valori temporanei che non possono essere modificati. Inoltre, alcune operazioni in $C$++ richiedono un *lvalue*, come l'assegnazione di un valore a una variabile, mentre altre richiedono un rvalue, come l'uso di un valore costante in un'operazione aritmetica.
+Approfondimento: [[98-lvalue_rvalue]]
 
 <mark style="background: #FF5582A6;">NOTA:</mark> a partire dal $C$++ 2011 sono stati introdotti i riferimenti a `rvalue` e, di conseguenza, la possibilità di passare un argomento per riferimento a `rvalue`. 
 L'argomento (un po' tecnico) verrà affrontato quando parleremo della gestione delle risorse.
