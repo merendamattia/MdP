@@ -124,7 +124,7 @@ inline int funzione_inline() { return 42; }
 int funzione_non_inline() { return 1 + funzione_inline(); }
 ```
 
-Compilando con l'opzione `-c` e invocando `nm` sull'object file generato, vediamo quanto segue:
+Compilando con l'opzione `-C` e invocando `nm` sull'object file generato, vediamo quanto segue:
 ```bash
 $ nm -C aaa.o
 0000000000000000 W funzione_inline()
