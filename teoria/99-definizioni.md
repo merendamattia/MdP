@@ -103,4 +103,11 @@ Tuttavia, ci sono anche alcuni svantaggi nell'utilizzo delle funzioni `inline`. 
 
 In generale, le funzioni `inline` dovrebbero essere utilizzate con cautela, e dovrebbero essere applicate solo alle funzioni che vengono chiamate frequentemente e che sono relativamente brevi. Ciò può aiutare a migliorare le prestazioni del programma, senza aumentare la dimensione del codice o la complessità.
 
+==TODO==
+- `constexpr`
+- `#define PROD(a,b) (a) * (b)`
+
 _[Torna all'indice](#definizioni)_
+
+---
+
