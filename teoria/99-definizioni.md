@@ -74,7 +74,7 @@ _[Torna all'indice](#definizioni)_
 ## Funzioni inline
 Le funzioni `inline` in C++ sono <mark style="background: #FFF3A3A6;">utilizzate per richiedere al compilatore di sostituire il codice della funzione al punto in cui viene chiamata</mark>. Ciò può migliorare le prestazioni del programma, in quanto evita il tempo di esecuzione richiesto per la chiamata della funzione.
 
-In C++, le funzioni inline possono essere definite in due modi:
+In C++, le *funzioni inline* possono essere definite in due modi:
 1. <mark style="background: #FFB86CA6;">Dichiarazione inline: </mark>
 	La parola chiave `inline` viene utilizzata davanti alla dichiarazione della funzione, come nel seguente esempio:
 ```cpp
@@ -103,4 +103,11 @@ Tuttavia, ci sono anche alcuni svantaggi nell'utilizzo delle funzioni `inline`. 
 
 In generale, le funzioni `inline` dovrebbero essere utilizzate con cautela, e dovrebbero essere applicate solo alle funzioni che vengono chiamate frequentemente e che sono relativamente brevi. Ciò può aiutare a migliorare le prestazioni del programma, senza aumentare la dimensione del codice o la complessità.
 
+==TODO==
+- `constexpr`
+- `#define PROD(a,b) (a) * (b)`
+
 _[Torna all'indice](#definizioni)_
+
+---
+
