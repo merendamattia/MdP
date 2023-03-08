@@ -1,8 +1,6 @@
 #include "Razionale.hh"
 #include <iostream>
 
-void 
-
 void test01(){
     using Numerica::Razionale;
 
@@ -64,11 +62,14 @@ void test01(){
     std::cin >> r;
     std::cin >> r >> r1;
     std::cout << r << std::endl;
-    //std::cout << 
 
+    int n = r.num(); //numeratore
+	int d = r.den(); //denominatore
+	
+	//chiamata esplicita dei distruttori
 }
 
 int main(){
     test01();
-    
+    return 0;
 }

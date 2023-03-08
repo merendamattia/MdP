@@ -13,15 +13,19 @@ namespace Numerica {
             ~Razionale() = default;
 
             // Razionale();
-            // Razionale() = delete; // Non voglio il costruttore di default (C++11)
+            // Razionale() = delete; // Non voglio il costruttore di default (da C++11)
 
             // const Razionale& operator=(const Razionale&); // Permette di non modificare il riferimento ritornato
             // std::cout << (r = r3); // si
             // ++(r = r3); // no
 
-            using Intero = long;
+            Razionale& operator++();    // Il tipo di ritorno dipende dalla "libertà" che si vuole dare all'utilizzatore della classe
+			Razionale operator++(int);  // questo crea una copia, quindi è preferibile non usarlo oppure non renderlo disponibile (Razionale operator++(int) = delete)
 
-            /* explicit */ Razionale(Intero n, Intero d = 1);
+            using Intero = long; // Filosofia "declare one"
+
+            Razionale(Intero n, Intero d = 1);
+            explicit Razionale(Intero n);
             
         private:
             // Razionale(); // Corrisponde a "Razionale() = delete;" nelle versioni precedenti al C++11
