@@ -13,3 +13,7 @@ D'altra parte, un <mark style="background: #FFB8EBA6;">tipo di dato astratto</ma
 <mark style="background: #BBFABBA6;">In sintesi</mark>, i tipi di dato concreti in $C$++ rappresentano valori effettivi che sono memorizzati in una specifica area di memoria e possono essere modificati direttamente.
 
 [_Torna all'indice_](#tipo%20dato%20concreto)
+
+---
+
+## La classe Razionale
