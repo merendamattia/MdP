@@ -84,7 +84,7 @@ inline int somma(int a, int b) {
 ```
 2. <mark style="background: #FFB86CA6;">Definizione inline: </mark>
 	La definizione della funzione viene inserita direttamente nel corpo della classe, dichiarando la funzione come `inline` implicitamente. Questo metodo viene spesso utilizzato per le funzioni membro di classe, ma può essere utilizzato anche per le funzioni globali, come nel seguente esempio:
-	```cpp
+```cpp
 class Calcolatrice {
 	public:
 	    inline int somma(int a, int b) {
