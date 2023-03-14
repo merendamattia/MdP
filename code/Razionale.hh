@@ -80,6 +80,7 @@ namespace Numerica {
             Razionale& operator/=(const Razionale& a2);
 
             bool operator==(const Razionale& a2) const { //invariante di classe: non faccio il controllo semplifica() su a2 perche so gia che è ben formattato
+                assert(check_inv() && a2.check_inv());
                 return num_ == a2.num_ && den_ == a2.den_;
             }
             bool operator!=(const Razionale& a2) const;
