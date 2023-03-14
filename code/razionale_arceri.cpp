@@ -6,9 +6,7 @@ class Razionale {
 		int n;
 		int d;
 	public:
-        ~Razionale(){
-
-        }
+        ~Razionale(){ }
 
 		Razionale() {
 			n = 1;
@@ -18,8 +16,7 @@ class Razionale {
 		Razionale(int n1, int d1) {
 			n = n1;
 			if (d1 == 0) {
-				cout << "Errore: denominatore uguale a 
-zero" << endl;
+				cout << "Errore: denominatore uguale a zero" << endl;
 				d = 1;
 			} else
 				d = d1;
@@ -42,8 +39,7 @@ zero" << endl;
 			n = num;
 
 			if (den == 0) {
-				cout << "Errore: denominatore uguale a 
-zero" << endl;
+				cout << "Errore: denominatore uguale a zero" << endl;
 				d = 1;
 			} else
 				d = den;
