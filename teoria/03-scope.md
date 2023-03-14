@@ -252,7 +252,7 @@ Per esempio, dentro la classe `Derived` vista sopra, si può accedere ai dati e 
 Lo stesso dicasi nel caso dello scope di namespace (si ricordi l'uso di `std::cout`).
 
 Se però un nome deve essere utilizzato molto spesso in una posizione in cui non è visibile senza qualificazione, può essere scomodo doverlo qualificare in ogni suo singolo uso.   
-Per evitare ciò, si possono usare le dichiarazioni di using (_using declaration_):
+Per evitare ciò, si possono usare le **dichiarazioni di using** (_using declaration_):
 ```cpp
 void foo() {
 	using std::cout;
@@ -299,7 +299,7 @@ struct Derived : public Base {
 _[Torna all'indice](#scope%20campo%20d'azione)_
 
 ## Direttive using
-Cosa ben distinta rispetto alle dichiarazioni di _using_ sono le direttive di using (_using directive_).   
+Cosa ben distinta rispetto alle dichiarazioni di using sono le **direttive di using** (_using directive_).   
 La sintassi è la seguente:
 ```cpp
 void foo() {
