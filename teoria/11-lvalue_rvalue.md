@@ -85,6 +85,8 @@ Questi ultimi sono stati introdotti nel C++ 2011 per risolvere problemi tecnici 
 
 [_Torna all'indice_](#lvalue%20e%20rvalue)
 
+---
+
 ## lvalue vs rvalue
 Nel $C$++ 2003, ogni classe era fornita (se non veniva fatto qualcosa per disabilitarle) di 4 funzioni speciali:
 - costruttore di default

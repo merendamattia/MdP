@@ -52,6 +52,8 @@ Daremo una descrizione abbastanza dettagliata (ma comunque incompleta) del proce
 
 [_Torna all'indice_](#overloading)
 
+---
+
 ### Fase 1: le funzioni candidate
 <mark style="background: #FFB8EBA6;">L'insieme delle funzioni candidate</mark> per una specifica chiamata di funzione è un sottoinsieme delle funzioni che sono state dichiarate all'interno dell'unità di traduzione. In particolare, le funzioni candidate:
 1. hanno lo stesso nome della funzione chiamata
