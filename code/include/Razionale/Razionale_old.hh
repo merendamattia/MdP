@@ -6,7 +6,7 @@ namespace Numerica {
         public:
             using Intero = long; // Filosofia "declare one"
 
-        private:
+        private:        
             Intero num_;
             Intero den_;
             // Razionale(); // Corrisponde a "Razionale() = delete;" nelle versioni precedenti al C++11

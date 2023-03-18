@@ -1,4 +1,4 @@
-#include "Razionale.hh"
+#include "../../include/Razionale/Razionale.hh"
 #include <iostream>
 
 void test01(){
@@ -17,8 +17,8 @@ void test01(){
     Razionale r7(1);        // costruzione diretta
     Razionale r8{1};        // costruzione diretta (C++11)
     
-    Razionale r9 = 1234;    // costruzione implicita (da evitare!), fa una conversione da int a long e da long a Razionale
-    Razionale r10 = true;   // Fa la stessa cosa. Bisogna usare la parola chiave 'explicit' davanti al costruttore
+    // Razionale r9 = 1234;    // costruzione implicita (da evitare!), fa una conversione da int a long e da long a Razionale
+    // Razionale r10 = true;   // Fa la stessa cosa. Bisogna usare la parola chiave 'explicit' davanti al costruttore
 
     r = r1;             // assegnamento di copia
     r = Razionale(1);   // assegnamento per spostamento
@@ -31,15 +31,20 @@ void test01(){
     r1 = r * r;
     r1 = r / r;
 
+
     // Operatori aritmetici unari
     r1 = -r;
     r1 = +r;
 
     // op-assign
     r += r;
+    std::cerr << r << std::endl;
     r -= r;
+    std::cerr << r << std::endl;
     r *= r;
-    r /= r;
+    std::cerr << r << std::endl;
+    r /= Razionale(1);
+    std::cerr << r << std::endl;
 
     // Incremento e decremento (pre o post)
     ++r;
@@ -60,8 +65,13 @@ void test01(){
 
     // Input e output
     std::cin >> r;
+    std::cerr << r << std::endl;
     std::cin >> r >> r1;
+    std::cerr << r << ", " << r1 << std::endl;
+
     std::cout << r << std::endl;
+    std::cerr << r << std::endl;
+
 
     int n = r.num(); //numeratore
 	int d = r.den(); //denominatore
