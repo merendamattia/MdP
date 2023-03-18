@@ -76,9 +76,9 @@ Evidenziate le differenze, possiamo ora discutere alcune somiglianze (magari non
 1) <mark style="background: #BBFABBA6;">Quando termina il tempo di vita di un puntatore</mark> (ad esempio, quando si esce dal blocco di codice nel quale era stato definito come variabile locale), <mark style="background: #BBFABBA6;">viene distrutto l'oggetto puntatore, ma NON viene distrutto l'oggetto puntato</mark> (cosa che potrebbe dare origine ad un memory leak). Analogamente, quando un riferimento va fuori scope, l'oggetto riferito non viene distrutto.
 
 <mark style="background: #FF5582A6;">NOTA - Il caso speciale</mark>
-Esiste però il caso speciale del riferimento inizializzato con un oggetto temporaneo, che viene distrutto insieme al riferimento stesso (se ne era parlato nella discussione sul tempo di vita degli oggetti).
+Esiste però il caso speciale del riferimento inizializzato con un oggetto temporaneo, che viene distrutto insieme al riferimento stesso (se ne era parlato nella [discussione](obsidian://open?vault=MdP&file=teoria%2F04-lifetime) sul tempo di vita degli oggetti).
 
-2) Analogamente al dangling pointer (un puntatore non nullo che contiene l'indirizzo di un oggetto non più esistente), <mark style="background: #BBFABBA6;">è possibile creare un dangling reference</mark>, ovvero un riferimento che si riferisce ad un oggetto non più esistente. 
+2) Analogamente al *dangling pointer* (un puntatore non nullo che contiene l'indirizzo di un oggetto non più esistente), <mark style="background: #BBFABBA6;">è possibile creare un dangling reference</mark>, ovvero un riferimento che si riferisce ad un oggetto non più esistente. 
 	Il classico esempio è il seguente:
 ```cpp
 struct S { /* ... */ };
@@ -90,7 +90,7 @@ S& foo() {
 }
 ```
 
-Si tratta chiaramente di un ***<u>GRAVE ERRORE</u>*** di programmazione: la funzione ritorna per riferimento un oggetto che è stato allocato automaticamente all'interno della funzione stessa; tale oggetto, però, viene automaticamente distrutto quando si esce dal blocco nel quale è stato definito e quindi il riferimento restituito al chiamante è invalido.
+Si tratta chiaramente di un ***<u>GRAVE ERRORE</u>*** di programmazione: la funzione ritorna per riferimento un oggetto che è stato allocato automaticamente all'interno della funzione stessa; tale oggetto però, viene automaticamente distrutto quando si esce dal blocco nel quale è stato definito e quindi il riferimento restituito al chiamante è invalido.
 L'approccio corretto è di modificare l'interfaccia della funzione `foo` affinché ritorni per valore, invece che per riferimento.
 
 _[Ritorna all'indice](#Tipi%20riferimento%20e%20tipi%20puntatore)_
