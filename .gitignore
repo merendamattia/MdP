@@ -1,5 +1,5 @@
 **/.obsidian/**
 **/.DS_Store
-**.vscode/**
-**bin/**
+**/.vscode/**
+**/bin/**
 *.out

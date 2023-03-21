@@ -68,7 +68,8 @@ namespace Numerica {
 	Razionale::Razionale(Razionale&& other) : 
 		num_{std::move(other.num_)},
 		den_{std::move(other.den_)} {
-		
+
+		std::cout << "Costruttore per spostamento: " << *this << std::endl;
 		assert(check_inv());
 	}
 
@@ -76,8 +77,8 @@ namespace Numerica {
 		num_ = std::move(other.num_);
 		den_ = std::move(other.den_);
 
+		std::cout << "Assegnamento per spostamento:" << *this << std::endl;
 		assert(check_inv());
-
 		return *this;
 	}
 
