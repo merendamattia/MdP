@@ -16,6 +16,9 @@ void test01(){
     Razionale r6 {1, 2};    // costruzione diretta (C++11)
     Razionale r7(1);        // costruzione diretta
     Razionale r8{1};        // costruzione diretta (C++11)
+
+    Razionale r9 {std::move(r7)}; // costruttore per spostamento
+    Razionale r10 = std::move(r5); // assegnamento per spostamento
     
     // Razionale r9 = 1234;    // costruzione implicita (da evitare!), fa una conversione da int a long e da long a Razionale
     // Razionale r10 = true;   // Fa la stessa cosa. Bisogna usare la parola chiave 'explicit' davanti al costruttore
@@ -26,11 +29,12 @@ void test01(){
     // r2 = (r1 = r) -> r2 = r1
 
     // Operatori aritmetici binari
-    r1 = r + r;
-    r1 = r - r;
-    r1 = r * r;
-    r1 = r / r;
+    r1 = r + r; // 2
+    r1 = r - r; // 0
+    r1 = r * r; // 1
+    r1 = r / r; // 1
 
+    r2 = Razionale(2) + Razionale(1,2);
 
     // Operatori aritmetici unari
     r1 = -r;
