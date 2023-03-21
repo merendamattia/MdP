@@ -2,7 +2,10 @@
 ```toc
 ```
 ---
-<mark style="background: #FFF3A3A6;">TODO: da sistemare</mark>
+#todo 
+- [ ] da sistemare tutto 
+- [ ] aggiungere torna all'indice
+- [ ] evidenziare
 
 Una porzione di codice si dice <mark style="background: #FFB86CA6;">exception safe</mark> quando si comporta in maniera "adeguata" anche in presenza di comportamenti anomali segnalati tramite il lancio di eccezioni.
 In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (undefined behavior).
@@ -42,7 +45,6 @@ Si noti che il livello nothrow, per definizione, NON è neutrale rispetto alle e
 ---
 
 ## Libreria standard e exception safety
-
 I contenitori (`vector`, `deque`, `list`, `set`, `map`, `...`) forniti dalla libreria standard sono exception safe. 
 
 > Tale affermazione vale sotto determinate condizioni. Dato che si parla di contenitori templatici, quindi possono essere istanziati a partire da un qualunque tipo di dato `T`, le garanzie di exception safety del contenitore sono valide a condizione che il tipo di dato `T` degli elementi contenuti fornisca analoghe garanzie.

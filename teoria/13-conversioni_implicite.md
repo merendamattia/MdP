@@ -2,7 +2,11 @@
 ```toc
 ```
 ---
-<mark style="background: #FFF3A3A6;">TODO: da sistemare</mark>
+#todo 
+- [ ] da sistemare e approfondire
+- [ ] sottolineare punti chiave
+- [ ] aggiungere torna all'indice
+
 Si ricorda che le conversioni di tipo implicite sono uno dei concetti oggetto di ripasso che si danno per acquisiti. Nel seguito, quindi, si richiamano brevemente le varie tipologie di conversione, con lo scopo di classificarle (questa operazione è necessaria soprattutto per potere effettuare la fase 3 della risoluzione dell'overloading).
 
 Le conversioni implicite del C++ si possono suddividere in 4 categorie:

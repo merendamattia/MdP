@@ -2,7 +2,10 @@
 ```toc
 ```
 ---
-<mark style="background: #FFF3A3A6;">TODO: da sistemare</mark>
+#todo
+- [ ] da sistemare e approfondire
+- [ ] aggiungere torna all'indice
+
 Una problematica rilevante quando si sviluppa software è quella di riuscire ad ottenere una <mark style="background: #FFB86CA6;">corretta gestione delle risorse</mark>.
 
 > Con il termine "risorse" indichiamo genericamente entità che, intuitivamente, sono disponibili in quantità limitata e che, in caso di esaurimento, potrebbero compromettere o limitare la funzionalità del software. Per questo motivo, il software deve necessariamente interagire con le risorse in modo corretto, evitando che alcune di esse vadano "perse" o siano compromesse rendendole inutilizzabili.
@@ -20,7 +23,6 @@ In particolare:
 * non è lecito usare una risorsa dopo averla rilasciata.
 
 ## Esempi di risorse
-
 ### La memoria ad allocazione dinamica
 Viene acquisita tramite l'uso dell'espressione <mark style="background: #ABF7F7A6;">new</mark> (magari effettuato indirettamente), utilizzata per leggere e scrivere valori (mediante dereferenziazione di un puntatore) e infine rilasciata mediante l'uso della <mark style="background: #ABF7F7A6;">delete</mark> (magari effettuato indirettamente).
 Il mancato rilascio genera "<mark style="background: #FFB86CA6;">memory leak</mark>" e, in casi particolari, può portare all'esaurimento della memoria disponibile; l'accesso a "dangling pointer" è un esempio di uso dopo il rilascio; la "double free" è un esempio di rilascio di una risorsa che non è più sotto il nostro controllo (già rilasciata in precedenza).
