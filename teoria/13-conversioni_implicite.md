@@ -1,5 +1,8 @@
 # Conversioni implicite di tipo
-
+```toc
+```
+---
+<mark style="background: #FFF3A3A6;">TODO: da sistemare</mark>
 Si ricorda che le conversioni di tipo implicite sono uno dei concetti oggetto di ripasso che si danno per acquisiti. Nel seguito, quindi, si richiamano brevemente le varie tipologie di conversione, con lo scopo di classificarle (questa operazione è necessaria soprattutto per potere effettuare la fase 3 della risoluzione dell'overloading).
 
 Le conversioni implicite del C++ si possono suddividere in 4 categorie:
@@ -62,47 +65,35 @@ Quindi, ogni volta che si vuole operare su un valore di un tipo di dato più pic
 #### 2c. Promozione delle costanti di enumerazioni del C++ 2003
 Al più piccolo tipo intero (almeno int) sufficientemente grande per contenerle.
 
+---
+
 ### Conversioni standard
 In pratica, tutte le altre conversioni implicite che non coinvolgono conversioni definite dall'utente.
 
 > Attenzione: da int a long non è promozione, ma conversione standard da char a double: è conversione standard.
 
 Tra le conversioni standard da tenere in considerazione vi sono le conversioni tra riferimenti e tra puntatori. In particolare:
-- la costante intera 0 e il valore nullptr (di std::nullptr_t)
-       sono le costanti puntatore nullo; esse possono essere convertite
-       implicitamente nel tipo T* (per qualunque T);
-       la costante intera 0 può essere convertita in nullptr;
-     - ogni puntatore T* può essere convertito nel tipo void*,
-       che corrisponde ad un puntatore ad un tipo ignoto
-       (si noti che non esiste una conversione implicita che vada
-       in senso inverso, da void* a T*);
-     - se un classe D è derivata (direttamente o indirettamente)
-       dalla classe base B, allora ogni puntatore D* può essere
-       convertito implicitamente in B*; si parla di "up-cast"
-       (conversione verso l'alto), perché tradizionalmente nei
-       diagrammi che rappresentano le relazioni tra i tipi di dato,
-       le classi base, che sono più astratte e quindi "leggere",
-       vengono rappresentate sopra le classi derivate, che sono
-       più concrete e quindi "pesanti"; una analoga conversione
-       sui riferimenti consente di trasformare un D& in un B&;
-       (anche in questo caso, si noti che non esiste una conversione
-       implicita per il "down-cast", che trasformerebbe un B* in un D*
-       o un B& in un D&).
+- la costante intera 0 e il valore nullptr (di std::nullptr_t) sono le costanti puntatore nullo; esse possono essere convertite implicitamente nel tipo T* (per qualunque T); la costante intera 0 può essere convertita in nullptr;
+- ogni puntatore T* può essere convertito nel tipo void*, che corrisponde ad un puntatore ad un tipo ignoto (si noti che non esiste una conversione implicita che vada in senso inverso, da void* a T*);
+- se un classe D è derivata (direttamente o indirettamente) dalla classe base B, allora ogni puntatore D* può essere convertito implicitamente in B*; si parla di "up-cast" (conversione verso l'alto), perché tradizionalmente nei diagrammi che rappresentano le relazioni tra i tipi di dato, le classi base, che sono più astratte e quindi "leggere", vengono rappresentate sopra le classi derivate, che sono più concrete e quindi "pesanti"; una analoga conversione sui riferimenti consente di trasformare un D& in un B&; (anche in questo caso, si noti che non esiste una conversione implicita per il "down-cast", che trasformerebbe un B* in un D* o un B& in un D&).
+
+---
 
 ### Conversioni implicite definite dall'utente
-  4a) uso (implicito) di costruttori che possono essere invocati
-      con un solo argomento (di tipo diverso) e non sono marcati `explicit'
-      Esempio:
-      struct Razionale {
+1. Uso (implicito) di costruttori che possono essere invocati con un solo argomento (di tipo         diverso) e non sono marcati `explicit`
+	Esempio:
+```cpp
+struct Razionale {
         Razionale(int num, int den = 1); // conv. da int a Razionale
         // ...
       };
+```
 
-  4b) uso di operatori di conversione da tipo utente verso altro tipo
-      Esempio:
-      struct Razionale {
+2. Uso di operatori di conversione da tipo utente verso altro tipo
+    Esempio:
+```cpp
+struct Razionale {
         operator double() const; // conversione da Razionale a double
         // ...
       };
-
-------------------------------------------------------------------------
+```
