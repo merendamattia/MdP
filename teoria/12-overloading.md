@@ -223,6 +223,12 @@ Una conversione `X_worst` vince sulla conversione `Y_worst` se ha un "rank" migl
 [_Torna all'indice_](#overloading)
 
 ---
+### Esempio
+![[overloading_esempio.jpg]]
+
+[_Torna all'indice_](#overloading)
+
+---
 
 ### Ulteriori osservazioni
 1) Le regole fin qui esposte NON prendono in considerazione alcuni casi speciali che si applicano in presenza di funzioni candidate ottenute istanziando (o specializzando) template di funzione. Questi casi verranno introdotti al momento opportuno.
