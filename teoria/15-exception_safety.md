@@ -4,10 +4,11 @@
 ---
 #todo 
 - [ ] da sistemare tutto 
-- [ ] aggiungere torna all'indice
+- [x] aggiungere torna all'indice
 - [ ] evidenziare
 
 Una porzione di codice si dice <mark style="background: #FFB86CA6;">exception safe</mark> quando si comporta in maniera "adeguata" anche in presenza di comportamenti anomali segnalati tramite il lancio di eccezioni.
+
 In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (undefined behavior).
 
 ## Livelli di exception safety
@@ -349,5 +350,10 @@ void codice_utente() {
   usa_risorse_exc(r1.get(), r3.get());
 }
 ```
+
+[_Torna all'indice_](#exception%20safety)
+
+## Esercizio 
+![[eccezioni_esempio.jpg]]
 
 [_Torna all'indice_](#exception%20safety)
