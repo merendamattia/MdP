@@ -2,16 +2,18 @@
 ```toc
 ```
 ---
-#todo 
-- [ ] da sistemare tutto 
-- [ ] aggiungere torna all'indice
-- [ ] evidenziare
 
 Una porzione di codice si dice <mark style="background: #FFB86CA6;">exception safe</mark> quando si comporta in maniera "adeguata" anche in presenza di comportamenti anomali segnalati tramite il lancio di eccezioni.
-In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (undefined behavior).
+
+In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (*undefined behavior*).
 
 ## Livelli di exception safety
-Esistono tre diversi livelli di exception safety: base, forte e nothrow.
+Esistono tre diversi livelli di exception safety: 
+- base;
+- forte;
+- nothrow.
+
+---
 
 ### Livello base
 Una porzione di codice (una funzione o una classe) si dice exception safe a livello base se, anche nel caso in cui si verifichino delle eccezioni durante la sua esecuzione:
@@ -23,54 +25,55 @@ Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve
 
 > Gli altri livelli, che forniscono garanzie maggiori, sono spesso considerati opzionali (perché più costosi da ottenere).
 
+[_Torna all'indice_](#exception%20safety)
+
+---
+
 ### Livello forte (strong)
-Il <mark style="background: #FFB8EBA6;">livello forte</mark>di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di "<mark style="background: #FFB8EBA6;">atomicità</mark>" delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
+Il <mark style="background: #FFB8EBA6;">livello forte</mark> di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di <mark style="background: #FF5582A6;">atomicità</mark> delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
 
 #### Esempio
-Supponiamo di avere una classe che implementa una collezione ordinata di oggetti e di avere un metodo `insert` che inserisce un nuovo oggetto nella collezione esistente. Se il metodo in questione garantisce l'exception safety forte, allora in seguito ad una eccezione durante una operazione di insert la collezione si troverà esattamente nello stesso stato precedente all'operazione di insert (cioè, conterrà esattamente gli stessi elementi che conteneva prima della chiamata alla insert). Se invece fosse garantita solo l'exception safety a livello base, non avendo la proprietà di atomicità, in caso di uscita con eccezione la collezione si troverebbe in uno stato consistente, ma potenzialmente in nessun rapporto con lo stato precedente alla chiamata (per esempio, potrebbe essere vuota o contenere elementi diversi rispetto a quelli contenuti precedentemente).
+Supponiamo di avere una classe che implementa una collezione ordinata di oggetti e di avere un metodo `insert` che inserisce un nuovo oggetto nella collezione esistente. 
+
+Se il metodo in questione garantisce l'exception safety forte, allora in seguito ad una eccezione durante una operazione di insert la collezione si troverà esattamente nello stesso stato precedente all'operazione di `insert` (cioè, conterrà esattamente gli stessi elementi che conteneva prima della chiamata alla insert). 
+
+Se invece fosse garantita solo l'exception safety a livello base, non avendo la proprietà di atomicità, in caso di uscita con eccezione la collezione si troverebbe in uno stato consistente, ma potenzialmente in nessun rapporto con lo stato precedente alla chiamata (per esempio, potrebbe essere vuota o contenere elementi diversi rispetto a quelli contenuti precedentemente).
+
+[_Torna all'indice_](#exception%20safety)
+
+---
 
 ### Livello nothrow
-E' il <mark style="background: #BBFABBA6;">livello massimo</mark>: una funzione è nothrow se la sua <mark style="background: #BBFABBA6;">esecuzione è garantita</mark>, non terminare in modalità eccezionale. 
+È il <mark style="background: #BBFABBA6;">livello massimo</mark>: una funzione è nothrow se la sua esecuzione è <mark style="background: #ABF7F7A6;">garantita</mark>, non terminare in modalità eccezionale. 
 
 Questo livello lo si raggiunge in un numero limitato di casi:
-- Quando l'operazione è così semplice che **non** c'è alcuna possibilità di generare eccezioni (esempio, assegnamento di tipi built-in)
-- Quando la funzione è in grado di gestire completamente al suo interno eventuali eccezioni, risolvendo eventuali problemi e portando comunque a termine con successo l'operazione richiesta;
-- Quando la funzione, di fronte a eventuali eccezioni interne, nell'impossibilità di attuare azioni correttive, determina la terminazione di tutto il programma. Questo è il caso delle funzioni che sono dichiarate (implicitamente o esplicitamente) `noexcept`, come i *distruttori*: in caso di eccezione non catturata, viene automaticamente invocata la terminazione del programma.
-   Intuitivamente, devono garantire il livello nothow i distruttori e le funzioni che implementano il rilascio delle risorse (non è ipotizzabile ottenere l'exception safety se l'operazione di rilascio delle risorse può non avere successo).
+- Quando l'operazione è così semplice che <mark style="background: #FF5582A6;">non</mark> c'è alcuna possibilità di generare eccezioni (esempio, assegnamento di tipi built-in).
 
-Si noti che il livello nothrow, per definizione, NON è neutrale rispetto alle eccezioni.
+- Quando la funzione è in grado di <mark style="background: #FF5582A6;">gestire completamente al suo interno eventuali eccezioni</mark>, risolvendo eventuali problemi e portando comunque a termine con successo l'operazione richiesta.
+
+- Quando la funzione, di fronte a eventuali eccezioni interne, nell'impossibilità di attuare azioni correttive, determina la <mark style="background: #FF5582A6;">terminazione di tutto il programma.</mark> Questo è il caso delle funzioni che sono dichiarate (implicitamente o esplicitamente) `noexcept`, come i *distruttori*: in caso di eccezione non catturata, viene automaticamente invocata la terminazione del programma.
+  >  Intuitivamente, devono garantire il livello nothow i distruttori e le funzioni che implementano il rilascio delle risorse (non è ipotizzabile ottenere l'exception safety se l'operazione di rilascio delle risorse può non avere successo).
+
+Si noti che il livello nothrow, per definizione, *NON* è neutrale rispetto alle eccezioni.
 
 [_Torna all'indice_](#exception%20safety)
 
 ---
 
 ## Libreria standard e exception safety
-I contenitori (`vector`, `deque`, `list`, `set`, `map`, `...`) forniti dalla libreria standard sono exception safe. 
+<mark style="background: #FFB86CA6;">I contenitori (vector, deque, list, set, map, ...) forniti dalla libreria standard sono exception safe. </mark>
 
-> Tale affermazione vale sotto determinate condizioni. Dato che si parla di contenitori templatici, quindi possono essere istanziati a partire da un qualunque tipo di dato `T`, le garanzie di exception safety del contenitore sono valide a condizione che il tipo di dato `T` degli elementi contenuti fornisca analoghe garanzie.
+Tale affermazione vale sotto determinate condizioni. 
+Dato che si parla di contenitori templatici, quindi possono essere istanziati a partire da un qualunque tipo di dato `T`, le garanzie di exception safety del contenitore sono valide a condizione che il tipo di dato `T` degli elementi contenuti fornisca analoghe garanzie.
 
-><mark style="background: #FF5582A6;">NOTA</mark>
- Molte operazioni su questi contenitori forniscono la garanzia forte (strong exception safety). Alcune però forniscono solo una garanzia base, tipicamente quando si opera su un molti elementi contemporaneamente, perché quella strong sarebbe troppo costosa.
+> Molte operazioni su questi contenitori forniscono la garanzia forte (strong exception safety). Alcune però forniscono solo una garanzia base, tipicamente quando si opera su un molti elementi contemporaneamente, perché quella strong sarebbe troppo costosa.
 
-> <mark style="background: #FF5582A6;">Esempio strong safety </mark>
- Se viene invocato il metodo `void push_back(const T& t)` su di un oggetto di tipo `std::vector<T>` e il tentativo di copiare l'oggetto t all'interno del vector dovesse fallire lanciando una eccezione (per esempio, perché il costruttore di copia di T ha esaurito le risorse a disposizione e non può effettuare la copia), si può essere sicuri che il vector NON è stato modificato. 
- Se prima della chiamata conteneva gli n elementi `[t1, ..., tn]`, in uscita dalla chiamata contiene ancora gli stessi elementi (nello stesso ordine).
+### Esempio strong safety 
+Se viene invocato il metodo `void push_back(const T& t)` su di un oggetto di tipo `std::vector<T>` e il tentativo di copiare l'oggetto `t` all'interno del *vector* dovesse fallire lanciando una eccezione (per esempio, perché il costruttore di copia di T ha esaurito le risorse a disposizione e non può effettuare la copia), si può essere sicuri che il vector *NON* è stato modificato. 
+Se prima della chiamata conteneva gli n elementi `[t1, ..., tn]`, in uscita dalla chiamata contiene ancora gli stessi elementi (nello stesso ordine).
 
-><mark style="background: #FF5582A6;">Esempio base safety</mark>
- Il metodo `void assign(size_type n, const T& val)` sostituisce il contenuto del vector con `n` copie del valore `val`, siccome un'eccezione potrebbe essere lanciata da una qualunque delle n operazioni di costruzione, il vector, in caso di eccezione, rimane in uno stato valido, ma il suo contenuto non è predicibile (in particolare, molto probabilmente il contenuto precedente è irrecuperabile).
-
-[_Torna all'indice_](#exception%20safety)
-
----
-
-## Altro materiale
-- Articolo di Stroustroup
-	Exception Safety: Concepts and Techniques http://www.stroustrup.com/except.pdf
-- Video e lucidi della presentazione di Jon Kalb al CppCon 2014 (con bonus per i fan di Star Wars)
-	Video parte 1: https://www.youtube.com/watch?v=W7fIy_54y-w
-	Video parte 2: https://www.youtube.com/watch?v=b9xMIKb1jMk
-	Video parte 3: https://www.youtube.com/watch?v=MiKxfdkMJW8
-	Ludici: http://exceptionsafecode.com/slides/esc.pdf
+### Esempio base safety
+Il metodo `void assign(size_type n, const T& val)` sostituisce il contenuto del vector con `n` copie del valore `val`, siccome un'eccezione potrebbe essere lanciata da una qualunque delle n operazioni di costruzione, il *vector*, in caso di eccezione, rimane in uno stato valido, ma il suo contenuto non è predicibile (in particolare, molto probabilmente il contenuto precedente è irrecuperabile).
 
 [_Torna all'indice_](#exception%20safety)
 
@@ -171,6 +174,8 @@ bool codice_utente() {
 ```
 
 [_Torna all'indice_](#exception%20safety)
+
+---
 
 ### Uso di blocchi try/catch
 *risorsa_exc.hh*
@@ -276,7 +281,12 @@ void codice_utente() {
 
 [_Torna all'indice_](#exception%20safety)
 
+---
+
 ### Uso dell'idioma RAII-RRID
+- RAII: Resource Acquisition Is Initialization
+- RRID: Resource Release Is Destruction
+
 *risorsa_raii.hh*
 ```cpp
 #ifndef GUARDIA_risorsa_raii_hh
@@ -351,5 +361,25 @@ void codice_utente() {
 	usa_risorse_exc(r1.get(), r3.get());
 }
 ```
+
+[_Torna all'indice_](#exception%20safety)
+
+---
+
+## Esercizio 
+![[eccezioni_esempio.jpg]]
+
+[_Torna all'indice_](#exception%20safety)
+
+---
+
+## Altro materiale
+- Articolo di Stroustroup
+	Exception Safety: Concepts and Techniques http://www.stroustrup.com/except.pdf
+- Video e lucidi della presentazione di Jon Kalb al CppCon 2014 (con bonus per i fan di Star Wars)
+	Video parte 1: https://www.youtube.com/watch?v=W7fIy_54y-w
+	Video parte 2: https://www.youtube.com/watch?v=b9xMIKb1jMk
+	Video parte 3: https://www.youtube.com/watch?v=MiKxfdkMJW8
+	Ludici: http://exceptionsafecode.com/slides/esc.pdf
 
 [_Torna all'indice_](#exception%20safety)
