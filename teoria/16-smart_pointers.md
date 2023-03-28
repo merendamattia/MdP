@@ -114,10 +114,9 @@ void bar() {
 
 ---
 
-<mark style="background: #FFF3A3A6;">A LEZIONE SIAMO ARRIVATI QUI</mark>
 ## Template di funzione std::make_shared e std::make_unique
 Un puntatore shared deve interagire con due componenti: la risorsa e il "blocco di controllo" della risorsa (una porzione di memoria nella quale viene salvato anche il reference counter).
-Per motivi di efficienza, sarebbe bene che queste due componenti fossero allocate con una singola operazione: questa è la garanzia offerta dalla std::make_shared.
+Per motivi di efficienza, sarebbe bene che queste due componenti fossero allocate con una singola operazione: questa è la garanzia offerta dalla `std::make_shared`.
 
 Esempio:
 ```cpp
@@ -127,7 +126,7 @@ void bar() {
 }
 ```
 
-Oltre all'efficienza, l'uso di std::make_shared consente di evitare alcuni errori subdoli che potrebbero compromettere la corretta gestione delle risorse in presenza di comportamenti eccezionali.
+Oltre all'efficienza, l'uso di `std::make_shared` consente di evitare alcuni errori subdoli che potrebbero compromettere la corretta gestione delle risorse in presenza di comportamenti eccezionali.
 
 Esempio:
 ```cpp
@@ -145,11 +144,11 @@ void foo() {
 }
 ```
 
-Siccome l'ordine di esecuzione delle sottoespressioni è non specificato, nella prima chiamata della funzione bar una implementazione potrebbe decidere di valutare per prime le due espressioni new passate come argomenti ai costruttori degli shared_ptr e solo dopo invocare i costruttori. Se la prima allocazione tramite new andasse a buon fine ma la seconda invece fallisse con una eccezione, si otterrebbe un memory leak (per la prima risorsa allocata), in quanto il distruttore dello shared_ptr NON verrebbe invocato (perché l'oggetto non è stato costruito). Il problema non si presenta nella seconda chiamata a bar, perché le allocazioni sono effettuate (implicitamente) dalla make_shared.
+Siccome l'ordine di esecuzione delle sottoespressioni è non specificato, nella prima chiamata della funzione bar una implementazione potrebbe decidere di valutare per prime le due espressioni new passate come argomenti ai costruttori degli `shared_ptr` e solo dopo invocare i costruttori. Se la prima allocazione tramite new andasse a buon fine ma la seconda invece fallisse con una eccezione, si otterrebbe un memory leak (per la prima risorsa allocata), in quanto il distruttore dello `shared_ptr` NON verrebbe invocato (perché l'oggetto non è stato costruito). Il problema non si presenta nella seconda chiamata a bar, perché le allocazioni sono effettuate (implicitamente) dalla make_shared.
 
-> NOTA: questo esempio NON dovrebbe causare un problema di exception safety nel caso di una implementazione conforme allo standard C++17: in questo standard, infatti, è stata modificata la regola relativa all'ordine di valutazione degli argomenti in una chiamata di funzione.
+> NOTA: questo esempio NON dovrebbe causare un problema di exception safety nel caso di una implementazione conforme allo standard $C$++17: in questo standard, infatti, è stata modificata la regola relativa all'ordine di valutazione degli argomenti in una chiamata di funzione.
 
-A partire dallo standard C++14 è stata resa disponibile anche la std::make_unique. L'uso degli smart pointer e di queste funzioni per la loro creazione dovrebbe consentire al programmatore di limitare al massimo la necessità di utilizzare (esplicitamente) le espressioni new e le corrispondenti invocazioni di delete: in effetti, nelle più recenti linee guida alla programmazione in C++, l'uso diretto (naked) di new e delete è considerato "cattivo stile", quasi quanto l'uso dell'istruzione goto.
+A partire dallo standard $C$++14 è stata resa disponibile anche la `std::make_unique`. L'uso degli smart pointer e di queste funzioni per la loro creazione dovrebbe consentire al programmatore di limitare al massimo la necessità di utilizzare (esplicitamente) le espressioni new e le corrispondenti invocazioni di delete: in effetti, nelle più recenti linee guida alla programmazione in $C$++, l'uso diretto (naked) di new e delete è considerato "cattivo stile", quasi quanto l'uso dell'istruzione goto.
 
 http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
 
@@ -158,10 +157,10 @@ http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines
 ---
 
 ## std::weak_ptr
-Un problema che si potrebbe presentare quando si usano gli shared_ptr (più in generale, quando si usa qualunque meccanismo di condivisione di risorse basato sui reference counter) è dato dalla possibilità di creare insiemi di risorse che, puntandosi reciprocamente tramite shared_ptr, formano una o più strutture cicliche.
-In questo caso, le risorse comprese in un ciclo mantengono dei reference count positivi anche se non sono più raggiungibili a partire dagli shared_ptr ancora accessibili da parte del programma, causando dei memory leak. L'uso dei weak_ptr è pensato per risolvere questi problemi.
+Un problema che si potrebbe presentare quando si usano gli `shared_ptr` (più in generale, quando si usa qualunque meccanismo di condivisione di risorse basato sui reference counter) è dato dalla possibilità di creare insiemi di risorse che, puntandosi reciprocamente tramite `shared_ptr`, formano una o più strutture cicliche.
+In questo caso, le risorse comprese in un ciclo mantengono dei reference count positivi anche se non sono più raggiungibili a partire dagli shared_ptr ancora accessibili da parte del programma, causando dei memory leak. L'uso dei `weak_ptr` è pensato per risolvere questi problemi.
 
-Un weak_ptr è un puntatore ad una risorsa condivisa che però non partecipa attivamente alla gestione della risorsa stessa: la risorsa viene quindi rilasciata quando si distrugge l'ultimo shared_ptr, anche se esistono dei weak_ptr che la indirizzano. Ciò significa che un weak_ptr non può accedere direttamente alla risorsa: prima di farlo, deve controllare se la risorsa è ancora disponibile. Il modo migliore per farlo è mediante l'invocazione del metodo lock(), che produce uno shared_ptr a partire dal weak_ptr: se la risorsa non è più disponibile, lo shared_ptr ottenuto conterrà il puntatore nullo.
+Un `weak_ptr` è un puntatore ad una risorsa condivisa che però non partecipa attivamente alla gestione della risorsa stessa: la risorsa viene quindi rilasciata quando si distrugge l'ultimo `shared_ptr`, anche se esistono dei `weak_ptr` che la indirizzano. Ciò significa che un `weak_ptr` non può accedere direttamente alla risorsa: prima di farlo, deve controllare se la risorsa è ancora disponibile. Il modo migliore per farlo è mediante l'invocazione del metodo `lock()`, che produce uno `shared_ptr` a partire dal `weak_ptr`: se la risorsa non è più disponibile, lo `shared_ptr` ottenuto conterrà il puntatore nullo.
 
 Esempio:
 ```cpp
