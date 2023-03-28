@@ -4,7 +4,7 @@
 #include "Elem.hh"
 
 #include <cassert>
-#include <cstddef>
+#include <cstddef> // serve per size_t
 #include <string>
 
 //! Una pila espandibile.
@@ -40,7 +40,7 @@ public:
   Stack& operator=(const Stack& y);
 
   //! Costruttore di spostamento (livello nothrow).
-  Stack(Stack&& y) noexcept;
+  Stack(Stack&& y) noexcept; // noexcept -> Chiamato questo metodo non puoi uscire con un'eccezione
   //! Assegnamento per spostamento (livello nothrow).
   Stack& operator=(Stack&& y) noexcept;
 
@@ -111,7 +111,7 @@ private:
 ////////////////////////////////////////////////////////////////////////////
 
 inline
-Stack::Stack(const size_type capacity)
+Stack::Stack(const size_type capacity) // `Stack::` -> entro nello scope della classe, per questo posso utilizzare `size_type`
   : vec_(nullptr), capacity_(capacity), size_(0) {
   if (capacity_ > 0)
     vec_ = new value_type[capacity_];
