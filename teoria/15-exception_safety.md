@@ -16,8 +16,8 @@ Esistono tre diversi livelli di exception safety: base, forte e nothrow.
 ### Livello base
 Una porzione di codice (una funzione o una classe) si dice exception safe a livello base se, anche nel caso in cui si verifichino delle eccezioni durante la sua esecuzione:
 1. Non si hanno perdite di risorse (resource leak);
-2. Si è neutrali rispetto alle eccezioni, ovvero se viene ricevuta un eccezione, questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata, permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> anche al chiamate, così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie;
-3. Anche in caso di uscita in modalità eccezionale, gli oggetti sui quali si stava lavorando sono distruggibili senza causare comportamenti non definiti. Quindi lo stato interno di un oggetto, anche se parzialmente inconsistente, deve comunque consentirne la corret distruzione (o riassegnamento)
+2. Si è neutrali rispetto alle eccezioni quando, igni qual volta viene ricevuta un'eccezione questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata al chiamante (permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie);
+3. Anche in caso di uscita in modalità eccezionale, gli oggetti sui quali si stava lavorando sono distruggibili senza causare comportamenti non definiti. Quindi lo stato interno di un oggetto, anche se parzialmente inconsistente, deve comunque consentirne la corretta distruzione (o riassegnamento).
 
 Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve essere garantito per poter parlare di exception safety.
 
@@ -339,14 +339,16 @@ public:
 #include "risorsa_raii.hh"
 
 void codice_utente() {
-  Gestore_Risorsa r1;
-  usa_risorsa_exc(r1.get());
-  {
+	Gestore_Risorsa r1;
+	usa_risorsa_exc(r1.get());
+{
     Gestore_Risorsa r2;
     usa_risorse_exc(r1.get(), r2.get());
-  }
-  Gestore_Risorsa r3;
-  usa_risorse_exc(r1.get(), r3.get());
+}     // L'inserimento di questo blocco serve per fare in modo che 
+	  // lo scope di r2 finisca proprio in questo punto,
+	  // prima di inizializzare r3
+	Gestore_Risorsa r3;
+	usa_risorse_exc(r1.get(), r3.get());
 }
 ```
 
