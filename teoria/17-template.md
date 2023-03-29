@@ -337,3 +337,108 @@ const T pi = T(3.1415926535897932385L);
 ```
 
 [_Torna all'indice_](#template%20in%20c++)
+
+---
+
+## Compilazione dei template
+Il processo di compilazione dei template richiede lo stesso codice sia analizzato dal compilatore in (almeno) due contesti distinti:
+1) al momento della definizione del template
+2) al momento della instanziazione del template
+
+Nella prima fase (definizione del template) il compilatore si trova ad operare con informazione incompleta. Si consideri il seguente esempio:
+```cpp
+template <typename T>
+void incr(int& i, T& t) {
+  ++i; // espressione indipendente dai parametri del template
+  ++t; // espressione dipendente dai parametri del template
+}
+```
+
+Sulla prima espressione il compilatore può effettuare tutti i controlli di correttezza previsti (sintattici e di semantica statica) e nulla vieterebbe di generare una porzione del codice oggetto.
+
+Sulla seconda espressione, invece, gli unici controlli che possono essere effettuati sono dei banali controlli sintattici: non c'è modo per il compilatore di sapere se il tipo T fornisce effettivamente un operatore di preincremento. Questo controllo (e la segnalazione di eventuali errori) viene quindi "rimandato" alla successiva fase di instanziazione del template.
+
+[_Torna all'indice_](#template%20in%20c++)
+
+---
+
+### Conseguenza 1
+Una prima conseguenza, di cui tenere conto quando si scrivono i programmi, è che la definizione di un template deve essere disponibile i tutti i punti del programma nei quali se ne richiede l'istanziazione.
+
+In pratica, esistono tre modi per organizzare il codice sorgente quando si scrivono funzioni o classi templatiche:
+1) Includere le definizioni dei template (comprese la definizioni di eventuali funzioni membro dei template di classe) prima di ogni loro uso nella unità di traduzione.
+
+2) Includere le dichiarazioni del template (comprese le dichiarazioni delle eventuali funzioni membro dei template di classe) prima di farne uso e successivamente (prima o dopo gli usi) includere le definizioni del template nella unità di traduzione.
+
+3) Sfruttando il meccanismo delle istanziazioni esplicite, includere solo le dichiarazioni dei template e le *dichiarazioni* di istanziazione esplicita prima di ogni loro uso nell'unità di traduzione, assicurandosi che le definizioni dei template e le *definizioni* di istanziazione esplicita siano fornite in un'altra unità di traduzione.
+
+L'approccio più comune, perché più semplice, è il primo. Il secondo approccio si usa solo quando necessario (per esempio, nel caso di funzioni templatiche che si invocano l'un l'altra ricorsivamente). Il terzo approccio è usato raramente, tipicamente al solo scopo di diminuire i tempi di compilazione.
+
+> Si noti che, nell'esercitazione sulla templatizzazione della classe Stack, abbiamo seguito il primo approccio, spostando tutte le definizioni dei metodi della classe all'interno dell'header file Stack.hh.
+
+[_Torna all'indice_](#template%20in%20c++)
+
+---
+
+### Conseguenza 2 
+Una seconda conseguenza del meccanismo di compilazione in due fasi dei template è che, in alcuni casi, occorre modificare il codice di implementazione dei template di funzioni o classe per fornire al compilatore qualche informazione utile ad evitare errori di compilazione.
+
+Per esempio, consideriamo il seguente codice (non templatico):
+```cpp
+struct S {
+  using value_type = /* ... dettaglio implementativo ... */;
+  /* ... */
+};
+
+void foo(const S& s) {
+  S::value_type* ptr;
+  /* ... */
+}
+```
+
+Supponiamo ora di voler templatizzare la classe S, rendendola parametrica rispetto ad un qualche tipo usato al suo interno. Intuitivamente, il processo di "lifting" porterebbe ad adattare il codice in questo modo:
+```cpp
+template <typename T>
+struct S {
+  using value_type = /* ... dettaglio implementativo ... */;
+  /* ... */
+};
+
+template <typename T>
+void foo(const S<T>& s) {
+  S<T>::value_type* ptr;   // errore: ptr non dichiarato
+  /* ... */
+}
+```
+
+Il compilatore segnala un errore quando esamina la definizione del template di funzione foo (nella prima fase della compilazione dei template). 
+In effetti, il compilatore si trova di fronte a codice del tipo
+```cpp
+nome1 * nome2
+```
+e non sa nulla di `nome1` e `nome2`: siccome nome1 è dipendente dal parametro template `T`, il compilatore assume che sia il nome di un "valore" (non di un "tipo"), interpretando l'istruzione come applicazione dell'operatore `*` binario; viene quindi segnalato un errore perché `nome2` (che non dipende dal parametro `T`) non è stato dichiarato.
+
+Per risolvere il problema e comunicare correttamente le nostre intenzioni al compilatore, occorre informarlo che `S<T>::value_type` indica il nome di un tipo, aggiungendo la parola chiave `typename`:
+```cpp
+template <typename T>
+void foo(const S<T>& s) {
+  typename S<T>::value_type* ptr;   // ok, dichiaro un puntatore
+  /* ... */
+}
+```
+
+> NOTA BENE: occorre rendersi conto che la problematica suddetta si potrebbe presentare in maniera subdola. Si consideri per esempio questa variante:
+
+```cpp
+int p = 10;
+
+template <typename T>
+void foo(const S<T>& s) {
+  S<T>::value_type* p;   // compila senza errori (operator* binario)
+  /* ... */
+}
+```
+
+Per pura sfortuna, esiste una dichiarazione di un intero p visibile quando il compilatore valuta l'istruzione, per cui il compilatore non rileva l'errore (assumendo che il programmatore intenda fare una sorta di moltiplicazione del valore di `S<T>::value_type` con il valore 10 memorizzato nella variabile `p` dello scope globale.
+
+[_Torna all'indice_](#template%20in%20c++)
