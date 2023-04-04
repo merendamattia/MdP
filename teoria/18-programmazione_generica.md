@@ -37,8 +37,9 @@ I contenitori sequenziali standard sono:
 ### std::vector < T >
 Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati in modo contiguo. Fornisce accesso ad un qualunque elemento in tempo costante.
 Inserimenti e rimozioni di elementi sono (ragionevolmente) efficienti se fatti in fondo alla sequenza; altrimenti è necessario effettuare un numero lineare di spostamenti di elementi per creare (eliminare) lo spazio per effettuare l'inserimento (rimozione).
-> Nota:
-> È presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array
+
+> Nota: è presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array
+
 ### std::deque < T >
 Una "double-ended queue" è una coda a doppia entrata, nella quale inserimenti e rimozioni efficienti possono essere effettuati sia in fondo alla sequenza (come nel caso dei vector) che all'inizio della sequenza. 
 Per poterlo fare, si rinuncia alla garanzia di memorizzazione contigua degli elementi (intutivamente, gli elementi vengono memorizzati in "blocchi"). 
@@ -69,12 +70,12 @@ Sequenza di T di dimensione N, fissata a tempo di compilazione.
 Intuitivamente corrisponde ad un array del linguaggio, ma è immune dalle problematiche relative al type decay e consente di conoscere facilmente il numero di elementi.
 
 ### std::string
-Può essere visto come una sequenza di caratteri (char); 
-> Nota: `std::string` è un alias per l'istanza `std::basic_string<char>` del template `std::basic_string`; il template si può istanziare con altri tipi carattere, per cui abbiamo gli alias `std::wstring`, `std::u16string` e `std::u32string` per le stringhe di `wchar_t`, `char16` e `char32`;
+Può essere visto come una sequenza di caratteri (char).
+> Nota: `std::string` è un alias per l'istanza `std::basic_string<char>` del template `std::basic_string`; il template si può istanziare con altri tipi carattere, per cui abbiamo gli alias `std::wstring`, `std::u16string` e `std::u32string` per le stringhe di `wchar_t`, `char16` e `char32`.
 
 ### std::bitset < N >
-Una sequenza di esattamente $N$ bit
-> Nota: $N$ è un parametro *valore*, non è un typename
+Una sequenza di esattamente $N$ bit.
+> Nota: $N$ è un parametro *valore*, non è un typename.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
@@ -98,10 +99,8 @@ I contenitori sequenziali forniscono:
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
 ---
+
 ### Uno sguardo a std::vector
-
-[cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
-
 La dichiarazione nel file header presenta un oggetto di tipo allocator. Questo permette di utilizzare un metodo di allocazione "personalizzata", per gli oggetti rappresentati da `T`.
 Se non viene specificato verrò utilizzato in automatico quello dello standard.
 
@@ -111,31 +110,26 @@ template<
     class Allocator = std::allocator<T>
 > class vector;
 ```
-> <mark style="background: #FF5582A6;">Nota:</mark>
-> `allocator` è comune a tutti i contenitori.
-> Per sapere di più su [std::allocator](https://en.cppreference.com/w/cpp/memory/allocator)
-
-
+> Nota: `allocator` è comune a tutti i contenitori. Per sapere di più su [std::allocator.](https://en.cppreference.com/w/cpp/memory/allocator)
 
 I dati membro:
-
-- value_type
-- allocator_type
-- syze_type
-- difference_type
-- reference
-- const_reference, reference che permette l'accesso in sola lettura
-- pointer
-- const_pointer
+- `value_type`
+- `allocator_type`
+- `syze_type`
+- `difference_type`
+- `reference`
+- `const_reference`: reference che permette l'accesso in sola lettura
+- `pointer`
+- `const_pointer`
 - 4 tipi di iteratori (importanti):
-	- iterator
-	- const_iterator, permette di iterare sul vector in sola lettura
-	- reverse_iterator, fa il contrario di quello che gli viene detto di fare, ad esempio se gli si chiede l'inizio fornisce la fine
-	- const_revere_iterator, è un reverse_iterator che permette la sola lettura
+	- `iterator`
+	- `const_iterator`: permette di iterare sul vector in sola lettura;
+	- `reverse_iterator`: fa il contrario di quello che gli viene detto di fare, ad esempio se gli si chiede l'inizio fornisce la fine;
+	- `const_revere_iterator`: è un reverse_iterator che permette la sola lettura;
 
 > Gli [iteratori](#Che%20cosa%20è%20un%20iteratore) saranno trattati prossimamente.
 
-All'interno dei contenitori è presente un costruttore che è considerabile un <mark style="background: #FFB86CA6;">coltellino svizzero</mark>
+All'interno dei contenitori è presente un costruttore che è considerabile un <mark style="background: #FFB86CA6;">coltellino svizzero:</mark>
 ```cpp
 template <class InputIt>  
 vector(InputIt first, InputIt last,  
@@ -144,7 +138,7 @@ vector(InputIt first, InputIt last,
 
 Questo permette di inizializzare un contenitore iterando gli elementi compresi tra gli iteratori `first` e `last`.
 
-Esempio
+Esempio:
 ```cpp
 int main(){
 	// creo una coda
@@ -159,8 +153,9 @@ int main(){
 }
 ```
 
-> <mark style="background: #FF5582A6;">Nota:</mark>
-> `dd.end()` fa riferimento all'elemento successivo all'ultimo
+> Nota: `dd.end()` fa riferimento all'elemento successivo all'ultimo.
+
+[_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
 ---
 
