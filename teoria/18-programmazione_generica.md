@@ -20,13 +20,13 @@ Per comprendere meglio questo punto è utile studiare quella parte della libreri
 ---
 
 ## Contenitori
-Un contenitore è una classe che ha lo scopo di contenere una collezione di oggetti (spesso chiamati elementi del contenitore).
-Essendo spesso richiesto che il tipo degli elementi contenuti sia arbitrario, i contenitori sono tipicamente realizzati mediante template di classe, che si differenziano a seconda dell'organizzazione della collezione di oggetti e delle operazioni fondamentali che si intendono supportare (in maniera efficiente) su tali collezioni.
+Un <mark style="background: #ABF7F7A6;">contenitore</mark> è una classe che ha lo scopo di contenere una collezione di oggetti (spesso chiamati elementi del contenitore).
+Essendo spesso richiesto che il tipo degli elementi contenuti sia arbitrario, i contenitori sono tipicamente <mark style="background: #ABF7F7A6;">realizzati mediante template di classe</mark>, che si differenziano a seconda dell'organizzazione della collezione di oggetti e delle operazioni fondamentali che si intendono supportare (in maniera efficiente) su tali collezioni.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
 ## Contenitori sequenziali
-I contenitori sequenziali forniscono accesso ad una sequenza di elementi, organizzati in base alla loro posizione (il primo elemento, il secondo, il terzo, ecc.).  L'ordinamento degli oggetti nella sequenza non è stabilito in base ad un criterio di ordinamento stabilito a priori, ma viene dato dalle specifiche operazioni di inserimento e rimozione degli elementi (effettuati a partire da posizioni determinate della sequenza).
+I <mark style="background: #BBFABBA6;">contenitori sequenziali</mark> forniscono accesso ad una sequenza di elementi, organizzati in base alla loro posizione (il primo elemento, il secondo, il terzo, ecc.). <mark style="background: #BBFABBA6;">L'ordinamento degli oggetti nella sequenza non è stabilito in base ad un criterio di ordinamento</mark> a priori, ma viene dato dalle specifiche operazioni di inserimento e rimozione degli elementi (effettuati a partire da posizioni determinate della sequenza).
 
 I contenitori sequenziali standard sono:
 - Vector
@@ -37,7 +37,8 @@ I contenitori sequenziali standard sono:
 ### std::vector < T >
 Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati in modo contiguo. Fornisce accesso ad un qualunque elemento in tempo costante.
 Inserimenti e rimozioni di elementi sono (ragionevolmente) efficienti se fatti in fondo alla sequenza; altrimenti è necessario effettuare un numero lineare di spostamenti di elementi per creare (eliminare) lo spazio per effettuare l'inserimento (rimozione).
-
+> Nota:
+> È presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array
 ### std::deque < T >
 Una "double-ended queue" è una coda a doppia entrata, nella quale inserimenti e rimozioni efficienti possono essere effettuati sia in fondo alla sequenza (come nel caso dei vector) che all'inizio della sequenza. 
 Per poterlo fare, si rinuncia alla garanzia di memorizzazione contigua degli elementi (intutivamente, gli elementi vengono memorizzati in "blocchi"). 
@@ -88,13 +89,78 @@ I contenitori sequenziali forniscono:
 - operatori di confronto (tra contenitori)
 - alcuni altri operatori specifici
 
-E' opportuno esaminare in dettaglio le interfacce dei vari contenitori, mettendo in evidenza le somiglianze e le differenze (e magari chiedendosi il motivo di certe differenze). Per farlo, oltre allo studio del libro di testo, è possibile consultare la corrispondente documentazione disponibile online, per esempio ai seguenti indirizzi:
+<mark style="background: #D2B3FFA6;">È opportuno esaminare in dettaglio le interfacce dei vari contenitori</mark>, mettendo in evidenza le somiglianze e le differenze (e magari chiedendosi il motivo di certe differenze). Per farlo, oltre allo studio del libro di testo, è possibile consultare la corrispondente documentazione disponibile online, per esempio ai seguenti indirizzi:
 - www.en.cppreference.com
 - www.cpplusplus.com
 
 > Nota: si rimanda ad un momento successivo l'introduzione ai contenitori associativi della libreria standard.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
+
+---
+### Uno sguardo a std::vector
+
+[cppreference.com](https://en.cppreference.com/w/cpp/container/vector)
+
+La dichiarazione nel file header presenta un oggetto di tipo allocator. Questo permette di utilizzare un metodo di allocazione "personalizzata", per gli oggetti rappresentati da `T`.
+Se non viene specificato verrò utilizzato in automatico quello dello standard.
+
+```cpp
+template<  
+    class T,
+    class Allocator = std::allocator<T>
+> class vector;
+```
+> <mark style="background: #FF5582A6;">Nota:</mark>
+> `allocator` è comune a tutti i contenitori.
+> Per sapere di più su [std::allocator](https://en.cppreference.com/w/cpp/memory/allocator)
+
+
+
+I dati membro:
+
+- value_type
+- allocator_type
+- syze_type
+- difference_type
+- reference
+- const_reference, reference che permette l'accesso in sola lettura
+- pointer
+- const_pointer
+- 4 tipi di iteratori (importanti):
+	- iterator
+	- const_iterator, permette di iterare sul vector in sola lettura
+	- reverse_iterator, fa il contrario di quello che gli viene detto di fare, ad esempio se gli si chiede l'inizio fornisce la fine
+	- const_revere_iterator, è un reverse_iterator che permette la sola lettura
+
+> Gli [iteratori](#Che%20cosa%20è%20un%20iteratore) saranno trattati prossimamente.
+
+All'interno dei contenitori è presente un costruttore che è considerabile un <mark style="background: #FFB86CA6;">coltellino svizzero</mark>
+```cpp
+template <class InputIt>  
+vector(InputIt first, InputIt last,  
+        const Allocator& alloc = Allocator());
+```
+
+Questo permette di inizializzare un contenitore iterando gli elementi compresi tra gli iteratori `first` e `last`.
+
+Esempio
+```cpp
+int main(){
+	// creo una coda
+	std::queue<double> dd;
+	/*
+	... popolo dd ...
+	*/
+	
+	// creo un vettore sfruttando il costruttore sopra descritto, iterando tutti gli elementi della coda
+	std::vector<double> v(dd.begin(), dd.end());
+	return 0;
+}
+```
+
+> <mark style="background: #FF5582A6;">Nota:</mark>
+> `dd.end()` fa riferimento all'elemento successivo all'ultimo
 
 ---
 
