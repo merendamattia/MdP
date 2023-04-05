@@ -171,7 +171,7 @@ Per rimanere su un esempio concreto, consideriamo un algoritmo che debba cercare
 A ben pensarci, questo algoritmo non ha una vera necessità di operare su di un tipo contenitore: visto in astratto, l'algoritmo può essere applicato ad una qualunque sequenza i cui elementi possano essere scorsi, dall'inizio alla fine, e confrontati con l'elemento cercato.
 In altre parole, per questo algoritmo di ricerca, il tipo contenitore può essere sostituito dal "concetto" astratto di sequenza sulla quale si possano fare operazioni di lettura.
 
-Un modo per rappresentare una "sequenza" dalla quale vogliamo leggere è quello di utilizzare una coppia di iteratori (convenzionalmente chiamati first e last), che servono ad indicare la posizione iniziale della sequenza (first) e la posizione subito dopo l'ultima (last). 
+Un modo per rappresentare una <mark style="background: #BBFABBA6;">sequenza</mark> dalla quale vogliamo leggere è quello di utilizzare una coppia di iteratori (convenzionalmente chiamati first e last), che servono ad indicare la posizione iniziale della sequenza (first) e la posizione subito dopo l'ultima (last). 
 Si tratta quindi di sequenze "semi-aperte", spesso informalmente indicate con la notazione degli intervalli:
 ```
 [first, last)
@@ -252,7 +252,7 @@ L'anatra quindi è un concetto astratto: qualunque entità che cammina come un'a
 Essendo specificati usando concetti astratti e non classi concrete, gli algoritmi generici risultano di applicabilità più generale.
 In particolare, non vi sono algoritmi specifici per un dato contenitore della libreria; piuttosto, ogni contenitore fornisce (attraverso i suoi iteratori) la possibilità di essere visto come una sequenza e gli algoritmi lavorano sulle sequenze.
 
-Vedremo quindi esempi di sequenze (per esempio, in sola lettura, in sola scrittura e in lettura/scrittura), tipicamente rappresentate mediante uno o due iteratori; introdurremo inoltre ulteriori concetti astratti (i "callable" e alcune varianti più specifiche, come i predicati) che consentirano di astrarre la nozione di "chiamata di funzione", consentendoci di parametrizzare gli algoritmi non solo rispetto alla sequenza, ma anche rispetto alle operazioni da applicare sulla sequenza.
+Vedremo quindi esempi di sequenze (per esempio, in sola lettura, in sola scrittura e in lettura/scrittura), tipicamente rappresentate mediante uno o due iteratori; introdurremo inoltre ulteriori concetti astratti (i <mark style="background: #FFB86CA6;">callable</mark> e alcune varianti più specifiche, come i predicati) che consentirano di astrarre la nozione di "chiamata di funzione", consentendoci di parametrizzare gli algoritmi non solo rispetto alla sequenza, ma anche rispetto alle operazioni da applicare sulla sequenza.
 L'analisi di questi esempi avrà anche l'utile effetto collaterale di farci prendere confidenza con alcuni degli algoritmi generici della libreria standard.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
