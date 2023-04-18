@@ -3,9 +3,6 @@
 ```
 ---
 
-#todo 
-- [ ] Evidenziare parti importanti
-
 I template vengono usati in C++ per realizzare il <mark style="background: #FFB86CA6;">polimorfismo statico:</mark>
 * si parla di "*polimorfismo*" in quanto si scrive una sola versione del codice (template) che però viene utilizzata per generare tante varianti (istanze) e quindi può assumere tante forme concrete;
 * il polimorfismo è "*statico*" in quanto la scelta delle istanze da generare avviene staticamente, a tempo di compilazione; cioè non avviene a run-time, come nel caso del polimorfismo "dinamico", che affronteremo in un'altra parte del corso.
@@ -25,32 +22,56 @@ Essendo spesso richiesto che il tipo degli elementi contenuti sia arbitrario, i 
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
+---
+
 ## Contenitori sequenziali
 I <mark style="background: #BBFABBA6;">contenitori sequenziali</mark> forniscono accesso ad una sequenza di elementi, organizzati in base alla loro posizione (il primo elemento, il secondo, il terzo, ecc.). <mark style="background: #BBFABBA6;">L'ordinamento degli oggetti nella sequenza non è stabilito in base ad un criterio di ordinamento</mark> a priori, ma viene dato dalle specifiche operazioni di inserimento e rimozione degli elementi (effettuati a partire da posizioni determinate della sequenza).
 
 I contenitori sequenziali standard sono:
-- Vector
-- Deque
-- List
-- Forward list
+- [Vector](#Vector)
+- [Deque](#Deque)
+- [List](#List)
+- [Forward list](#Forward%20list)
 
-### std::vector < T >
+[_Torna all'indice_](#programmazione%20generica%20in%20c++)
+
+---
+
+### Vector
+```cpp
+std::vector < T >
+```
 Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati in modo contiguo. Fornisce accesso ad un qualunque elemento in tempo costante.
 Inserimenti e rimozioni di elementi sono (ragionevolmente) efficienti se fatti in fondo alla sequenza; altrimenti è necessario effettuare un numero lineare di spostamenti di elementi per creare (eliminare) lo spazio per effettuare l'inserimento (rimozione).
 
 > Nota: è presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array
 
-### std::deque < T >
+---
+
+### Deque
+```cpp
+std::deque < T >
+```
 Una "double-ended queue" è una coda a doppia entrata, nella quale inserimenti e rimozioni efficienti possono essere effettuati sia in fondo alla sequenza (come nel caso dei vector) che all'inizio della sequenza. 
 Per poterlo fare, si rinuncia alla garanzia di memorizzazione contigua degli elementi (intutivamente, gli elementi vengono memorizzati in "blocchi"). 
 Fornisce accesso ad un qualunque elemento in tempo costante.
 
-### std::list < T >
+---
+
+### List
+```cpp
+std::list < T >
+```
 Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati (in modo non contiguo) in una struttura a lista doppiamente concatenata. La doppia concatenazione consente lo scorrimento della lista sia in avanti che all'indietro (bidirezionale). 
 Per accedere ad un elemento occorre "raggiungerlo" seguendo i link della lista.
 Inserimenti e rimozioni possono essere effettuati in tempo costante (nella posizione corrente), perché non occorre spostare elementi.
 
-### std::forward_list < T >
+---
+
+### Forward list
+```cpp
+std::forward_list < T >
+```
 Come una list, ma la concatenazione tra nodi è singola e quindi è consentito lo scorrimento solo in avanti (forward).
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
@@ -59,21 +80,38 @@ Come una list, ma la concatenazione tra nodi è singola e quindi è consentito l
 
 ## Pseudo-contenitori
 Oltre ai veri contenitori sequenziali, ve ne sono alcuni che sono detto "*pseudo-contenitori*":
-- Array
-- String
-- Bitset
+- [Array](#Array)
+- [String](#String)
+- [Bitset](#Bitset)
 
-### std::array < T,  N >
+[_Torna all'indice_](#programmazione%20generica%20in%20c++)
+
+---
+
+### Array
+```cpp
+std::array < T,  N >
+```
 Sequenza di T di dimensione N, fissata a tempo di compilazione.
 > Nota: N è un parametro valore, non è un typename).
 
 Intuitivamente corrisponde ad un array del linguaggio, ma è immune dalle problematiche relative al type decay e consente di conoscere facilmente il numero di elementi.
 
-### std::string
+---
+
+### String
+```cpp
+std::string
+```
 Può essere visto come una sequenza di caratteri (char).
 > Nota: `std::string` è un alias per l'istanza `std::basic_string<char>` del template `std::basic_string`; il template si può istanziare con altri tipi carattere, per cui abbiamo gli alias `std::wstring`, `std::u16string` e `std::u32string` per le stringhe di `wchar_t`, `char16` e `char32`.
 
-### std::bitset < N >
+---
+
+### Bitset
+```cpp
+std::bitset < N >
+```
 Una sequenza di esattamente $N$ bit.
 > Nota: $N$ è un parametro *valore*, non è un typename.
 
@@ -126,8 +164,6 @@ I dati membro:
 	- `const_iterator`: permette di iterare sul vector in sola lettura;
 	- `reverse_iterator`: fa il contrario di quello che gli viene detto di fare, ad esempio se gli si chiede l'inizio fornisce la fine;
 	- `const_revere_iterator`: è un reverse_iterator che permette la sola lettura;
-
-> Gli [iteratori](#Che%20cosa%20è%20un%20iteratore) saranno trattati prossimamente.
 
 All'interno dei contenitori è presente un costruttore che è considerabile un <mark style="background: #FFB86CA6;">coltellino svizzero:</mark>
 ```cpp
