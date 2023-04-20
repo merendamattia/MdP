@@ -222,7 +222,7 @@ Nello standard $C$++14 la loro spegazione occupa almeno 3 pagine dense.
 A scopo didattico, usiamo quindi una versione semplificata.
 
 Una sequenza `X_i `vince sulla sequenza `Y_i` se la peggiore conversione `X_worst` usata in `X_i` vince sulla peggiore conversione `Y_worst` usata in `Y_i`.
-Una conversione `X_worst` vince sulla conversione `Y_worst` se ha un "rank" migliore (corrispondenze esatte vincono sulle promozioni, che vincono sulle conversioni standard, che vincolo sulle conversioni utente).
+Una conversione `X_worst` vince sulla conversione `Y_worst` se ha un "rank" migliore (corrispondenze esatte vincono sulle promozioni, che vincono sulle conversioni standard, che vincono sulle conversioni utente).
 
 [_Torna all'indice_](#overloading)
 
