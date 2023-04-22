@@ -246,7 +246,7 @@ Verranno istanziati se e quando utilizzati.
 
 Questo scelta del linguaggio ha conseguenze positive e negative:
 - In negativo: quando scrivo i test per la classe templatica devo prestare attenzione a fornire un insieme di test che copra tutte le funzionalità di interesse; le funzionalità NON testate (e quindi non instanziate) potrebbero addirittura generare errori di compilazione al momento dell'instanziazione da parte dell'utente.
-- In positivo: per lo stesso motivo, posso usare un sotto insiemedelle funzionalità della classe istanziandola con argomenti che soddisfano solo i requisiti di quelle funzionalità; il fatto che quegli argomenti siano "scorretti" per le altre funzionalità (non usate) non mi impedisce l'utilizzo dell'interfaccia "ristretta".
+- In positivo: per lo stesso motivo, posso usare un sotto insieme delle funzionalità della classe istanziandola con argomenti che soddisfano solo i requisiti di quelle funzionalità; il fatto che quegli argomenti siano "scorretti" per le altre funzionalità (non usate) non mi impedisce l'utilizzo dell'interfaccia "ristretta".
 
 #### Esempio
 Supponiamo che la classe `Stack<T>` fornisca un metodo `print()`, implementato invocando il corrispondente metodo `print()` del parametro T su ognuno degli oggetti contenuti nello stack. Questo significa che, per usare il metodo `Stack<T>::print()`, il tipo `T` *deve* fornire a sua volta il metodo `T::print()` (si noti, per esempio, che "int" non è una classe e quindi un tentativo di istanziare `Stack<int>::print()` genera un errore di compilazione. L'errore, però, lo si ottiene *solo* se effettivamente si prova a istanziare `Stack<int>::print();` l'istanziazione dei metodi `Stack<int>::push()` e `Stack<int>::pop()` continua ad essere corretta e utilizzabile.
