@@ -18,10 +18,9 @@ void
 test_01() {
 	std::cerr << "******** TEST 01 ********" << std::endl;
 	Unique_ptr<int> u1;
-
 	int* p1 = new int(10);
 	std::cerr << "*p1: " << *p1 << std::endl;
-	Unique_ptr<int> u3(p1); // Unique_ptr(const pointer&)
+	Unique_ptr<int> u3(p1); // Unique_ptr(pointer&)
 	if (!p1)
 		std::cerr << "p1 is now nullptr" << std::endl;
 	std::cerr << std::endl;
@@ -88,11 +87,29 @@ test_02() {
 	u4->foo();
 }
 
+void 
+test_03() {
+	std::cerr << "******** TEST 03 ********" << std::endl;
+	int dim = 100;
+	int* array = new int[dim];
+	std::cerr << sizeof(array) << std::endl;
+	Unique_ptr<int[]> u1(std::move(array));
+	for (int i=0; i<dim; i++)
+		u1[i] = i;
+
+	std::cerr << u1[50] << std::endl;
+
+	Unique_ptr<int[]> u2(std::move(u1));
+}
+
 int main(int argc, char const *argv[]) {
 	test_01();
 	std::cerr << std::endl;
 
 	test_02();
+	std::cerr << std::endl;
+
+	test_03();
 	std::cerr << std::endl;
 	return 0;
 }

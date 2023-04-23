@@ -9,12 +9,13 @@ La <mark style="background: #BBFABBA6;">template type deduction</mark> (deduzion
 
 Il processo di deduzione è intuitivo e comodo da usare, ma in alcuni casi può riservare sorprese. 
 Per semplificare al massimo, supponiamo di avere la seguente dichiarazione di funzione templatica:
+
 ```cpp
 template <typename TT>
 void f(PT param);
 ```
 
-nella quale `TT` è il nome del parametro del template di funzione, mentre `PT` è indica una espressione sintattica che denota il tipo del parametro `param` della funzione. 
+nella quale `TT` è il nome del parametro del template di funzione, mentre `PT` indica una espressione sintattica che denota il tipo del parametro `param` della funzione. 
 Il caso che ci interessa, naturalmente, è quello in cui `PT` nomina il parametro templatico `TT`.
 
 Il compilatore, di fronte alla chiamata di funzione `f(expr)`, usa il tipo di `expr(te)` per dedurre:
@@ -22,6 +23,7 @@ Il compilatore, di fronte alla chiamata di funzione `f(expr)`, usa il tipo di `e
   - un tipo specifico `pt` per `PT`
 
 causando l'istanziazione del template di funzione e ottenendo la funzione
+
 ```cpp
 void f<tt>(pt param);
 ```
