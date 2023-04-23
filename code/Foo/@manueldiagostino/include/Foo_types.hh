@@ -3,7 +3,7 @@
 
 #include "../lib/Foo.hh"
 
-extern Foo<int> t1; // Pure declaration of `t1`
-extern Foo<char> t2; 
+extern template struct Foo<int>; // Pure declaration of a specialized class template
+extern template struct Foo<char>; 
 
 #endif // ! FOO_INT_HH

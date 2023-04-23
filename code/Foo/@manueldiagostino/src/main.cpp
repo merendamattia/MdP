@@ -18,9 +18,12 @@ int main(int argc, char const *argv[]) {
 	Foo<char> f2;
 	f2.foo();
 
-	Foo<float> f3; // Explicit instatiation of Foo<double>
-	// f2.foo(); //! LINKAGE ERROR: undefined reference to `Foo<float>::foo()'
+	Foo<float> f3; // Implicit instatiation of Foo<double>
 
-
+	//! LINKAGE ERROR: undefined reference to `Foo<float>::foo()'
+	//! There is no definition of this memeber function for this 
+	//! translation unit at compile time (compiler can only see the 
+	//! declaration in Foo.hh).
+	// f2.foo(); 
 	return 0;
 }
