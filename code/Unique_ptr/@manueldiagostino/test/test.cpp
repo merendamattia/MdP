@@ -9,6 +9,7 @@
 #include "../include/Unique_ptr.hh"
 #include <iostream>
 #include <memory>
+#include <vector>
 
 // g++ -D DEBUG -Wall -Wextra -I../include/ test.cpp -o a.out
 
@@ -102,6 +103,17 @@ test_03() {
 	Unique_ptr<int[]> u2(std::move(u1));
 }
 
+void
+test_04() {
+	std::cerr << "******** TEST 04 ********" << std::endl;
+	Unique_ptr<std::vector<int>[]> u1(new std::vector<int>[10]);
+
+	for (int i=0; i<10; ++i)
+		u1[i].push_back(i);
+
+	std::cerr << u1[5].front() << std::endl;
+}
+
 int main(int argc, char const *argv[]) {
 	test_01();
 	std::cerr << std::endl;
@@ -110,6 +122,9 @@ int main(int argc, char const *argv[]) {
 	std::cerr << std::endl;
 
 	test_03();
+	std::cerr << std::endl;
+
+	test_04();
 	std::cerr << std::endl;
 	return 0;
 }

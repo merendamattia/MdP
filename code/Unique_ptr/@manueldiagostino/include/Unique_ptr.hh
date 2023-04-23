@@ -91,6 +91,7 @@ Unique_ptr<T>::Unique_ptr(pointer&& p) noexcept :
 	std::cerr << "Unique_ptr(pointer&& p): Oggetto creato" << std::endl;
 	#endif
 }
+
 template<typename T>
 Unique_ptr<T>::Unique_ptr(Unique_ptr&& other) noexcept :
 	data_{std::move(other.data_)} {
