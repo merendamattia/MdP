@@ -277,7 +277,7 @@ Quali sono i requisiti per potere istanziare correttamente il tipo `Iter` nell'a
 4) Iter deve consentire la dereferenziazione (`*first`), per poter leggere il valore "puntato"
 5) Il tipo dei valori puntati da `Iter` deve essere confrontabile con il tipo `T` (usando l'operatore `==`)
 
-Qualunque tipo di dato concreto, che sia o meno un puntatore, se soddisfa questi requisiti (sintattici e semantici) allora può essere usato per instanziare il mio algoritmo. Si dice che i template applicano delle regole di tipo "strutturali" (in contrapposizione alle regole "nominali"): non importa l'identità del tipo, importa la sua struttura (ovvero le operazioni che rende disponibili e la loro semantica).
+<mark style="background: #ABF7F7A6;">Qualunque tipo di dato concreto, che sia o meno un puntatore, se soddisfa questi requisiti (sintattici e semantici) allora può essere usato per instanziare il mio algoritmo</mark>. Si dice che i template applicano delle regole di tipo "strutturali" (in contrapposizione alle regole "nominali"): non importa l'identità del tipo, importa la sua struttura (ovvero le operazioni che rende disponibili e la loro semantica).
 
 Un altro modo di dire le stesse cose (informale e tecnicamente non completamente appropriato) è quello di dire che i template implementano il "duck typing", ovvero un sistema di tipi basato sul "test dell'anatra":
 
