@@ -78,7 +78,7 @@ int foo() {
 
 L'oggetto `pari` (di tipo `struct Pari`) non è una funzione ma, essendo fornito di un metodo `operator()`, può essere invocato come una funzione.
 
-> Si noti che la dichiarazione di `operator()`, detto operatore parentesi tonde o anche operatore di chiamata di funzione, presenta due coppie di parentesi tonde: la prima fa parte del *nome* dell'operatore, la seconda fornisce la lista dei parametri per l'operatore.
+> Si noti che la dichiarazione di `operator()`, detto *operatore parentesi tonde* o anche *operatore di chiamata di funzione*, presenta due coppie di parentesi tonde: la prima fa parte del *nome* dell'operatore, la seconda fornisce la lista dei parametri per l'operatore.
 
 Spesso l'operatore è marcato `const` perché gli oggetti funzione sono spesso *"stateless"* (non hanno stato, cioè non hanno dei dati membro) e quindi non sono modificati dalle invocazioni dei loro `operator()`.
 
