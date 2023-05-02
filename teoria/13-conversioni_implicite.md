@@ -89,7 +89,7 @@ Tra le conversioni standard da tenere in considerazione vi sono le conversioni t
 ---
 
 ### Conversioni implicite definite dall'utente
-1. Uso (implicito) di costruttori che possono essere invocati con un solo argomento (di tipo         diverso) e non sono marcati `explicit`
+1. Uso (implicito) di costruttori che possono essere invocati con un solo argomento (di tipo diverso) e non sono marcati `explicit`
 	Esempio:
 ```cpp
 struct Razionale {
