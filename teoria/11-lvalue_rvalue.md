@@ -5,7 +5,7 @@
 
 ## Categorie di espressioni: lvalue e rvalue
 
-Le espressioni del C++ possono essere classificate in
+Le espressioni del $C$++ possono essere classificate in
   a) **lvalue**  (*left* value)
   b) **xvalue**  (*expiring* lvalue)
   c) **prvalue** (*primitive* rvalue)
@@ -52,7 +52,7 @@ void foo2() {
 }
 ```
 
-La soluzione del `c++11` prevede non di copiare gli xvalue ma di spostarli in una nuova locazione, dato che questi non sono più richiesti dalla funzione chiamata.
+La soluzione del `$C$++11` prevede non di copiare gli xvalue ma di spostarli in una nuova locazione, dato che questi non sono più richiesti dalla funzione chiamata.
 In particolare, non adottando questo approccio, le copie sarebbero due:
 - `m` viene copiato nella locazione di ritorno della funzione `foo1()`
 - l'oggetto [temporaneo](04-lifetime#allocazione%20automatica%20di%20temporanei) restituito da `foo1()` viene copiato in `m1`
@@ -62,7 +62,7 @@ potevano comparire *solo* a destra dell'operatore di assegnamento (ovvero, espre
 Intuitivamente, un prvalue NON identifica un oggetto in memoria e quindi non è lecito assegnarvi un valore e non ha nemmeno senso prenderne
 l'indirizzo.
 
-- Esempio:
+Esempio:
 ``` cpp
   int i;
   i = 5;     // l'espressione 5 è un prvalue (e quindi un rvalue)
@@ -70,18 +70,16 @@ l'indirizzo.
   i = i + 1; // l'espressione i + 1 è un prvalue (e quindi un rvalue)
 ```
 
-> Nota: in alcuni casi, un prvalue può essere "materializzato", creando un
+> In alcuni casi, un prvalue può essere "materializzato", creando un
 >oggetto temporaneo (un lvalue) che viene inizializzato con il valore
 >del prvalue. Questo è quello che succede, per esempio, quando ad una
 >funzione che ha un argomento di tipo riferimento a costante viene
 >passato un prvalue.
 
-- Esempio:
+Esempio:
 ``` cpp
 void foo(const double& d);
 
-=======
-```cpp
 void foo2() {
 	Matrix m1;
 	m1 = foo1(); // l'espressione foo1(), cioè il risultato ottenuto
@@ -98,7 +96,7 @@ Un prvalue è una espressione che denota un valore "primitivo", ovvero un valore
 Il nome <mark style="background: #FFB86CA6;">"right value"</mark>, in origine, indicava che tali espressioni potevano comparire *solo* a destra dell'operatore di assegnamento (ovvero, espressioni che darebbero errore se comparissero a sinistra).
 Intuitivamente, un prvalue *NON* identifica un oggetto in memoria e quindi non è lecito assegnarvi un valore e non ha nemmeno senso prenderne l'indirizzo.
 
-#### Esempio
+Esempio:
 ```cpp
 int i;
 i = 5;     // l'espressione 5 è un prvalue (e quindi un rvalue)
@@ -106,26 +104,27 @@ i = 4 + 1; // l'espressione 4 + 1 è un prvalue (e quindi un rvalue)
 i = i + 1; // l'espressione i + 1 è un prvalue (e quindi un rvalue)
 ```
 
-> Nota: in alcuni casi, un prvalue può essere "materializzato", creando un oggetto temporaneo (un lvalue) che viene inizializzato con il valore del prvalue. Questo è quello che succede, per esempio, quando ad una funzione che ha un argomento di tipo riferimento a costante viene passato un prvalue.
+> In alcuni casi, un prvalue può essere "materializzato", creando un oggetto temporaneo (un lvalue) che viene inizializzato con il valore del prvalue. Questo è quello che succede, per esempio, quando ad una funzione che ha un argomento di tipo riferimento a costante viene passato un prvalue.
 
-#### Esempio
+Esempio:
 ```cpp
 void foo(const double& d);
 void bar() {
 	foo(0.5);
 }
 ```
+
 Qui sopra `0.5` è un rvalue; viene materializzato in un oggetto temporaneo (un lvalue) con cui viene inizializzato il riferimento a lvalue `d`.
 
 La classificazione delle espressioni in lvalue, xvalue e prvalue è rilevante per capire la differenza tra riferimenti a lvalue (`T&`) e riferimenti a rvalue (`T&&`). 
-Questi ultimi sono stati introdotti nel C++ 2011 per risolvere problemi tecnici del linguaggio che impedivano di fornire implementazioni efficienti per alcuni costrutti.
+Questi ultimi sono stati introdotti nel $C$++ 2011 per risolvere problemi tecnici del linguaggio che impedivano di fornire implementazioni efficienti per alcuni costrutti.
 
 [_Torna all'indice_](#lvalue%20e%20rvalue)
 
 ---
 
 ## lvalue vs rvalue
-Nel `C++` 2003, ogni classe era fornita (se non veniva fatto qualcosa per disabilitarle) di 4 funzioni speciali:
+Nel $C$++ 2003, ogni classe era fornita (se non veniva fatto qualcosa per disabilitarle) di 4 funzioni speciali:
 - costruttore di default
 - costruttore di copia
 - assegnamento per copia
@@ -210,20 +209,25 @@ Matrix bar(Matrix arg) {
 }
 ```
 
-In questo terzo caso, all'atto di effettuare il passaggio dell'argomento
-alla funzione bar, vi sono due possibilità:
-  1. il chiamante fornisce un lvalue: verrà utilizzato il costruttore di copia sull'argomento, comportandosi come nel caso di Matrix bar(const Matrix& arg);
-  2. il chiamante fornisce un rvalue: verrà utilizzato il costruttore per spostamento, senza copie, come nel caso di `Matrix bar(Matrix&& arg)`.
+In questo terzo caso, all'atto di effettuare il passaggio dell'argomento alla funzione bar, vi sono due possibilità:
+1. il chiamante fornisce un lvalue: verrà utilizzato il costruttore di copia sull'argomento, comportandosi come nel caso di `Matrix bar(const Matrix& arg)`;
+2. il chiamante fornisce un rvalue: verrà utilizzato il costruttore per spostamento, senza copie, come nel caso di `Matrix bar(Matrix&& arg)`.
+
+[_Torna all'indice_](#lvalue%20e%20rvalue)
+
+---
 
 ## La funzione `std::move`
-Supponimo che il chiamante si trovi a dovere invocare la funzione bar discussa sopra con un lvalue m di tipo Matrix, ma non è interessato a preservare il valore di m e quindi lo vorrebbe "spostare" nella funzione bar, evitando la copia (costosa e inutile).
+Supponimo che il chiamante si trovi a dovere invocare la funzione `bar` discussa sopra con un lvalue `m` di tipo `Matrix`, ma non è interessato a preservare il valore di `m` e quindi lo vorrebbe "spostare" nella funzione `bar`, evitando la copia (costosa e inutile).
+
 Se si usa la chiamata:
 
 ``` cpp
 bar(m);
 ```
 
-siccome m è un lvalue verrebbe comunque invocato (almeno una volta) il costruttore per copia. Per evitarla, occorre un modo per convertire il tipo di m da riferimento a lvalue (`Matrix&`) a riferimento a rvalue (`Matrix&&`): questo è esattamente l'effetto ottenuto usando la funzione di libreria `std::move`.
+siccome `m` è un lvalue verrebbe comunque invocato (almeno una volta) il costruttore per copia.
+Per evitarla, occorre un modo per convertire il tipo di `m` da riferimento a lvalue (`Matrix&`) a riferimento a rvalue (`Matrix&&`): questo è esattamente l'effetto ottenuto usando la funzione di libreria `std::move`.
 
 ``` cpp
 bar(std::move(m));
