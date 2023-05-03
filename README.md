@@ -5,6 +5,7 @@ Guida directory:
 .
 ├── code: esempi di codice visti a lezione
 └── teoria: appunti corso
+└── vecchi_esami: vecchie prove per esercitarsi
 ```
 
 # Appunti di MdP - Metodologie di Programmazione
