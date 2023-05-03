@@ -4,7 +4,7 @@ Corso _"Metodologie di Programmazione"_ presso l'Università degli Studi di Parm
 Guida directory:
 .
 ├── code: esempi di codice visti a lezione
-└── teoria: appunti corso
+├── teoria: appunti corso
 └── vecchi_esami: vecchie prove per esercitarsi 
 ```
 
