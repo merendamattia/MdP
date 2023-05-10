@@ -91,10 +91,16 @@ Essendo conversioni esplicite di tipo, i cast dovrebbero essere utilizzati solo 
 
 ## Tipologie di cast
 Descriviamo ora brevemente le diverse tipologie di cast:
+- [[#static_cast]]
+- [[#dynamic_cast]]
+- [[#const_cast]]
+- [[#reinterpret_cast]]
+- [[#cast funzionale]]
+- [[#cast stile C]]
 
-#todo 
-- [ ] da aggiungere indice
-- [ ] evidenziare cose importanti
+[_Torna all'indice_](#cast)
+
+---
 
 ### static_cast
 Probabilmente, è il cast utilizzato più frequentemente. La sintassi
@@ -128,13 +134,13 @@ calcola un nuovo valore ottenuto dalla conversione del valore dell'espressione e
 ---
 
 ### dynamic_cast
-Il dynamic_cast è uno degli operatori che forniscono il supporto per la cosiddetta RTTI (Run-Time Type Identification, cioè identificazione del tipo a tempo di esecuzione). I dynamic cast possono essere usati per effettuare conversioni all'interno di una gerarchia di classi legate da ereditarietà (singola o multipla). In particolare, si possono effettuare:
+Il dynamic_cast è uno degli operatori che forniscono il supporto per la cosiddetta *RTTI* (<u>Run-Time Type Identification</u>, cioè identificazione del tipo a tempo di esecuzione). I dynamic cast possono essere usati per effettuare conversioni all'interno di una gerarchia di classi legate da ereditarietà (singola o multipla). In particolare, si possono effettuare:
 
- - up-cast: conversione da classe derivata a classe base; effettuata raramente mediante dynamic_cast, in quanto è una conversione consentita anche implicitamente e quindi non necessita della RTTI.
+ - <mark style="background: #BBFABBA6;">up-cast:</mark> conversione da classe derivata a classe base; effettuata raramente mediante dynamic_cast, in quanto è una conversione consentita anche implicitamente e quindi non necessita della RTTI.
 
- - down-cast: conversione da classe base a classe derivata; è il caso più frequente di utilizzo del dynamic cast, in quanto si sfrutta la RTTI per verificare che la conversione sia legittima.
+ - <mark style="background: #BBFABBA6;">down-cast:</mark> conversione da classe base a classe derivata; è il caso più frequente di utilizzo del dynamic cast, in quanto si sfrutta la RTTI per verificare che la conversione sia legittima.
 
- - mixed-cast: caso particolare che si verifica quando si utilizza l'ereditarietà multipla; consiste in uno spostamento nella gerarchia di ereditarietà ottenibile combinando up-cast e down-cast (da cui il nome di cast "misto"); siccome prevede comunque la presenza di down-cast, anche in questo caso si ha un uso non banale della RTTI.
+ - <mark style="background: #BBFABBA6;">mixed-cast:</mark> caso particolare che si verifica quando si utilizza l'ereditarietà multipla; consiste in uno spostamento nella gerarchia di ereditarietà ottenibile combinando up-cast e down-cast (da cui il nome di cast "misto"); siccome prevede comunque la presenza di down-cast, anche in questo caso si ha un uso non banale della RTTI.
 
 Il dynamic cast si può applicare ai tipi puntatore (caso tipico) e anche ai tipi riferimento (caso raro), con una importante differenza semantica.
 
@@ -152,7 +158,7 @@ e di avere la funzione
    void foo(B* b_ptr) { /* ... */ }
 ```
 
-Se la classe B è dinamica (ovvero, se contiene almeno un metodo virtuale) allora è dotata delle informazioni per la RTTI e possiamo applicare cast dinamici ai puntatori per sapere se sono di un determinato tipo.
+Se la classe B è dinamica (ovvero, se contiene almeno un metodo virtuale) allora è dotata delle informazioni per la *RTTI* e possiamo applicare cast dinamici ai puntatori per sapere se sono di un determinato tipo.
 Per esempio:
 
 ```cpp
@@ -229,8 +235,8 @@ Un reinterpret cast può essere usato per effettuare le seguenti conversioni:
 ---
 
 ### cast funzionale
-La sintassi T(expr) oppure T(), dove T è il nome di un tipo, viene spesso indicata come "cast funzionale"; intuitivamente, corrisponde alla costruzione diretta di un oggetto di tipo T, usando un costruttore (nel secondo caso, il costruttore di default).
-Si parla di cast funzionale in quanto la sintassi si può applicare anche al caso dei tipi builtin (che in senso tecnico non sono dotati di costruttori). Nel caso di un tipo builtin, la forma T() produce la cosiddetta zero-initialization.
+La sintassi `T(expr)` oppure `T()`, dove `T` è il nome di un tipo, viene spesso indicata come "cast funzionale". Intuitivamente, corrisponde alla costruzione diretta di un oggetto di tipo `T`, usando un costruttore (nel secondo caso, il costruttore di default).
+Si parla di cast funzionale in quanto la sintassi si può applicare anche al caso dei tipi built-in (che in senso tecnico non sono dotati di costruttori). Nel caso di un tipo builtin, la forma `T()` produce la cosiddetta zero-initialization.
 
 Esempio:
 ```cpp
@@ -240,11 +246,11 @@ void foo(T t, U u) {
     // ...
 }
 ```
-Se foo viene istanziata con T = int e U = double, il test condizionale diventa
+Se foo viene istanziata con `T = int` e `U = double`, il test condizionale diventa
  ```cpp
  if (t == int(u))
 ```
-nel quale abbiamo il cast funzionale int(u).
+nel quale abbiamo il cast funzionale `int(u)`.
 
 [_Torna all'indice_](#cast)
 
@@ -261,6 +267,6 @@ Il loro uso è considerato cattivo stile (tranne il caso nominato sopra del cast
   - sono difficili da individuare nel codice mediante ricerca testuale;
   - non differenziano le diverse tipologie di cast.
 
-Con i cast stile C si possono simulare static_cast, const_cast e reinterpret_cast, ma NON si possono effettuare i dynamic_cast (in particolare, non hanno accesso a informazioni RTTI e quindi non effettuano nessun controllo a run-time).
+Con i cast stile C si possono simulare static_cast, const_cast e reinterpret_cast, ma NON si possono effettuare i dynamic_cast (in particolare, non hanno accesso a informazioni *RTTI* e quindi non effettuano nessun controllo a run-time).
 
 [_Torna all'indice_](#cast)
