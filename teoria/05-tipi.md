@@ -21,6 +21,10 @@ Booleani, caratteri narrow e short sono detti tipi integrali "piccoli", in quant
 ```
 - `std::nullptr_t`: è un tipo puntatore convertibile implicitamente in qualunque altro tipo puntatore; ha un solo valore possibile, la costante letterale `nullptr`, che indica il puntatore nullo (non dereferenziabile).
 
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
+
+---
+
 ### I tipi composti
 - Riferimenti a `lvalue`: `T&`
 - Riferimenti a `rvalue`: `T&&`
@@ -35,13 +39,13 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 
 ## Qualificatore const
 I tipi elencati sopra sono detti non qualificati.
-Nel linguaggio C++ esistono i qualificatori `const` e `volatile`. Nel discorso che segue consideriamo solo il qualificatore `const`, il cui uso è essenziale per una corretta progettazione e uso delle interfacce software e come strumento di ausilio alla manutenzione
-del software.
+Nel linguaggio $C$++ esistono i qualificatori `const` e `volatile`. Nel discorso che segue consideriamo solo il qualificatore `const`, il cui uso è essenziale per una corretta progettazione e uso delle interfacce software e come strumento di ausilio alla manutenzione del software.
 
 Dato un tipo `T`, è possibile fornirne la versione qualificata `const T`.
 L'accesso ad un oggetto (o una parte di un oggetto) attraverso una variabile il cui tipo è dotato del qualificatore const è consentito in sola lettura (cioè, non sono consentite le modifiche).
 
-Si noti che nel caso di tipi composti è necessario distinguere tra la qualificazione del tipo composto rispetto alla qualificazione delle sue componenti. 
+> Si noti che nel caso di tipi composti è necessario distinguere tra la qualificazione del tipo composto rispetto alla qualificazione delle sue componenti. 
+
 Per esempio:
 ```cpp
 struct S {
@@ -79,8 +83,9 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ## Costanti letterali
 Il linguaggio mette a disposizione varie sintassi per definire valori costanti; a seconda della sintassi usata, al valore viene associato un tipo specifico, che in alcuni casi dipende dall'implementazione.
 - bool: `false`, `true`
-- char: `'a', '3', 'Z', '\n'`   (ordinary character literal)
-	      `u8'a', u8'3'` (UTF-8 character literal)
+- char: 
+	- `'a', '3', 'Z', '\n'`   (ordinary character literal)
+	- `u8'a', u8'3'` (UTF-8 character literal)
 - signed char, unsigned char: `<nessuna>`
 - char16_t: `u'a'`, `u'3' `  (prefisso case sensitive)
 - char32_t: `U'a'`, `U'3'`   (prefisso case sensitive)
@@ -88,8 +93,13 @@ Il linguaggio mette a disposizione varie sintassi per definire valori costanti; 
 - short, unsigned short: `<nessuna>`
 - int: `12345`
 
-### NOTE
-- L'elenco NON è esaustivo; serve a dare un'idea delle potenziali complicazioni; per esempio, nel caso degli interi consideriamo solo la sintassi decimale, ma esistono anche:
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
+
+---
+
+### Note varie
+- L'elenco NON è esaustivo; serve a dare un'idea delle potenziali complicazioni. 
+	Per esempio, nel caso degli interi consideriamo solo la sintassi decimale, ma esistono anche:
 	 - la sintassi binaria (`0b1100`, che rappresenta il numero decimale 12)
 	 - la sintassi ottale (`014`, che rappresenta il numero decimale 12)
 	 - la sintassi esadecimale (`0xC`, che rappresenta il numero decimale 12)
@@ -99,6 +109,10 @@ Il linguaggio mette a disposizione varie sintassi per definire valori costanti; 
 - Le regole per le altre sintassi (booleana, ottale, esadecimale) prendono in considerazione anche i tipi `unsigned`.
 
 - I suffissi delle costanti intere e floating point sono case insensitive; le convenzioni di solito privilegiano la versione maiuscola (raramente la minuscola) per maggiore leggibilità.
+
+_[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
+
+---
 
 ### Altre costanti letterali
 In presenza del suffisso `U`, si sceglie la variante `unsigned`.
@@ -128,10 +142,10 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 
 ## User Defined Literal
-Il C++ 2011 ha reso possibile anche la definizione dei cosiddetti letterali definiti dall'utente. 
+Il $C$++ 2011 ha reso possibile anche la definizione dei cosiddetti letterali definiti dall'utente. 
 Si tratta di una notazione che consente di aggiungere ad un letterale (intero, floating o stringa) un suffisso definito dall'utente: il letterale verrà usato come argomento per invocare una funzione di conversione implicita definita anch'essa dall'utente.
 
-Per esempio, a partire dal C++ 2014, il tipo di dato delle stringhe stile C++ (`std::string`) fornisce la possibilità di usare il suffisso `'s'` per indicare che un letterale stringa deve essere convertito in `std::string`. 
+Per esempio, a partire dal $C$++ 2014, il tipo di dato delle stringhe stile $C$++ (`std::string`) fornisce la possibilità di usare il suffisso `'s'` per indicare che un letterale stringa deve essere convertito in `std::string`. 
 L'operatore di conversione è definito nel namespace `std::literals`, per cui
 ```cpp
 #include <iostream>
@@ -152,10 +166,11 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 Gli alias di tipo, implementati dopo il 2011, utilizzano la keyword `using` e sono utili per riuscire a creare un codice più ordinato, seguendo la filosofia *"write once"*.
 
 ```cpp
-using typeAlias = int; // in questo caso customName sarà un alias per i tipi interi
+using typeAlias = int; 
+// in questo caso `typeAlias` sarà un alias per i tipi interi
 
 int main(){
-	typeAlias x = 1; // il tipo di x sarà quello attribuito a typeAlias
+	typeAlias x = 1; // il tipo di `x` sarà quello attribuito a `typeAlias`
 }
 ```
 
@@ -164,6 +179,7 @@ L'utilizzo degli alias può tornare utile in codici lunghi e complessi così da 
 #include <iostream>
 
 using typeAlias = int;
+
 typeAlias fact(typeAlias n){
 	if(n == 0)
 		return 1;
@@ -172,7 +188,7 @@ typeAlias fact(typeAlias n){
 
 int main(){
 	for(typeAlias i = 0; i < 10; i++){
-		std::cout<<"fact("<<i<<") = "<<fact(i)<<std::endl;
+		std::coutv<< "fact(" << i << ") = " <<fact(i) <<std::endl;
 	}
 	return 0;
 }
@@ -190,7 +206,7 @@ Nel 2011 è stata attribuita la keyword `auto`, che precedentemente aveva un alt
 #include <iostream>
 
 int main(){
-	auto a = 1; // 'a' è di tipo intero
+	auto a = 1; // `a` è di tipo intero
 }
 ```
 
@@ -199,11 +215,12 @@ _[Torna all'indice](#tipi,%20qualificatori,%20costanti%20letterali)_
 ---
 
 ## La libreria GMP
-Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. Per riuscire a capire qual'è il valore massimo che può essere rappresentato si può fare come segue:
+Molto spesso i tipi di dato implementati non sono sufficienti per rappresentare le informazioni richieste. Per riuscire a capire qual è il valore massimo che può essere rappresentato si può fare come segue:
 ```cpp
 #include <iostream>
 #include <limits>
 int main(){
+	
 	std::cout << "Il valore massimo rappresentabile da un intero e' " << std::numeric_limits<int>::max() << std::endl;
 	
 	std::cout << "Il valore massimo rappresentabile da un long e' " << std::numeric_limits<long>::max() << std::endl;
@@ -219,9 +236,9 @@ Un esempio pratico:
 ```cpp
 #include <iostream>
 #include <limits>
-#include <gmpxx.h> // "interfaccia" per c++
+#include <gmpxx.h> // "interfaccia" per C++
 
-using typeAlias = mpz_class; // sfrutto un'alias
+using typeAlias = mpz_class; // sfrutto un alias
 
 typeAlias fact(typeAlias n){
 	if(n == 0)
