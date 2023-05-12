@@ -257,7 +257,7 @@ int main(){
 
 In fase di compilazione devo esplicitare le librerie:
 - `gmpxx`
-- `gmp` (libreria c)
+- `gmp` (libreria $C$)
 ```bash
 g++ -Wall -Wextra -o fact fact.cpp -lgmpxx -lgmp
 ```
