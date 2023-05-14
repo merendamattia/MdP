@@ -219,37 +219,36 @@ usa_risorse_exc(Risorsa* r1, Risorsa* r2) {
 #include "risorsa_exc.hh"
 
 void codice_utente() {
-  Risorsa* r1 = acquisisci_risorsa_exc();
-  try { // blocco try che protegge la risorsa r1
-    usa_risorsa_exc(r1);
-
-    Risorsa* r2 = acquisisci_risorsa_exc();
-    try { // blocco try che protegge la risorsa r2
-      usa_risorse_exc(r1, r2);
-      restituisci_risorsa(r2);
-    } // fine try che protegge r2
-    catch (...) {
-      restituisci_risorsa(r2);
-      throw;
-    }
-
-    Risorsa* r3 = acquisisci_risorsa_exc();
-    try { // blocco try che protegge la risorsa r3
-      usa_risorse_exc(r1, r3);
-      restituisci_risorsa(r3);
-    } // fine try che protegge r3
-    catch (...) {
-      restituisci_risorsa(r3);
-      throw;
-    }
-    restituisci_risorsa(r1);
-
-  } // fine try che protegge r1
-  catch (...) {
-    restituisci_risorsa(r1);
-    throw;
-  }
-
+	Risorsa* r1 = acquisisci_risorsa_exc();
+	try { // blocco try che protegge la risorsa r1
+		usa_risorsa_exc(r1);
+		
+		Risorsa* r2 = acquisisci_risorsa_exc();
+		try { // blocco try che protegge la risorsa r2
+			usa_risorse_exc(r1, r2);
+			restituisci_risorsa(r2);
+		} // fine try che protegge r2
+		catch (...) {
+			restituisci_risorsa(r2);
+			throw;
+		}
+		
+		Risorsa* r3 = acquisisci_risorsa_exc();
+		try { // blocco try che protegge la risorsa r3
+			usa_risorse_exc(r1, r3);
+			restituisci_risorsa(r3);
+		} // fine try che protegge r3
+		catch (...) {
+			restituisci_risorsa(r3);
+			throw;
+		}
+		restituisci_risorsa(r1);
+	
+	} // fine try che protegge r1
+	catch (...) {
+		restituisci_risorsa(r1);
+		throw;
+	}
 }
 
 /*
@@ -300,44 +299,44 @@ void codice_utente() {
 
 class Gestore_Risorsa {
 private:
-  Risorsa* res_ptr;
+	Risorsa* res_ptr;
 public:
-  // Costruttore: acquisisce la risorsa (RAII)
-  Gestore_Risorsa() : res_ptr(acquisisci_risorsa_exc()) { }
-
-  // Distruttore: rilascia la risorsa (RRID)
-  ~Gestore_Risorsa() {
-    // Nota: si assume che restituisci_risorsa si comporti correttamente
-    // quando l'argimento è il puntatore nullo; se questo non è il caso,
-    // è sufficiente aggiungere un test prima dell'invocazione.
-    restituisci_risorsa(res_ptr);
-  }
-
-  // Disabilitazione delle copie
-  Gestore_Risorsa(const Gestore_Risorsa&) = delete;
-  Gestore_Risorsa& operator=(const Gestore_Risorsa&) = delete;
-
-  // Costruzione per spostamento (C++11)
-  Gestore_Risorsa(Gestore_Risorsa&& y)
-    : res_ptr(y.res_ptr) {
-    y.res_ptr = nullptr;
-  }
-
-  // Assegnamento per spostamento (C++11)
-  Gestore_Risorsa& operator=(Gestore_Risorsa&& y) {
-    restituisci_risorsa(res_ptr);
-    res_ptr = y.res_ptr;
-    y.res_ptr = nullptr;
-    return *this;
-  }
-
-  // Accessori per l'uso (const e non-const)
-  const Risorsa* get() const { return res_ptr; }
-  Risorsa* get() { return res_ptr; }
-
-  // Alternativa agli accessori: operatori di conversione implicita
-  // operator Risorsa*() { return res_ptr; }
-  // operator const Risorsa*() const { return res_ptr; }
+	// Costruttore: acquisisce la risorsa (RAII)
+	Gestore_Risorsa() : res_ptr(acquisisci_risorsa_exc()) { }
+	
+	// Distruttore: rilascia la risorsa (RRID)
+	~Gestore_Risorsa() {
+		// Nota: si assume che restituisci_risorsa si comporti correttamente
+		// quando l'argimento è il puntatore nullo; se questo non è il caso,
+		// è sufficiente aggiungere un test prima dell'invocazione.
+		restituisci_risorsa(res_ptr);
+	}
+	
+	// Disabilitazione delle copie
+	Gestore_Risorsa(const Gestore_Risorsa&) = delete;
+	Gestore_Risorsa& operator=(const Gestore_Risorsa&) = delete;
+	
+	// Costruzione per spostamento (C++11)
+	Gestore_Risorsa(Gestore_Risorsa&& y)
+		: res_ptr(y.res_ptr) {
+		y.res_ptr = nullptr;
+	}
+	
+	// Assegnamento per spostamento (C++11)
+	Gestore_Risorsa& operator=(Gestore_Risorsa&& y) {
+		restituisci_risorsa(res_ptr);
+		res_ptr = y.res_ptr;
+		y.res_ptr = nullptr;
+		return *this;
+	}
+	
+	// Accessori per l'uso (const e non-const)
+	const Risorsa* get() const { return res_ptr; }
+	Risorsa* get() { return res_ptr; }
+	
+	// Alternativa agli accessori: operatori di conversione implicita
+	// operator Risorsa*() { return res_ptr; }
+	// operator const Risorsa*() const { return res_ptr; }
 
 }; // class Gestore_Risorsa
 
