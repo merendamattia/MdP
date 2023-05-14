@@ -1,36 +1,44 @@
 # Scope (campo d'azione)
+```toc
+```
+---
 
-Ogni [dichiarazione](02-dichiarazioni_e_definizioni.md) presente in una unità di traduzione introduce un nome per una entità.
+## Entità
+Ogni [dichiarazione](02-dichiarazioni_e_definizioni.md) presente in una unità di traduzione introduce un nome per una <mark style="background: #FFB86CA6;">entità</mark>.
 
 Tale nome può essere utilizzato solo in alcuni punti dell'unità di traduzione: le porzioni di codice in cui il nome è "visibile" sono dette essere il _campo di azione_ (in inglese, **scope**) per quel nome.
-L'ampiezza dello scope per un nome varia a seconda della tipologia di dichiarazione e del contesto in cui questa appare.
+L'ampiezza dello scope per un nome varia a seconda della tipologia di dichiarazione e del contesto in cui questa appare. 
+Si distinguono diverse tipologie di scope.
 
-Si distinguono pertanto diverse tipologie di scope:
-1. [Scope di namespace](#scope-di-namespace-incluso-lo-scope-globale)
-2. [Scope di blocco](#scope-di-blocco)
-3. [Scope di classe](#scope-di-classe)
-4. [Scope di funzione](#scope-di-funzione)
-5. [Scope delle costanti di enumerazione](#scope-delle-costanti-di-enumerazione-un-caso-speciale)
+_[Torna all'indice](#scope%20campo%20d'azione)_
 
-## Scope di namespace (incluso lo scope globale)
+---
+
+## Scope di Namespace (incluso lo scope globale)
 I [namespaces](99-definizioni#namespaces) sono utilizzati per organizzare il codice in gruppi logici, allo scopo di evitare conflitti di nomi e migliorare la leggibilità del codice.
-Una dichiarazione che non è racchiusa all'interno di una `struct`/`class` e/o all'interno di una funzione ha scope di `namespace`; si noti che lo scope globale è anche esso uno scope di `namespace` (al quale ci si può riferire usando il qualificatore di scope `::`).
+Una dichiarazione che non è racchiusa all'interno di una `struct`/`class` e/o all'interno di una funzione ha scope di `namespace`. 
 
-Il nome è visibile, all'interno di quel `namespace`, a partire dal punto di dichiarazione e fino al termine dell'unità di traduzione (in particolare, <u>NON è visibile prima del punto di dichiarazione</u>). In sostanza, questo è il motivo per il quale le inclusioni degli header file sono collocate all'inizio dei file sorgente).
+> Si noti che lo scope globale è anche esso uno scope di `namespace` (al quale ci si può riferire usando il qualificatore di scope `::`).
+
+Il nome è visibile, all'interno di quel `namespace`, a partire dal punto di dichiarazione e fino al termine dell'unità di traduzione (in particolare, <u>NON è visibile prima del punto di dichiarazione</u>). 
+
+In sostanza, questo è il motivo per il quale le inclusioni degli header file sono collocate all'inizio dei file sorgente.
 
 ```cpp
 namespace N {
     void foo() {
-        // ERRORI: bar e a non sono visibili in questo punto (dichiarate dopo)
+        // ERRORI: `bar` e `a` non sono visibili in questo punto 
+        // (vengono dichiarate dopo)
         bar(a);
     }
 
     int a; // definizione di 'a'
     void bar(int n) {
         a += n; 
-        // OK: 'a' è visibile in questo punto (dichiarata prima) della funzione 'bar'
+        // OK: 'a' è visibile in questo punto (dichiarata prima) 
+        // della funzione 'bar'
     }
-} // namespace N
+} // ! namespace N
 ```
   
 _[Torna all'indice](#scope%20campo%20d'azione)_
@@ -73,7 +81,8 @@ if (T* ptr = foo()) {
 }
 ```
 
-> E se avessimo dichiarato `ptr` fuori dal costrutto `if`? Avrebbe portato ad una <u>estensione dello scope</u> del puntatore, aumentando la possibilità di errori e/o comportamenti non voluti dal programmatore.
+> E se avessimo dichiarato `ptr` fuori dal costrutto `if`? 
+> Avrebbe portato ad una <u>estensione dello scope</u> del puntatore, aumentando la possibilità di errori e/o comportamenti non voluti dal programmatore.
 
 ```cpp
 switch (int c = bar()) {
@@ -112,7 +121,8 @@ _[Torna all'indice](#scope%20campo%20d'azione)_
 ## Scope di Classe
 
 Qual è la differenza tra `struct` e `class`?
-Che le classi garantiscono l**'information hiding** (l'utente può gestire metodi e attributi con `public` e `private`), mentre le struct no. Per le struct la visibilità di default è *public* mentre nelle classi è *private*.
+Che le classi garantiscono l**'information hiding** (l'utente può gestire metodi e attributi con `public` e `private`), mentre le struct no. 
+Per le struct la visibilità di default è *public* mentre nelle classi è *private*.
 
 I <u>membri</u> di una classe (tipi, dati, metodi) sono <u>visibili all'interno della classe indipendentemente dal punto di dichiarazione</u>.
 
@@ -127,15 +137,14 @@ struct S {
 };
 ```
 
-### Nota 1 
 I membri di una classe posso essere acceduti dall'esterno della classe nei modi seguenti:
 ```cpp
-    s.foo();   // usando l'operatore punto, se s ha tipo (riferimento a) S
-    ps->foo(); // usando l'operatore freccia, se ps ha tipo puntatore a S
+    s.foo();   // usando l'operatore punto, se `s` ha tipo (riferimento a) `S`
+    ps->foo(); // usando l'operatore freccia, se `ps` ha tipo puntatore a `S`
     S::foo;    // usando l'operatore di scope
 ```
 
-### Nota 2
+
 I membri di una classe `S` possono essere acceduti anche da classi che sono derivate (anche indirettamente) dalla classe `S` (in quanto sono ereditati dalle classi derivate).
 In caso di *overloading* di metodi si può accedere a quelli della classe base usando il risolutore di scope `::`.
 
@@ -147,7 +156,7 @@ _[Torna all'indice](#scope%20campo%20d'azione)_
 
 Le etichette (*label*) di destinazione delle istruzioni `goto` hanno scope di funzione: sono visibili in tutta la funzione che le racchiude, indipendentemente dai blocchi.
 
-```c++
+```cpp
 void foo() {
     int i;
     {
@@ -177,25 +186,25 @@ _[Torna all'indice](#scope%20campo%20d'azione)_
 
 ## Scope delle costanti di enumerazione: un caso speciale.
 
-Le costanti di enumerazione dichiarate secondo lo stile C++ 2003
+Le costanti di enumerazione dichiarate secondo lo stile $C$++ 2003.
 
-```c++
+```cpp
 enum Colors { red, blue, green };
 ```
 
-hanno come scope quello del corrispondente tipo enumerazione `Colors` (ovvero, sono visibili "fuori" dalle graffe che le racchiudono).
+Hanno come scope quello del corrispondente tipo enumerazione `Colors` (ovvero, sono visibili "fuori" dalle graffe che le racchiudono).
 
 Questo può causare problemi di conflitto di nomi:
-```c++
+```cpp
 enum Colori { rosso, blu, verde };
 enum Semaforo { verde, giallo, rosso };
 
 void foo() { std::cout << rosso; } // a quale rosso si riferisce?
 ```
 
-Nel C++ 2011 sono state introdotte le [`enum class`](https://en.cppreference.com/w/cpp/language/enum), che invece limitano lo scope come le classi, costringendo il programmatore a qualificare il nome e evitando potenziali errori:
+Nel $C$++ 2011 sono state introdotte le [enum class](https://en.cppreference.com/w/cpp/language/enum), che invece limitano lo scope come le classi, costringendo il programmatore a qualificare il nome e evitando potenziali errori:
 
-```c++
+```cpp
 enum class Colori { rosso, blu, verde };
 enum class Semaforo { verde, giallo, rosso };
 
@@ -210,13 +219,15 @@ _[Torna all'indice](#scope%20campo%20d'azione)_
 
 ---
 
-# Riduzioni ed estensioni dello scope di una dichiarazione
+## Riduzioni ed estensioni dello scope di una dichiarazione
 Quello introdotto precedentemente è il cosiddetto scope potenziale di una dichiarazione.   
 Lo scope potenziale può essere modificato da alcuni costrutti del linguaggio.
 
-## Hiding (mascheramento) di un nome
+---
+
+### Hiding di un nome
 Quando si annidano campi di azione, è possibile che una dichiarazione nello scope interno nasconda un'altra dichiarazione (con lo stesso nome) dello scope esterno.   
-Si parla di "hiding" di un nome.
+Si parla di <mark style="background: #FFB86CA6;">hiding di un nome</mark>.
 
 ```cpp
 int a = 1; // scope globale
@@ -246,13 +257,17 @@ struct Derived : public Base {
 };
 ```
 
-## Estensioni della visibilità di un nome
+_[Torna all'indice](#scope%20campo%20d'azione)_
+
+---
+
+### Estensioni della visibilità di un nome
 Per accedere ad un nome dichiarato in uno scope differente, è spesso possibile utilizzare la versione qualificata del nome.  
 Per esempio, dentro la classe `Derived` vista sopra, si può accedere ai dati e ai metodi della classe `Base` scrivendo `Base::a` e `Base::foo`.
 Lo stesso dicasi nel caso dello scope di namespace (si ricordi l'uso di `std::cout`).
 
 Se però un nome deve essere utilizzato molto spesso in una posizione in cui non è visibile senza qualificazione, può essere scomodo doverlo qualificare in ogni suo singolo uso.   
-Per evitare ciò, si possono usare le **dichiarazioni di using** (_using declaration_):
+Per evitare ciò, si possono usare le <mark style="background: #FFB8EBA6;">dichiarazioni di using</mark> (_using declaration_):
 ```cpp
 void foo() {
 	using std::cout;
@@ -263,12 +278,11 @@ void foo() {
 }
 ```
 
-### _Nota bene_
+#### Nota
 Una dichiarazione di _using_ può rendere disponibili solo nomi che erano stati precedentemente dichiarati (o resi visibili) nel namespace indicato.   
 In particolare, nel caso precedente, è comunque necessario includere l'header file `iostream`, altrimenti si ottiene un errore.
 
-La dichiarazione di _using_ rende disponibile (nel contesto in cui viene inserita) il nome riferito, che da lì in poi potrà essere usato senza qualificazione.   
-Chiaramente, nel caso di un nome di tipo o di una variabile, è necessario che nello stesso contesto _NON_ sia già presente un'altra entità con lo stesso nome.
+La dichiarazione di _using_ rende disponibile (nel contesto in cui viene inserita) il nome riferito, che da lì in poi potrà essere usato senza qualificazione. Chiaramente, nel caso di un nome di tipo o di una variabile, è necessario che nello stesso contesto _NON_ sia già presente un'altra entità con lo stesso nome.
 
 ```cpp
 void foo() {
@@ -277,8 +291,7 @@ void foo() {
 }
 ```
 
-La cosa è invece legittima nel caso di funzioni, perché in quel caso entra in gioco il meccanismo dell'overloading.
-Nell'esempio seguente, la dichiarazione di _using_ crea l'overloading per i metodi di nome `foo` (evitando l'_hiding_):
+La cosa è invece legittima nel caso di funzioni, perché in quel caso entra in gioco il meccanismo dell'overloading. Nell'esempio seguente, la dichiarazione di _using_ crea l'overloading per i metodi di nome `foo` (evitando l'_hiding_):
 
 ```cpp
 struct Base {
@@ -298,8 +311,10 @@ struct Derived : public Base {
 
 _[Torna all'indice](#scope%20campo%20d'azione)_
 
-## Direttive using
-Cosa ben distinta rispetto alle dichiarazioni di using sono le **direttive di using** (_using directive_).   
+---
+
+### Direttive using
+Cosa ben distinta rispetto alle dichiarazioni di using sono le <mark style="background: #D2B3FFA6;">direttive di using</mark> (_using directive_). 
 La sintassi è la seguente:
 ```cpp
 void foo() {
