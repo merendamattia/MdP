@@ -39,7 +39,7 @@ La pretesa di applicare i principi sistematicamente, a tutte le porzioni di codi
 ---
 
 ## SRP (Single Responsibility Principle)
-Si tratta di un principo di validità generale (cioè, non è limitato al caso della progettazione object oriented) che dice, intuitivamente, che ogni porzione di software che progettiamo e implementiamo (una classe, una funzione, ecc.) dovrebbe avere in carico una sola responsabilità. 
+Si tratta di un principo di validità generale (cioè, non è limitato al caso della progettazione object oriented) che dice, intuitivamente, che <mark style="background: #FF5582A6;">ogni porzione di software che progettiamo e implementiamo</mark> (una classe, una funzione, ecc.) <mark style="background: #FF5582A6;">dovrebbe avere in carico una sola responsabilità</mark>. 
 
 A volte si dice che ogni classe dovrebbe avere un solo "motivo per essere modificata": se esistono più motivi distinti, questo è indice che la classe si assume più responsabilità e quindi dovrebbe essere suddivisa in più componenti, ognuno dei quali caratterizzato da una singola responsabilità.
 
@@ -60,8 +60,8 @@ Il principio "aperto-chiuso" è forse il più conosciuto dei principi SOLID. Ne 
   *"SOFTWARE ENTITIES (CLASSES, MODULES, FUNCTIONS, ETC.) SHOULD BE OPEN FOR EXTENSION, BUT CLOSED FOR MODIFICATION."*
 
 Il principio dice che:
-  1) il software dovrebbe essere "aperto alle estensioni"
-  2) il software dovrebbe essere "chiuso alle modifiche"
+  1) il <mark style="background: #ABF7F7A6;">software</mark> dovrebbe essere "<mark style="background: #ABF7F7A6;">aperto</mark> alle <mark style="background: #ABF7F7A6;">estensioni</mark>"
+  2) il <mark style="background: #D2B3FFA6;">software</mark> dovrebbe essere "<mark style="background: #D2B3FFA6;">chiuso</mark> alle <mark style="background: #D2B3FFA6;">modifiche</mark>"
 
 In altre parole, un software progettato bene dovrebbe rendere semplice l'aggiunta di nuove funzionalità (scrivendo nuovo codice), senza che per fare ciò sia necessario modificare il codice esistente (chiusura alle modifiche).
 
@@ -88,7 +88,7 @@ In linea di principio, team di sviluppatori diversi potrebbero generare varianti
 
 Quindi, fissato il tipo di modifica "aggiunta di nuovi animali concreti", possiamo affermare che il progetto oo-style soddisfa il principio OCP in misura maggiore rispetto al progetto old-style.
 
-> In entrambi i casi, l'aggiunta di nuovi animali concreti prevede piccole modifche al modulo Maker.cc, per consentire ai nuovi animali di essere utilizzati dal programma. In altre parole, la "chiusura alle modifiche" non può mai essere totale: se vogliamo l'estendibilità devono sempre esistere dei punti in cui questa viene resa possibile; chiaramente, un buon progetto dovrebbe "confinare" il codice soggetto a modifiche in una zona ben delimitata e, per quanto possibile, piccola.
+> In entrambi i casi, l'aggiunta di nuovi animali concreti prevede piccole modifiche al modulo Maker.cc, per consentire ai nuovi animali di essere utilizzati dal programma. In altre parole, la "chiusura alle modifiche" non può mai essere totale: se vogliamo l'estendibilità devono sempre esistere dei punti in cui questa viene resa possibile; chiaramente, un buon progetto dovrebbe "confinare" il codice soggetto a modifiche in una zona ben delimitata e, per quanto possibile, piccola.
 
 [_Torna all'indice_](#Principi%20progettazione%20object%20oriented)
 
@@ -106,7 +106,7 @@ Rimane da capire come mai il nome del principio parla di "inversione" delle dipe
 
 L'osservazione chiave è che, molto spesso, il software viene progettato e sviluppato seguendo un approccio top-down: partendo dal problema generale da risolvere, lo si suddivide in sottoproblemi più piccoli; la soluzione del problema generale si ottiene effettuando una opportuna composizione delle soluzioni dei sottoproblemi. Il processo viene ripetuto sui sottoproblemi, arrivando ad una stratificazione del codice, nella quale i moduli a livello più alto usano (e quindi *dipendono* da) i moduli a livello più basso. Si creano quindi naturalmente delle dipendenze (dall'astratto verso il concreto) che il principio DIP classifica come "cattive". Il principio DIP suggerisce quindi di "invertire" queste dipendenze, sostituendole con altre che invece non creano problemi (perché vanno dal concreto verso l'astratto).
 
-A tale scopo, si individano alcune interfacce astratte, che non dipendono dai dettagli implementativi: i moduli di alto livello vengono modificati per *usare* (dipendere da) le interfacce astratte; analogamente, i moduli a basso livello vengono modificati per *implementare* (dipendere da) le interfacce astratte (realizzando quindi l'inversione).
+A tale scopo, si individano alcune interfacce astratte, che non dipendono dai dettagli implementativi: <mark style="background: #BBFABBA6;">i moduli di alto livello vengono modificati per usare</mark> (dipendere da) le <mark style="background: #BBFABBA6;">interfacce astratte</mark>; analogamente,<mark style="background: #FFF3A3A6;"> i moduli a basso livello</mark> vengono modificati per <mark style="background: #FFF3A3A6;">implementare</mark> (dipendere da) <mark style="background: #FFF3A3A6;">le interfacce astratte</mark> (realizzando quindi l'inversione).
 Complessivamente, si è eliminata la dipendenza dei moduli a alto livello dai moduli a basso livello. In particolare, si è migliorata anche l'aderenza del progetto al principio OCP, in quanto è ora possibile estendere il software, per esempio, consentendo la scelta di implementazioni alternative dell'interfaccia astratta senza influenzare i moduli ad alto livello.
 
 Siccome il DIP si concentra sulle dipendenze tra moduli e queste dipendenze sono spesso rispecchiate dalla suddivisione in file del software (in particolare, dalle inclusioni di header file), a volte si dice che il principio DIP può essere visto come una reinterpretazione del principio OCP che si concentra sugli aspetti "sintattici".
@@ -120,7 +120,7 @@ Siccome il DIP si concentra sulle dipendenze tra moduli e queste dipendenze sono
 ## LSP (Liskov Substitution Principle)
 Questo principio prende il nome da Barbara Liskov, che nel 1987 aveva enunciato la nozione di "sostituibilità" per tipi di dato (nozione poi formalizzata in un articolo scritto insieme a Jeannette Wing).
 
-Intuitivamente, si dice che S è un sottotipo di T se ad ogni modulo che usa un oggetto t di T è possibile passare (invece) un oggetto s di S ottenendo comunque un risultato equivalente, cioè un risultato che soddisfa le legittime aspettative dell'utente.
+Intuitivamente, si dice che <mark style="background: #FFB86CA6;">S è un sottotipo di T se ad ogni modulo che usa un oggetto t di T è possibile passare (invece) un oggetto s di S ottenendo comunque un risultato equivalente</mark>, cioè un risultato che soddisfa le legittime aspettative dell'utente.
 
 Martin ha riformulato il principio (in modo abbastanza grossolano) in questi termini:
 
@@ -148,35 +148,35 @@ Supponiamo che esista una classe Rettangolo, con la seguente interfaccia:
 
 ```cpp
 class Rettangolo {
-  long lung;
-  long largh;
-
+	long lung;
+	long largh;
+	
 public:
-  bool check_inv() const {
-    return lung > 0 && larg > 0;
-  }
-
-  Rettangolo(long lunghezza, long larghezza)
-    : lung(lunghezza), larg(larghezza) {
-    if (!check_inv())
-      throw std::invalid_argument("Dimensioni invalide");
-  }
-
-  long get_lunghezza() const { return lung; }
-  long get_larghezza() const { return larg; }
-
-  void set_lunghezza(long value) {
-    if (value <= 0)
-      throw std::invalid_argument("Dimensione invalida");
-    lung = value;
-  }
-  void set_larghezza(long value) {
-    if (value <= 0)
-      throw std::invalid_argument("Dimensione invalida");
-    larg = value;
-  }
-
-  long get_area() const { return lungh * larg; }
+	bool check_inv() const {
+		return lung > 0 && larg > 0;
+	}
+	
+	Rettangolo(long lunghezza, long larghezza) : 
+		lung(lunghezza), larg(larghezza) {
+	    if (!check_inv())
+		    throw std::invalid_argument("Dimensioni invalide");
+	}
+	
+	long get_lunghezza() const { return lung; }
+	long get_larghezza() const { return larg; }
+	
+	void set_lunghezza(long value) {
+		if (value <= 0)
+		    throw std::invalid_argument("Dimensione invalida");
+	    lung = value;
+	}
+	void set_larghezza(long value) {
+		if (value <= 0)
+		    throw std::invalid_argument("Dimensione invalida");
+		larg = value;
+	}
+	
+	long get_area() const { return lungh * larg; }
 };
 ```
 
@@ -189,9 +189,9 @@ public:
 	bool check_inv() const {
 		return lung > 0 && lung == larg;
 	}
-
+	
 	Quadrato(long lato) : Rettangolo(lato, lato) { }
-
+	
 	void set_lunghezza(long value) override {
 		Rettangolo::set_lunghezza(value);
 	    Rettangolo::set_larghezza(value);
@@ -202,7 +202,7 @@ public:
 };
 ```
 
-Questo progetto viola il principio LSP. In particolare, NON è vero che a qualunque funzione che usa puntatori/riferimenti alla classe base (Rettangolo) noi possiamo passare invece puntatori/riferimenti alla classe derivata (Quadrato) e soddisfare le legittime aspettative dell'utente. In altre parole, NON è vero che un Quadrato "IS-A" Rettangolo, in quanto pur avendo la stessa interfaccia, non è equivalente dal punto di vista semantico.
+<mark style="background: #FF5582A6;">Questo progetto viola il principio LSP</mark>. In particolare, NON è vero che a qualunque funzione che usa puntatori/riferimenti alla classe base (Rettangolo) noi possiamo passare invece puntatori/riferimenti alla classe derivata (Quadrato) e soddisfare le legittime aspettative dell'utente. In altre parole, NON è vero che un Quadrato "IS-A" Rettangolo, in quanto pur avendo la stessa interfaccia, non è equivalente dal punto di vista semantico.
 
 Esempio: l'utente che usa la classe Rettangolo si aspetta che questo codice (in assenza di overflow) sia corretto, ovvero che l'asserzione sia sempre soddisfatta:
 
@@ -222,7 +222,7 @@ Se però alla funzione viene passato un riferimento a un Quadrato, il metodo set
 [_Torna all'indice_](#Principi%20progettazione%20object%20oriented)
 
 ### Cosa è successo?
-Semplicemente, la classe Quadrato ha violato il contratto (stabilito dalla classe Rettangolo) del metodo set_lunghezza.  
+Semplicemente, <mark style="background: #FF5582A6;">la classe Quadrato ha violato il contratto (stabilito dalla classe Rettangolo) del metodo set_lunghezza</mark>.  
 Il contratto stabilisce (nelle sue postcondizioni) che il metodo modifica *solo* la lunghezza del rettangolo, mentre l'overriding definito nella classe Quadrato modifica sia la lunghezza che la larghezza.
 Si potrebbe obiettare: ma un quadrato deve avere i lati uguali. L'obiezione è sensata, ma sta ad indicare che la classe Quadrato NON può essere in relazione IS-A con la classe Rettangolo, ovvero che un Quadrato NON è un Rettangolo. Quando facciamo questa affermazione, chiaramente, non stiamo ragionando in puri termini geometrici, ma stiamo piuttosto considerando l'aspetto "behavioral" dei corrispondenti tipi di dato: un Quadrato non è un Rettangolo perché esistono dei contesti (vedi la funzione di sopra) in cui un Quadrato NON si comporta come si comporterebbe un Rettangolo.
 
@@ -235,7 +235,7 @@ Nel caso analizzato nell'esempio, le postcondizioni dei metodi set_lunghezza e s
 ---
 
 ## ISP (Interface Segregation Principle)
-Il principio di separazione delle interfacce dice che l'utente non dovrebbe essere forzato a dipendere da parti di una interfaccia che non usa. Di conseguenza, il progettista di una interfaccia dovrebbe fare il possibile per *separare* quelle porzioni che potrebbero essere usate separatamente le une dalle altre, ovvero a preferire tante interfacce "piccole" (thin interfaces) rispetto a poche interfacce "grandi" (fat interfaces).
+Il principio di separazione delle interfacce dice che <mark style="background: #FFB8EBA6;">l'utente non dovrebbe essere forzato a dipendere da parti di una interfaccia che non usa</mark>. Di conseguenza, il progettista di una interfaccia dovrebbe fare il possibile per *separare* quelle porzioni che potrebbero essere usate separatamente le une dalle altre, ovvero a preferire tante interfacce "piccole" (thin interfaces) rispetto a poche interfacce "grandi" (fat interfaces).
 
 Aderendo a questo principio, si ottengono i seguenti benefici:
 1) l'implementatore può implementare separatamente le interfacce piccole, evitando che un errore su una di queste si propaghi sulle altre;

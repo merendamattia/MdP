@@ -112,6 +112,7 @@ test_04() {
 		u1[i].push_back(i);
 
 	std::cerr << u1[5].front() << std::endl;
+	std::cerr << (u1+6)->front() << std::endl;
 }
 
 int main(int argc, char const *argv[]) {
