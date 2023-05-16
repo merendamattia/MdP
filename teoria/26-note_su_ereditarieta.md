@@ -1,4 +1,3 @@
-  
 ## Alcune questioni tecniche sul polimorfismo dinamico
 Abbiamo visto che, nel caso di polimorfismo dinamico, le classi astratte sono tipicamente formate da metodi virtuali puri, più il distruttore della classe che è dichiarato virtuale, ma non puro. In alcuni casi è però necessario complicare il progetto (ad esempio, usando l'ereditarietà multipla): quando lo si fa, si corre il rischio di incorrere in errori ed è quindi opportuno cercare le risposte ad alcune domande tecniche sul polimorfismo dinamico, che possono diventare rilevanti quando viene utilizzato al di fuori dei confini stabiliti nei nostri semplici esempi.
 
@@ -19,3 +18,5 @@ Abbiamo visto che, nel caso di polimorfismo dinamico, le classi astratte sono ti
 5) Quali sono gli usi del polimorfismo dinamico nella libreria standard?
 	   - classi eccezione standard
 	   - classi iostream
+
+> Guarda DDD problem (Dreadful Diamond on Derivation)
