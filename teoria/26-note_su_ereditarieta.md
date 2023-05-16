@@ -9,13 +9,13 @@ Abbiamo visto che, nel caso di polimorfismo dinamico, le classi astratte sono ti
 	  - funzioni membro statiche
 	  - template di funzioni membro (non statiche)
 	  - funzioni membro (non statiche) di classi templatiche
-1) Come faccio a costruire una copia di un oggetto concreto quando questo mi viene fornito come puntatore/riferimento alla classe base?
-2) Cosa succede se si invoca un metodo virtuale durante la fase di costruzione o di distruzione di un oggetto?
-3) Come funziona l'ereditarietà multipla quando NON ci si limita al caso delle interfacce astratte?
+2) Come faccio a costruire una copia di un oggetto concreto quando questo mi viene fornito come puntatore/riferimento alla classe base?
+3) Cosa succede se si invoca un metodo virtuale durante la fase di costruzione o di distruzione di un oggetto?
+4) Come funziona l'ereditarietà multipla quando NON ci si limita al caso delle interfacce astratte?
 	   - scope e ambiguità
 	   - classi base ripetute
 	   - classi base virtuali
 	   - semantica speciale di inizializzazione
-1) Quali sono gli usi del polimorfismo dinamico nella libreria standard?
+5) Quali sono gli usi del polimorfismo dinamico nella libreria standard?
 	   - classi eccezione standard
 	   - classi iostream
