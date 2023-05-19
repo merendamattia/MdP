@@ -149,7 +149,8 @@ struct Matrix {
 };
 ```
 
-Intuitivamente, una funzione che riceve come argomento un riferimento a rvalue (`Matrix&&`) sa che l'oggetto riferito può essere solo un prvalue o un xvalue; in entrambi i casi, le risorse contenute nell'oggetto non possono essere utilizzate da altri e quindi possono essere spostate dall'oggetto (si potrebbe dire "rubate" all'oggetto, che ne era il proprietario) invece che copiate, guadagnando in efficienza.
+Intuitivamente, una funzione che riceve come argomento un riferimento a rvalue (`Matrix&&`) sa che l'oggetto riferito può essere solo un prvalue o un xvalue. 
+In entrambi i casi, le risorse contenute nell'oggetto non possono essere utilizzate da altri e quindi possono essere spostate dall'oggetto (si potrebbe dire "rubate" all'oggetto, che ne era il proprietario) invece che copiate, guadagnando in efficienza.
 
 Riconsideriamo l'esempio precedente, assumendo che sia disponibile il costruttore per spostamento per `Matrix`:
 
@@ -158,9 +159,10 @@ Matrix bar(const Matrix& arg) {
 	Matrix res = arg; // copia (1)
 	// modifica di res
 	return res; // sposta (non copia)
+}
 ```
 
-Il compilatore si accorge che, nella "`return res`", l'espressione `res` è un xvalue e quindi utilizza il costruttore di spostamento (invece della copia) per restituirlo al chiamante.
+Il compilatore si accorge che, nella `return res`, l'espressione `res` è un xvalue e quindi utilizza il costruttore di spostamento (invece della copia) per restituirlo al chiamante.
 
 Volendo, è possibile ottimizzare anche la prima copia, fornendo una versione alternativa (in overloading) della funzione `bar`:
 
