@@ -2,6 +2,7 @@
 
 ```toc
 ```
+---
 
 ## Categorie di espressioni: lvalue e rvalue
 
@@ -15,7 +16,7 @@ L'unione di xvalue e prvalue forma gli <mark style="background: #FFB8EBA6;">rval
 
 Intuitivamente, un glvalue è una espressione che permette di stabilire l'identità di un oggetto in memoria. Il nome "left value", in origine, indicava che tali espressioni potevano comparire a sinistra dell'operatore di assegnamento.
 
-- Esempio:
+Esempio:
 ``` cpp
 int i;
 int ai[10];
@@ -23,8 +24,9 @@ i = 7;     // l'espressione i è un lvalue (e quindi un glvalue)
 ai[5] = 7; // l'espressione ai[5] è un lvalue (e quindi un glvalue)
 ```
 
-Un xvalue è un glvalue che denota un oggetto le cui risorse possono essere riutilizzate, tipicamente perché sta terminando il suo lifetime (expiring lvalue).
-Un lvalue è un glvalue che non sia un xvalue.
+![[lvalue_rvalue.png]]
+> *m*: movable
+> *i*: has identity
 
 [_Torna all'indice_](#lvalue%20e%20rvalue)
 
@@ -34,7 +36,7 @@ Un lvalue è un glvalue che non sia un xvalue.
 Un <mark style="background: #ABF7F7A6;">xvalue</mark> è un glvalue che denota un oggetto le cui risorse possono essere riutilizzate, tipicamente perché sta terminando il suo lifetime (expiring lvalue).
 Un lvalue è un glvalue che non sia un xvalue.
 
-- Esempio:
+Esempio:
 ```cpp
 Matrix foo1() {
 	Matrix m;
@@ -52,40 +54,10 @@ void foo2() {
 }
 ```
 
-La soluzione del `$C$++11` prevede non di copiare gli xvalue ma di spostarli in una nuova locazione, dato che questi non sono più richiesti dalla funzione chiamata.
+La soluzione del $C$++11 prevede non di copiare gli xvalue, ma di spostarli in una nuova locazione, dato che questi non sono più richiesti dalla funzione chiamata.
 In particolare, non adottando questo approccio, le copie sarebbero due:
 - `m` viene copiato nella locazione di ritorno della funzione `foo1()`
 - l'oggetto [temporaneo](04-lifetime#allocazione%20automatica%20di%20temporanei) restituito da `foo1()` viene copiato in `m1`
-
-Un <mark style="background: #FF5582A6;">prvalue</mark> è una espressione che denota un valore *primitivo*, ovvero un valore costante o il risultato di una computazione. Il nome *right value*, in origine, indicava che tali espressioni
-potevano comparire *solo* a destra dell'operatore di assegnamento (ovvero, espressioni che darebbero errore se comparissero a sinistra).
-Intuitivamente, un prvalue NON identifica un oggetto in memoria e quindi non è lecito assegnarvi un valore e non ha nemmeno senso prenderne
-l'indirizzo.
-
-Esempio:
-``` cpp
-  int i;
-  i = 5;     // l'espressione 5 è un prvalue (e quindi un rvalue)
-  i = 4 + 1; // l'espressione 4 + 1 è un prvalue (e quindi un rvalue)
-  i = i + 1; // l'espressione i + 1 è un prvalue (e quindi un rvalue)
-```
-
-> In alcuni casi, un prvalue può essere "materializzato", creando un
->oggetto temporaneo (un lvalue) che viene inizializzato con il valore
->del prvalue. Questo è quello che succede, per esempio, quando ad una
->funzione che ha un argomento di tipo riferimento a costante viene
->passato un prvalue.
-
-Esempio:
-``` cpp
-void foo(const double& d);
-
-void foo2() {
-	Matrix m1;
-	m1 = foo1(); // l'espressione foo1(), cioè il risultato ottenuto
-			     // dalla chiamata di funzione, è un xvalue
-}
-```
 
 [_Torna all'indice_](#lvalue%20e%20rvalue)
 
@@ -117,7 +89,7 @@ void bar() {
 Qui sopra `0.5` è un rvalue; viene materializzato in un oggetto temporaneo (un lvalue) con cui viene inizializzato il riferimento a lvalue `d`.
 
 La classificazione delle espressioni in lvalue, xvalue e prvalue è rilevante per capire la differenza tra riferimenti a lvalue (`T&`) e riferimenti a rvalue (`T&&`). 
-Questi ultimi sono stati introdotti nel $C$++ 2011 per risolvere problemi tecnici del linguaggio che impedivano di fornire implementazioni efficienti per alcuni costrutti.
+Questi ultimi sono stati introdotti nel $C$++11 per risolvere problemi tecnici del linguaggio che impedivano di fornire implementazioni efficienti per alcuni costrutti.
 
 [_Torna all'indice_](#lvalue%20e%20rvalue)
 
@@ -153,12 +125,13 @@ Matrix bar(const Matrix& arg) {
 ```
 
 <mark style="background: #FFB8EBA6;">Questo era fonte di inefficienze</mark>, perché:
-  1. Non c'era un modo semplice per il chiamante di comunicare il fatto che, in alcuni casi (non tutti), la risorsa passata in input non era più di suo interesse e quindi poteva essere modificata in loco, invece di effettuare la prima copia;
-  2. Non c'era modo semplice per la funzione per ritornare l'oggetto res senza fare la seconda copia (si noti che non è possibile ritornare per riferimento, perché si creerebbe un dangling reference).
+  1. Non c'era un modo semplice per il chiamante di comunicare il fatto che, in alcuni casi (non tutti), la risorsa passata in input non era più di suo interesse e quindi poteva essere modificata in loco, invece di effettuare la prima copia.
+  2. Non c'era modo semplice per la funzione per ritornare l'oggetto `res` senza fare la seconda copia (si noti che non è possibile ritornare per riferimento, perché si creerebbe un dangling reference).
 
-Nel $C$++ 2011, alle 4 funzioni speciali delle classi ne sono state aggiunti altre due:
-  * costruttore per spostamento (move constructor)
+Nel $C$++11, alle 4 funzioni speciali delle classi ne sono state aggiunti altre due:
+  * costruttore per spostamento (move constructor), e
   * assegnamento per spostamento (move assignement)
+
 che lavorano su riferimenti a rvalue:
 
 ```cpp
