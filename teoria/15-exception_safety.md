@@ -7,18 +7,20 @@ Una porzione di codice si dice <mark style="background: #FFB86CA6;">exception sa
 
 In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (*undefined behavior*).
 
+---
+
 ## Livelli di exception safety
 Esistono tre diversi livelli di exception safety: 
-- base;
-- forte;
-- nothrow.
+- [base](#livello%20base)
+- [forte](#livello%20forte)
+- [nothrow](#livello%20nothrow)
 
 ---
 
 ### Livello base
 Una porzione di codice (una funzione o una classe) si dice exception safe a livello base se, anche nel caso in cui si verifichino delle eccezioni durante la sua esecuzione:
-1. Non si hanno perdite di risorse (resource leak);
-2. Si è neutrali rispetto alle eccezioni quando, igni qual volta viene ricevuta un'eccezione questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata al chiamante (permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie);
+1. Non si hanno perdite di risorse (resource leak).
+2. Si è neutrali rispetto alle eccezioni quando, ogni qual volta viene ricevuta un'eccezione questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata al chiamante (permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie).
 3. Anche in caso di uscita in modalità eccezionale, gli oggetti sui quali si stava lavorando sono distruggibili senza causare comportamenti non definiti. Quindi lo stato interno di un oggetto, anche se parzialmente inconsistente, deve comunque consentirne la corretta distruzione (o riassegnamento).
 
 Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve essere garantito per poter parlare di exception safety.
@@ -29,8 +31,10 @@ Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve
 
 ---
 
-### Livello forte (strong)
-Il <mark style="background: #FFB8EBA6;">livello forte</mark> di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di <mark style="background: #FF5582A6;">atomicità</mark> delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
+### Livello forte
+Il <mark style="background: #FFB8EBA6;">livello forte (strong)</mark> di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di <mark style="background: #FF5582A6;">atomicità</mark> delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
+
+> es: *Rollback* dei DBMS.
 
 #### Esempio
 Supponiamo di avere una classe che implementa una collezione ordinata di oggetti e di avere un metodo `insert` che inserisce un nuovo oggetto nella collezione esistente. 
