@@ -4,7 +4,8 @@
 ---
 
 ## Template di funzione
-Un template di funzione è un costrutto del linguggio $C$++ che consente di scrivere un *modello* (schema) parametrico per una funzione.
+<mark style="background: #ABF7F7A6;">Un template di funzione è un costrutto del linguggio $C$++ che consente di scrivere un *modello* (schema) parametrico per una funzione.</mark>
+
 Esempio:
 ```cpp
 // dichiarazione pura di un template di funzione
@@ -14,14 +15,12 @@ T max(T a, T b);
 // definizione di un template di funzione
 template <typename T>
 T max(T a, T b) {
-  return (a > b) ? a : b;
+	  return (a > b) ? a : b;
 }
 ```
 
-### Nome del template
 Nell'esempio precedente abbiamo prima dichiarato e poi definito un template di funzione di nome "max" (nota: come al solito, la definizione è anche una dichiarazione).
 
-### Parametri del template
 Nell'esempio, `T` è un parametro di template: il parametro viene dichiarato essere un `typename`(nome di tipo) nella lista dei parametri del template.
 La parola chiave "*typename*" può essere sostituita da "*class*", ma in ogni caso indica un qualunque tipo di dato, anche built-in (quindi per  coerenza si dovrebbe preferire l'uso di "typename").
 La lista dei parametri può contenerne un numero arbitrario, separati da virgole; oltre ai parametri che sono nomi di tipo, vedremo che esistono anche altre tipologie (valori, template).
@@ -41,10 +40,12 @@ U max(U x, U y); // dichiara lo stesso template max
 
 [_Torna all'indice_](#template%20in%20c++)
 
+---
+
 ### Istanziazione di un template di funzione
 Dato un template di funzione, è possibile "generare" da esso una o più funzioni mediante il meccanismo di istanziazione (del template): l'istanziazione fornisce un *argomento* (della tipologia corretta) ad ognuno dei parametri del template.
 
-L'istanziazione avviene spesso in maniera *implicita*, quando si fa riferimento al nome del template allo scopo di "usarne" una particolare istanza. Nell'esempio seguente, il template max viene istanziato (implicitamente) due volte, usando le parentesi angolate per fornire (esplicitamente) l'argomento per il parametro del template.
+L'istanziazione avviene spesso in maniera *implicita*, quando si fa riferimento al nome del template allo scopo di "usarne" una particolare istanza. Nell'esempio seguente, il template `max` viene istanziato (implicitamente) due volte, usando le parentesi angolate per fornire (esplicitamente) l'argomento per il parametro del template.
 
 Esempio:
 ```cpp
@@ -86,11 +87,11 @@ void foo(double d, int i) {
 ---
 
 ### Nota bene
-È opportuno sottolineare la differenza sostanziale tra un template di funzione e le sue possibili istanziazioni. In particolare: un template di funzione NON è una funzione (è un "generatore" di funzioni); una istanza di un template di funzione è una funzione.
+<u>È opportuno sottolineare la differenza sostanziale tra un template di funzione e le sue possibili istanziazioni.</u> In particolare: un template di funzione NON è una funzione (è un "generatore" di funzioni); una istanza di un template di funzione è una funzione.
 
 Per esempio, NON posso prendere l'indirizzo di un template di funzione (posso prendere l'indirizzo di una istanza specifica); non posso effettuare una chiamata di un template (chiamo una istanza specifica); non posso passare un template come argomento ad una funzione (passo una istanza specifica, che corrisponde a passarne l'indirizzo usando il type decay).
 
-Se compilo una unità di traduzione ottenendo un object file e osservo il contenuto dell'object file con il comando nm, vedrò solo le *istanze* dei template di funzione (non vedrò i template di funzione).
+Se compilo una unità di traduzione ottenendo un object file e osservo il contenuto dell'object file con il comando `nm`, vedrò solo le *istanze* dei template di funzione (non vedrò i template di funzione).
 
 Fatta questa doverosa sottolineatura, va comunque detto che nel linguaggio comune spesso si parla di "chiamata di un template di funzione" per indicare la chiamata di una sua specifica istanza.
 
@@ -113,7 +114,7 @@ Il processo di istanziazione corrisponde alla compilazione del modulo: ad ogni p
 ### Specializzazione esplicita di un template di funzione
 Capita a volte che la definizione di un template di funzione sia adeguata per molti, ma non per tutti i casi di interesse; ad esempio, il codice scritto potrebbe fornire un risultato ritenuto sbagliato quando ai parametri del template sono associati argomenti particolari.
 
-Ad esempio, il template max può essere istanziato anche con il tipo "const char*", ottenendo una funzione che restituisce il massimo dei due puntatori passati, quando invece, molto probabilmente, le intenzioni dell'utente era di fare un confronto lessicografico tra due stringhe stile C.
+Ad esempio, il template `max` può essere istanziato anche con il tipo `const char*`, ottenendo una funzione che restituisce il massimo dei due puntatori passati, quando invece, molto probabilmente, le intenzioni dell'utente era di fare un confronto lessicografico tra due stringhe stile $C$.
 
 Per ovviare, è possibile fornire una definizione alternativa della funzione templatica, "specializzata" per gli argomenti problematici, nel modo seguente:
 ```cpp
@@ -168,10 +169,10 @@ template
 float max(float a, float b);
 ```
 
-A livello sintattico, si noti l'assenza della lista dei parametri (la parola chiave template NON è seguita da parentesi angolate): questo differenzia le istanziazioni esplicite dalle specializzazioni esplicite,
+A livello sintattico, si noti l'assenza della lista dei parametri (la parola chiave `template` NON è seguita da parentesi angolate): questo differenzia le istanziazioni esplicite dalle specializzazioni esplicite.
 
 Il caso 1 (dichiarazione) informa il compilatore che, quando verrà usata quella istanza del template, NON deve essere prodotta la corrispondente definizione dell'istanza (evitando quindi la generazione del codice).
-Intuitivamente, la parola chiave "extern" indica che il codice dovrà essere trovato dal linker "esternamente" a questa unità di traduzione, cioè in un object file generato dalla compilazione di un'altra unità di traduzione. In pratica, la *dichiarazione* di istanziazione esplicita impedisce che vengano effettuate le istanziazioni implicite (per diminuire i tempi di compilazione e/o generare object file più piccoli).
+Intuitivamente, la parola chiave `extern` indica che il codice dovrà essere trovato dal linker "esternamente" a questa unità di traduzione, cioè in un object file generato dalla compilazione di un'altra unità di traduzione. In pratica, la *dichiarazione* di istanziazione esplicita impedisce che vengano effettuate le istanziazioni implicite (per diminuire i tempi di compilazione e/o generare object file più piccoli).
 
 Il caso 2 (definizione) è complementare al caso 1: si informa il compilatore che quella particolare istanza del template va generata, a prescindere dal fatto che in questa unità di traduzione ne venga o meno effettuato l'utilizzo. Serve ad assicurarsi che le altre unità di traduzione (che hanno usato il caso 1) possano essere collegate con successo.
 
@@ -180,7 +181,7 @@ Il caso 2 (definizione) è complementare al caso 1: si informa il compilatore ch
 ---
 
 ## Template di classe
-Un template di classe è un costrutto del linguggio che consente di scrivere un *modello* parametrico per una classe.
+<mark style="background: #BBFABBA6;">Un template di classe è un costrutto del linguggio che consente di scrivere un *modello* parametrico per una classe.</mark>
 
 Quasi tutti i concetti esposti per il caso dei template di funzione possono essere applicati alle classi: nel seguito si sottolineano le differenze (poche ma importanti).
 
@@ -195,10 +196,10 @@ class Stack;
 template <typename T>
 class Stack {
 public:
-  /* ... */
-  void push(const T& t);
-  void pop();
-  /* ... */
+	/* ... */
+	void push(const T& t);
+	void pop();
+	/* ... */
 };
 ```
 
@@ -207,9 +208,11 @@ Nel caso dei template di classe, è ancora più importante distinguere tra il no
 ```cpp
 Stack<int> s1; // istanziazione implicita del tipo Stack<int>
 	           // (in particolare, del costruttore di default)
+	           
 Stack s2 = s1; // errore: non viene dedotto il tipo T = int
+
 auto s2 = s1;  // ok: il C++11 ha introdotto la deduzione di tipo
-               // dall'inizializzatore, usando auto; viene anche
+               // dall'inizializzatore, usando `auto`; viene anche
                // istanziato implicitamente il costruttore di copia
 ```
 
@@ -219,19 +222,19 @@ Per esempio:
 ```cpp
 template <typename T>
 class Stack {
-  /* ... */
-  /* qui gli usi di Stack sono abbreviazioni (lecite) di Stack<T> */
-  Stack& operator=(const Stack&);
-  /* ... */
+	/* ... */
+	/* qui gli usi di Stack sono abbreviazioni (lecite) di Stack<T> */
+	Stack& operator=(const Stack&);
+	/* ... */
 }; // usciamo dallo scope di classe
 
 // definizione (out-of-line)
 template <typename T>
 Stack<T>& // il tipo di ritorno è fuori scope di classe, devo scrivere <T>
 Stack<T>::operator=(const Stack& y) { // parametro in scope di classe
-  Stack tmp = y; // in scope di classe, è sufficiente Stack
-  swap(tmp);
-  return *this;
+	Stack tmp = y; // in scope di classe, è sufficiente Stack
+	swap(tmp);
+	return *this;
 }
 ```
 
@@ -246,10 +249,11 @@ Verranno istanziati se e quando utilizzati.
 
 Questo scelta del linguaggio ha conseguenze positive e negative:
 - In negativo: quando scrivo i test per la classe templatica devo prestare attenzione a fornire un insieme di test che copra tutte le funzionalità di interesse; le funzionalità NON testate (e quindi non instanziate) potrebbero addirittura generare errori di compilazione al momento dell'instanziazione da parte dell'utente.
-- In positivo: per lo stesso motivo, posso usare un sotto insieme delle funzionalità della classe istanziandola con argomenti che soddisfano solo i requisiti di quelle funzionalità; il fatto che quegli argomenti siano "scorretti" per le altre funzionalità (non usate) non mi impedisce l'utilizzo dell'interfaccia "ristretta".
+- In positivo: per lo stesso motivo, posso usare un sotto-insieme delle funzionalità della classe istanziandola con argomenti che soddisfano solo i requisiti di quelle funzionalità; il fatto che quegli argomenti siano "scorretti" per le altre funzionalità (non usate) non mi impedisce l'utilizzo dell'interfaccia "ristretta".
 
-#### Esempio
-Supponiamo che la classe `Stack<T>` fornisca un metodo `print()`, implementato invocando il corrispondente metodo `print()` del parametro T su ognuno degli oggetti contenuti nello stack. Questo significa che, per usare il metodo `Stack<T>::print()`, il tipo `T` *deve* fornire a sua volta il metodo `T::print()` (si noti, per esempio, che "int" non è una classe e quindi un tentativo di istanziare `Stack<int>::print()` genera un errore di compilazione. L'errore, però, lo si ottiene *solo* se effettivamente si prova a istanziare `Stack<int>::print();` l'istanziazione dei metodi `Stack<int>::push()` e `Stack<int>::pop()` continua ad essere corretta e utilizzabile.
+Esempio:
+Supponiamo che la classe `Stack<T>` fornisca un metodo `print()`, implementato invocando il corrispondente metodo `print()` del parametro `T` su ognuno degli oggetti contenuti nello stack. Questo significa che, per usare il metodo `Stack<T>::print()`, il tipo `T` <u>*deve*</u> fornire a sua volta il metodo `T::print()` .
+> Si noti, per esempio, che "int" non è una classe e quindi un tentativo di istanziare `Stack<int>::print()` genera un errore di compilazione. L'errore, però, lo si ottiene *solo* se effettivamente si prova a istanziare `Stack<int>::print();` l'istanziazione dei metodi `Stack<int>::push()` e `Stack<int>::pop()` continua ad essere corretta e utilizzabile.
 
 [_Torna all'indice_](#template%20in%20c++)
 
@@ -272,19 +276,18 @@ int foo() {
 ```
 
 
-Nell'header file limits troviamo, tra le altre cose, le specializzazioni
-totali che consentono di rispondere alle interrogazioni dell'utente:
+Nell'header file limits troviamo, tra le altre cose, le specializzazioni totali che consentono di rispondere alle interrogazioni dell'utente:
 
 ```cpp
-[...]
+// [...]
 // numeric_limits<char> specialization.
 template<>
 struct numeric_limits<char>
-[...]
+// [...]
 // numeric_limits<long> specialization.
 template<>
 struct numeric_limits<long>
-[...]
+// [...]
 ```
 
 Un altro esempio è dato dalla specializzazione `std::vector<bool>` del template `std::vector`, creata allo scopo di fornire una versione del contenitore ottimizzata per risparmiare memoria (codificando ogni valore booleano con un singolo bit).
@@ -294,12 +297,14 @@ Un altro esempio è dato dalla specializzazione `std::vector<bool>` del template
 ---
 
 ### Specializzazioni parziali
-A differenza dei template di funzione, i template di classe supportano anche le *specializzazioni parziali*. Si tratta di specializzazioni di template che sono applicabili non per una scelta specifica degli argomenti (come nel caso delle specializzazioni totali), ma per sottoinsiemi di tipi.
+A differenza dei template di funzione, i template di classe supportano anche le *specializzazioni parziali*. <mark style="background: #FFB8EBA6;">Si tratta di specializzazioni di template che sono applicabili non per una scelta specifica degli argomenti</mark> (come nel caso delle specializzazioni totali), <mark style="background: #FFB8EBA6;">ma per sottoinsiemi di tipi.</mark>
 Una specializzazione parziale di un template (di classe), quindi, è ancora un template di classe, ma di applicabilità meno generale.
 
 [_Torna all'indice_](#template%20in%20c++)
 
-### Analogia
+---
+
+### Un'altra analogia
 Riprendiamo l'analogia dei moduli per la domanda di modifica di piano di studi: si era detto che il modulo in bianco è il template (per uno studente qualsiasi) e il modulo compilato in ogni sua parte è l'istanza (di uno specifico studente).
 
 Una specializzazione esplicita *totale* corrisponde ad una domanda di modifica di piano degli studi "fuori standard", fatta (ad personam) da uno specifico studente e che non segue necessariamente lo schema del modello generale.
@@ -324,13 +329,13 @@ Il fatto che si tratti di una specializzazione parziale si deduce dalla contempo
 ## Altri template
 Gli standard più recenti hanno introdotto nuove forme di template, sui quali non faremo approfondimenti.
 
-### Template di alias
+Template di alias:
 ```cpp
 template <typename T>
 using Vec<T> = std::vector<T, std::allocator<T>>;
 ```
 
-### Template di variabile
+Template di variabile:
 ```cpp
 template <typename T>
 const T pi = T(3.1415926535897932385L);
@@ -341,16 +346,16 @@ const T pi = T(3.1415926535897932385L);
 ---
 
 ## Compilazione dei template
-Il processo di compilazione dei template richiede lo stesso codice sia analizzato dal compilatore in (almeno) due contesti distinti:
-1) al momento della definizione del template
-2) al momento della instanziazione del template
+Il processo di compilazione dei template richiede che lo stesso codice sia analizzato dal compilatore in (almeno) due contesti distinti:
+1) al momento della definizione del template, e
+2) al momento della instanziazione del template.
 
 Nella prima fase (definizione del template) il compilatore si trova ad operare con informazione incompleta. Si consideri il seguente esempio:
 ```cpp
 template <typename T>
 void incr(int& i, T& t) {
-  ++i; // espressione indipendente dai parametri del template
-  ++t; // espressione dipendente dai parametri del template
+	++i; // espressione indipendente dai parametri del template
+	++t; // espressione dipendente dai parametri del template
 }
 ```
 
@@ -363,7 +368,7 @@ Sulla seconda espressione, invece, gli unici controlli che possono essere effett
 ---
 
 ### Conseguenza 1
-Una prima conseguenza, di cui tenere conto quando si scrivono i programmi, è che la definizione di un template deve essere disponibile i tutti i punti del programma nei quali se ne richiede l'istanziazione.
+<mark style="background: #D2B3FFA6;">Una prima conseguenza, di cui tenere conto quando si scrivono i programmi, è che la definizione di un template deve essere disponibile i tutti i punti del programma nei quali se ne richiede l'istanziazione.</mark>
 
 In pratica, esistono tre modi per organizzare il codice sorgente quando si scrivono funzioni o classi templatiche:
 1) Includere le definizioni dei template (comprese la definizioni di eventuali funzioni membro dei template di classe) prima di ogni loro uso nella unità di traduzione.
@@ -381,33 +386,33 @@ L'approccio più comune, perché più semplice, è il primo. Il secondo approcci
 ---
 
 ### Conseguenza 2 
-Una seconda conseguenza del meccanismo di compilazione in due fasi dei template è che, in alcuni casi, occorre modificare il codice di implementazione dei template di funzioni o classe per fornire al compilatore qualche informazione utile ad evitare errori di compilazione.
+Una seconda conseguenza del meccanismo di compilazione in due fasi dei template è che, in alcuni casi, <mark style="background: #D2B3FFA6;">occorre modificare il codice di implementazione dei template di funzioni o classe per fornire al compilatore qualche informazione utile ad evitare errori di compilazione.</mark>
 
 Per esempio, consideriamo il seguente codice (non templatico):
 ```cpp
 struct S {
-  using value_type = /* ... dettaglio implementativo ... */;
-  /* ... */
+	using value_type = /* ... dettaglio implementativo ... */;
+	/* ... */
 };
 
 void foo(const S& s) {
-  S::value_type* ptr;
-  /* ... */
+	S::value_type* ptr;
+	/* ... */
 }
 ```
 
-Supponiamo ora di voler templatizzare la classe S, rendendola parametrica rispetto ad un qualche tipo usato al suo interno. Intuitivamente, il processo di "lifting" porterebbe ad adattare il codice in questo modo:
+Supponiamo ora di voler templatizzare la classe `S`, rendendola parametrica rispetto ad un qualche tipo usato al suo interno. Intuitivamente, il processo di "lifting" porterebbe ad adattare il codice in questo modo:
 ```cpp
 template <typename T>
 struct S {
-  using value_type = /* ... dettaglio implementativo ... */;
-  /* ... */
+	using value_type = /* ... dettaglio implementativo ... */;
+	/* ... */
 };
 
 template <typename T>
 void foo(const S<T>& s) {
-  S<T>::value_type* ptr;   // errore: ptr non dichiarato
-  /* ... */
+	S<T>::value_type* ptr;   // errore: ptr non dichiarato
+	/* ... */
 }
 ```
 
@@ -416,14 +421,14 @@ In effetti, il compilatore si trova di fronte a codice del tipo
 ```cpp
 nome1 * nome2
 ```
-e non sa nulla di `nome1` e `nome2`: siccome nome1 è dipendente dal parametro template `T`, il compilatore assume che sia il nome di un "valore" (non di un "tipo"), interpretando l'istruzione come applicazione dell'operatore `*` binario; viene quindi segnalato un errore perché `nome2` (che non dipende dal parametro `T`) non è stato dichiarato.
+e non sa nulla di `nome1` e `nome2`: siccome `nome1` è dipendente dal parametro template `T`, il compilatore assume che sia il nome di un "valore" (non di un "tipo"), interpretando l'istruzione come applicazione dell'operatore `*` binario; viene quindi segnalato un errore perché `nome2` (che non dipende dal parametro `T`) non è stato dichiarato.
 
 Per risolvere il problema e comunicare correttamente le nostre intenzioni al compilatore, occorre informarlo che `S<T>::value_type` indica il nome di un tipo, aggiungendo la parola chiave `typename`:
 ```cpp
 template <typename T>
 void foo(const S<T>& s) {
-  typename S<T>::value_type* ptr;   // ok, dichiaro un puntatore
-  /* ... */
+	typename S<T>::value_type* ptr;   // ok, dichiaro un puntatore
+	/* ... */
 }
 ```
 
@@ -434,11 +439,11 @@ int p = 10;
 
 template <typename T>
 void foo(const S<T>& s) {
-  S<T>::value_type* p;   // compila senza errori (operator* binario)
-  /* ... */
+	S<T>::value_type* p;   // compila senza errori (operator* binario)
+	/* ... */
 }
 ```
 
-Per pura sfortuna, esiste una dichiarazione di un intero p visibile quando il compilatore valuta l'istruzione, per cui il compilatore non rileva l'errore (assumendo che il programmatore intenda fare una sorta di moltiplicazione del valore di `S<T>::value_type` con il valore 10 memorizzato nella variabile `p` dello scope globale.
+> Per pura sfortuna, esiste una dichiarazione di un intero `p` visibile quando il compilatore valuta l'istruzione, per cui il compilatore non rileva l'errore (assumendo che il programmatore intenda fare una sorta di moltiplicazione del valore di `S<T>::value_type` con il valore 10 memorizzato nella variabile `p` dello scope globale).
 
 [_Torna all'indice_](#template%20in%20c++)
