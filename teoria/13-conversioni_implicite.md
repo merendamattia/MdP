@@ -25,12 +25,12 @@ In realtà, questa *NON* è una conversione, perché tipo di partenza e tipo di 
 
 Esempio: (si assumono le dichiarazioni "`int i; const int& r = i;`")
 | tipo parametro | argomento |
-| -------------- | --------- |
-| int            | 5         |
-| int&           | i         |
-| int*           | &i        |
-| const int&     | r         |
-| double         | 5.2       |
+|:--------------:| --------- |
+|      int       | 5         |
+|      int&      | i         |
+|      int*      | &i        |
+|   const int&   | r         |
+|     double     | 5.2       | 
 
 #### 1b. Trasformazioni di lvalue
 Esempio: (si assumono le dichiarazioni "`int a[10];`" e "`void foo();`")
