@@ -32,6 +32,8 @@ Un esempio di primo errore è l'assenza del file `Razionale.hh` in `Razionale.c
 
 [_Torna all'indice_](#tipo%20dato%20concreto)
 
+---
+
 ### Razionale.hh
 Definiamo l'header file, nel quale sarà presente il namespace `Numerica` contenente la classe `Razionale`:
 ```cpp
@@ -58,6 +60,8 @@ namespace Numerica {
 > Maggiori informazioni nel file `./code/Razionale.hh`
 
 [_Torna all'indice_](#tipo%20dato%20concreto)
+
+---
 
 ### testRazionale.cc
 Definiamo ora invece il file `.cc` contenente il test.

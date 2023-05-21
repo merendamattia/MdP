@@ -7,18 +7,20 @@ Una porzione di codice si dice <mark style="background: #FFB86CA6;">exception sa
 
 In particolare, occorre valutare se la porzione di codice, in seguito al comportamento eccezionale, non abbia compromesso lo stato del programma in maniera irreparabile: esempi di compromissione sono il mancato rilascio (cioè la perdita) di risorse oppure la corruzione dello stato interno di una risorsa (ad esempio, l'invariante di classe non è più verificata), con la conseguenza che qualunque ulteriore tentativo di interagire con la risorsa si risolve in un comportamento non definito (*undefined behavior*).
 
+---
+
 ## Livelli di exception safety
 Esistono tre diversi livelli di exception safety: 
-- base;
-- forte;
-- nothrow.
+- [base](#livello%20base)
+- [forte](#livello%20forte)
+- [nothrow](#livello%20nothrow)
 
 ---
 
 ### Livello base
 Una porzione di codice (una funzione o una classe) si dice exception safe a livello base se, anche nel caso in cui si verifichino delle eccezioni durante la sua esecuzione:
-1. Non si hanno perdite di risorse (resource leak);
-2. Si è neutrali rispetto alle eccezioni quando, igni qual volta viene ricevuta un'eccezione questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata al chiamante (permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie);
+1. Non si hanno perdite di risorse (resource leak).
+2. Si è neutrali rispetto alle eccezioni quando, ogni qual volta viene ricevuta un'eccezione questa viene catturata momentaneamente, gestita in modo "locale", e successivamente viene rilasciata al chiamante (permettendo così la sua <mark style="background: #ABF7F7A6;">propagazione</mark> così che possa prenderne atto ed eseguire a sua volta eventuali azioni correttive necessarie).
 3. Anche in caso di uscita in modalità eccezionale, gli oggetti sui quali si stava lavorando sono distruggibili senza causare comportamenti non definiti. Quindi lo stato interno di un oggetto, anche se parzialmente inconsistente, deve comunque consentirne la corretta distruzione (o riassegnamento).
 
 Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve essere garantito per poter parlare di exception safety.
@@ -29,8 +31,10 @@ Questo è il <mark style="background: #ABF7F7A6;">livello minimo</mark> che deve
 
 ---
 
-### Livello forte (strong)
-Il <mark style="background: #FFB8EBA6;">livello forte</mark> di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di <mark style="background: #FF5582A6;">atomicità</mark> delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
+### Livello forte
+Il <mark style="background: #FFB8EBA6;">livello forte (strong)</mark> di exception safety si ottiene quando, oltre a tutte le garanzie fornite dal <mark style="background: #ABF7F7A6;">livello base</mark>, si aggiunge come ulteriore garanzia una sorta di <mark style="background: #FF5582A6;">atomicità</mark> delle operazioni (tutto o niente). Intuitivamente, l'invocazione di una funzione exception safe forte, in caso di eccezione, garantisce che lo stato degli oggetti manipolati è rimasto inalterato, identico allo stato precedente la chiamata.
+
+> es: *Rollback* dei DBMS.
 
 #### Esempio
 Supponiamo di avere una classe che implementa una collezione ordinata di oggetti e di avere un metodo `insert` che inserisce un nuovo oggetto nella collezione esistente. 
@@ -66,14 +70,18 @@ Si noti che il livello nothrow, per definizione, *NON* è neutrale rispetto alle
 Tale affermazione vale sotto determinate condizioni. 
 Dato che si parla di contenitori templatici, quindi possono essere istanziati a partire da un qualunque tipo di dato `T`, le garanzie di exception safety del contenitore sono valide a condizione che il tipo di dato `T` degli elementi contenuti fornisca analoghe garanzie.
 
-> Molte operazioni su questi contenitori forniscono la garanzia forte (strong exception safety). Alcune però forniscono solo una garanzia base, tipicamente quando si opera su un molti elementi contemporaneamente, perché quella strong sarebbe troppo costosa.
+> Molte operazioni su questi contenitori forniscono la garanzia forte (strong exception safety). Alcune però forniscono solo una garanzia base, tipicamente quando si opera su molti elementi contemporaneamente, perché quella strong sarebbe troppo costosa.
+
+---
 
 ### Esempio strong safety 
-Se viene invocato il metodo `void push_back(const T& t)` su di un oggetto di tipo `std::vector<T>` e il tentativo di copiare l'oggetto `t` all'interno del *vector* dovesse fallire lanciando una eccezione (per esempio, perché il costruttore di copia di T ha esaurito le risorse a disposizione e non può effettuare la copia), si può essere sicuri che il vector *NON* è stato modificato. 
-Se prima della chiamata conteneva gli n elementi `[t1, ..., tn]`, in uscita dalla chiamata contiene ancora gli stessi elementi (nello stesso ordine).
+Se viene invocato il metodo `void push_back(const T& t)` su di un oggetto di tipo `std::vector<T>` e il tentativo di copiare l'oggetto `t` all'interno del *vector* dovesse fallire lanciando una eccezione (per esempio, perché il costruttore di copia di `T` ha esaurito le risorse a disposizione e non può effettuare la copia), si può essere sicuri che il vector *NON* è stato modificato. 
+Se prima della chiamata conteneva gli $n$ elementi `[t1, ..., tn]`, in uscita dalla chiamata contiene ancora gli stessi elementi (nello stesso ordine).
+
+---
 
 ### Esempio base safety
-Il metodo `void assign(size_type n, const T& val)` sostituisce il contenuto del vector con `n` copie del valore `val`, siccome un'eccezione potrebbe essere lanciata da una qualunque delle n operazioni di costruzione, il *vector*, in caso di eccezione, rimane in uno stato valido, ma il suo contenuto non è predicibile (in particolare, molto probabilmente il contenuto precedente è irrecuperabile).
+Il metodo `void assign(size_type n, const T& val)` sostituisce il contenuto del vector con $n$ copie del valore `val`, siccome un'eccezione potrebbe essere lanciata da una qualunque delle $n$ operazioni di costruzione, il *vector*, in caso di eccezione, rimane in uno stato valido, ma il suo contenuto non è predicibile (in particolare, molto probabilmente il contenuto precedente è irrecuperabile).
 
 [_Torna all'indice_](#exception%20safety)
 
@@ -84,6 +92,8 @@ Un esempio su tre approcci possibili che l'utente può adottare per ottenere un 
 - [Errori tradizionali (no eccezioni)](#Errori%20tradizionali%20(no%20eccezioni))
 - [Uso di blocchi try/catch](#Uso%20di%20blocchi%20try/catch)
 - [Uso dell'idioma RAII-RRID](#Uso%20dell'idioma%20RAII-RRID)
+
+---
 
 ### Errori "tradizionali" (no eccezioni) 
 *risorsa_no_exc.hh*
@@ -113,62 +123,65 @@ void restituisci_risorsa(Risorsa* r);
 #include "risorsa_no_exc.hh"
 
 bool codice_utente() {
-  Risorsa* r1 = acquisisci_risorsa();
-  if (r1 == nullptr) {
-    // errore durante acquisizione di r1: non devo rilasciare nulla
-    return true;
-  }
-
-  // acquisita r1: devo ricordarmi di rilasciarla
-
-  if (usa_risorsa(r1)) {
-    // errore durante l'uso: rilascio r1
-    restituisci_risorsa(r1);
-    return true;
-  }
-
-  Risorsa* r2 = acquisisci_risorsa();
-  if (r2 == nullptr) {
-    // errore durante acquisizione di r2: rilascio di r1
-    restituisci_risorsa(r1);
-    return true;
-  }
-
-  // acquisita r2: devo ricordarmi di rilasciare r2 e r1
-
-  if (usa_risorse(r1, r2)) {
-    // errore durante l'uso: rilascio r2 e r1
-    restituisci_risorsa(r2);
-    restituisci_risorsa(r1);
-    return true;
-  }
-
-  // fine uso di r2: la rilascio
-  restituisci_risorsa(r2);
-  // ho ancora r1: devo ricordarmi di rilasciarla
-
-  Risorsa* r3 = acquisisci_risorsa();
-  if (r3 == nullptr) {
-    // errore durante acquisizione di r3: rilascio di r1
-    restituisci_risorsa(r1);
-    return true;
-  }
-
-  // acquisita r3: devo ricordarmi di rilasciare r3 e r1
-
-  if (usa_risorse(r1, r3)) {
-    // errore durante l'uso: rilascio r3 e r1
-    restituisci_risorsa(r3);
-    restituisci_risorsa(r1);
-    return true;
-  }
-
-  // fine uso di r3 e r1: le rilascio
-  restituisci_risorsa(r3);
-  restituisci_risorsa(r1);
-
-  // Tutto ok: lo segnalo ritornando false
-  return false;
+	Risorsa* r1 = acquisisci_risorsa();
+	
+	if (r1 == nullptr) {
+		// errore durante acquisizione di r1: non devo rilasciare nulla
+		return true;
+	}
+	
+	// acquisita r1: devo ricordarmi di rilasciarla
+	
+	if (usa_risorsa(r1)) {
+		// errore durante l'uso: rilascio r1
+		restituisci_risorsa(r1);
+		return true;
+	}
+	
+	Risorsa* r2 = acquisisci_risorsa();
+	
+	if (r2 == nullptr) {
+		// errore durante acquisizione di r2: rilascio di r1
+		restituisci_risorsa(r1);
+		return true;
+	}
+	
+	// acquisita r2: devo ricordarmi di rilasciare r2 e r1
+	
+	if (usa_risorse(r1, r2)) {
+		// errore durante l'uso: rilascio r2 e r1
+		restituisci_risorsa(r2);
+		restituisci_risorsa(r1);
+		return true;
+	}
+	
+	// fine uso di r2: la rilascio
+	restituisci_risorsa(r2);
+	// ho ancora r1: devo ricordarmi di rilasciarla
+	
+	Risorsa* r3 = acquisisci_risorsa();
+	
+	if (r3 == nullptr) {
+		// errore durante acquisizione di r3: rilascio di r1
+		restituisci_risorsa(r1);
+		return true;
+	}
+	
+	// acquisita r3: devo ricordarmi di rilasciare r3 e r1
+	
+	if (usa_risorse(r1, r3)) {
+		// errore durante l'uso: rilascio r3 e r1
+		restituisci_risorsa(r3);
+		restituisci_risorsa(r1);
+		return true;
+	}
+	
+	// fine uso di r3 e r1: le rilascio
+	restituisci_risorsa(r3);
+	restituisci_risorsa(r1);
+	
+	// Tutto ok: lo segnalo ritornando false
+	return false;
 }
 
 ```
@@ -191,24 +204,24 @@ struct exception_uso_risorsa {};
 // Lancia una eccezione se non riesce ad acquisire la risorsa.
 inline Risorsa*
 acquisisci_risorsa_exc() {
-  Risorsa* r = acquisisci_risorsa();
-  if (r == nullptr)
-    throw exception_acq_risorsa();
-  return r;
+	Risorsa* r = acquisisci_risorsa();
+	if (r == nullptr)
+		throw exception_acq_risorsa();
+	return r;
 }
 
 // Lancia una eccezione se si è verificato un problema.
 inline void
 usa_risorsa_exc(Risorsa* r) {
-  if (usa_risorsa(r))
-    throw exception_uso_risorsa();
+	if (usa_risorsa(r))
+		throw exception_uso_risorsa();
 }
 
 // Lancia una eccezione se si è verificato un problema.
 inline void
 usa_risorse_exc(Risorsa* r1, Risorsa* r2) {
-  if (usa_risorse(r1, r2))
-    throw exception_uso_risorsa();
+	if (usa_risorse(r1, r2))
+		throw exception_uso_risorsa();
 }
 
 #endif // GUARDIA_risorsa_exc_hh
@@ -220,10 +233,12 @@ usa_risorse_exc(Risorsa* r1, Risorsa* r2) {
 
 void codice_utente() {
 	Risorsa* r1 = acquisisci_risorsa_exc();
+	
 	try { // blocco try che protegge la risorsa r1
 		usa_risorsa_exc(r1);
 		
 		Risorsa* r2 = acquisisci_risorsa_exc();
+		
 		try { // blocco try che protegge la risorsa r2
 			usa_risorse_exc(r1, r2);
 			restituisci_risorsa(r2);
@@ -250,33 +265,20 @@ void codice_utente() {
 		throw;
 	}
 }
-
-/*
-  Osservazioni:
-  1) si crea un blocco try/catch per ogni singola risorsa acquisita
-  2) il blocco si apre subito *dopo* l'acquisizione della risorsa
-     (se l'acquisizione fallisce, non c'è nulla da rilasciare)
-  3) lo responsabilità del blocco try/catch è di proteggere *quella*
-     singola risorsa (ignorando le altre)
-  4) al termine del blocco try (prima del catch) va effettuata la
-     "normale" restituzione della risorsa (caso NON eccezionale)
-  5) la clausola catch usa "..." per catturare qualunque eccezione:
-     non ci interessa sapere che errore si è verificato (non è nostro
-     compito), dobbiamo solo rilasciare la risorsa protetta
-  6) nella clausola catch, dobbiamo fare due operazioni:
-      - rilasciare la risorsa protetta
-      - rilanciare l'eccezione catturata (senza modificarla)
-        usando l'istruzione "throw;"
-
-  Il rilancio dell'eccezione catturata (seconda parte del punto 6)
-  garantisce la "neutralità rispetto alle eccezioni": i blocchi catch
-  catturano le eccezioni solo temporaneamente, lasciandole poi
-  proseguire. In questo modo anche gli altri blocchi catch potranno
-  fare i loro rilasci di risorse e l'utente otterrà comunque l'eccezione,
-  con le informazioni annesse, potendo quindi decidere come "gestirla".
-
-*/
 ```
+
+
+  Osservazioni:
+  1) Si crea un blocco try/catch per ogni singola risorsa acquisita.
+  2) Il blocco si apre subito *dopo* l'acquisizione della risorsa (se l'acquisizione fallisce, non c'è nulla da rilasciare).
+  3) La responsabilità del blocco try/catch è di proteggere *quella* singola risorsa (ignorando le altre).
+  4) Al termine del blocco try (prima del catch) va effettuata la "normale" restituzione della risorsa (caso NON eccezionale).
+  5) La clausola catch usa $\cdots$ per catturare qualunque eccezione: non ci interessa sapere che errore si è verificato (non è nostro compito), dobbiamo solo rilasciare la risorsa protetta.
+  6) Nella clausola catch, dobbiamo fare due operazioni:
+      - rilasciare la risorsa protetta;
+      - rilanciare l'eccezione catturata (senza modificarla) usando l'istruzione `throw;`.
+
+  Il rilancio dell'eccezione catturata garantisce la "neutralità rispetto alle eccezioni": i blocchi catch catturano le eccezioni solo temporaneamente, lasciandole poi proseguire. In questo modo anche gli altri blocchi catch potranno fare i loro rilasci di risorse e l'utente otterrà comunque l'eccezione, con le informazioni annesse, potendo quindi decidere come "gestirla".
 
 [_Torna all'indice_](#exception%20safety)
 
@@ -367,6 +369,27 @@ void codice_utente() {
 
 ## Esercizio 
 ![[eccezioni_esempio.jpg]]
+
+Soluzione:
+```cpp
+void job(){
+	Res* r1 = new Res("res1");
+	try {
+		Res* r2 = new Res("res2");
+		try {
+			do_task(r1, r2);
+			delete res1;
+			delete res2;
+		} catch (...) {
+			delete res2;
+			throw;
+		}
+	} catch (...) {
+		delete res1;
+		throw;
+	}
+}
+```
 
 [_Torna all'indice_](#exception%20safety)
 

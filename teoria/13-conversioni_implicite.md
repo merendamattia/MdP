@@ -23,7 +23,7 @@ Le corrispondenze esatte si possono suddividere nelle seguenti sottoclassi:
 #### 1a. Identità (match perfetti)
 In realtà, questa *NON* è una conversione, perché tipo di partenza e tipo di destinazione coincidono; è comunque comodo includerla come caso speciale nella classificazione, per poter ragionare in modo più semplice durante la risoluzione dell'overloading.
 
-Esempio: (si assumono le dichiarazioni "`int i; const int& r = i;`")
+Esempio: (si assumono le dichiarazioni `int i; const int& r = i;`)
 | tipo parametro | argomento |
 |:--------------:| --------- |
 |      int       | 5         |
@@ -33,7 +33,7 @@ Esempio: (si assumono le dichiarazioni "`int i; const int& r = i;`")
 |     double     | 5.2       | 
 
 #### 1b. Trasformazioni di lvalue
-Esempio: (si assumono le dichiarazioni "`int a[10];`" e "`void foo();`")
+Esempio: (si assumono le dichiarazioni `int a[10];` e `void foo();`)
 | tipo parametro | argomento                     |
 | -------------- | ------------------------------ |
 | int            | i (da lvalue a rvalue)         |
@@ -55,7 +55,7 @@ Esempio:
 ### Le promozioni
 <mark style="background: #FFB86CA6;">Le promozioni corrispondono ad alcune conversioni implicite di tipo che, come le conversioni esatte, sono garantite preservare il valore dell'argomento.</mark>
 
-Ogni implementazione del linguaggio C++ è specifica per una particolare architettura del processore (per esempio, con "parole" di 16, 32 o 64 bit).
+Ogni implementazione del linguaggio $C$++ è specifica per una particolare architettura del processore (per esempio, con "parole" di 16, 32 o 64 bit).
 Tradizionalmente, i tipi `int` e `unsigned int` vengono forniti della dimensione adeguata per ottenere la massima efficienza su quella particolare architettura. Al contrario, i tipi interi più piccoli di `int` non sono direttamente rappresentabili all'interno del processore (per esempio, il processore sa effettuare la somma di due registri o farne il confronto, ma tipicamente non è dotato di istruzioni che effettuano la somma o effettuano il confronto tra porzioni di registri).
 
 Quindi, ogni volta che si vuole operare su un valore di un tipo di dato più piccolo di `int`, questo deve essere "promosso" al tipo `int` (o `unsigned int`) per potere effettuare l'operazione.
@@ -67,7 +67,7 @@ Quindi, ogni volta che si vuole operare su un valore di un tipo di dato più pic
 #### 2b. Promozioni floating point
 * da float a double
 
-#### 2c. Promozione delle costanti di enumerazioni del C++ 2003
+#### 2c. Promozione delle costanti di enumerazioni del C++03
 Al più piccolo tipo intero (almeno int) sufficientemente grande per contenerle.
 
 [_Torna all'indice_](#conversioni%20implicite%20di%20tipo)

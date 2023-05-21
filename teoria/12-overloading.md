@@ -10,7 +10,7 @@ L'overloading è utile, in generale, per evitare di dovere fornire un nome disti
 
 Per esempio, nella libreria matematica del $C$ (linguaggio di programmazione che *NON* supporta il concetto di overloading), abbiamo le tre funzioni
 
-```cpp
+```c
 float sqrtf(float arg);
 double sqrt(double arg);
 long double sqrtl(long double arg);
@@ -29,7 +29,7 @@ long double sqrt(long double arg);
 Per il programmatore è più semplice ricordare un solo nome.
 La differenza tra i due approcci può diventare ancora più evidente se si pensa ad una funzione di stampa (per esempio `print`) che debba essere applicata a dozzine o centinaia di tipi di dato diversi.
 
-> Va comunque notato che anche il $C$ supporta una forma ristretta di overloading, che però è confinata al caso degli operatori definiti sui tipi built-in. Per esempio, nell'espressione `v + 1` l'operatore `+` corrisponde alla somma di interi se `v` è di tipo intero, alla somma di double se `v` è di tipo double, ...
+> Va comunque notato che anche il $C$ supporta una forma ristretta di overloading, che però è confinata al caso degli operatori definiti sui tipi built-in. Per esempio, nell'espressione `v + 1` l'operatore `+` corrisponde alla somma di interi se `v` è di tipo intero, alla somma di double se `v` è di tipo double, ecc...
 
 Oltre ai suddetti motivi di comodità, vedremo come l'overloading di funzione risulterà essenziale quando dovremo scrivere codice generico (utilizzando template di classe e template di funzione).
 
@@ -55,7 +55,8 @@ Daremo una descrizione abbastanza dettagliata (ma comunque incompleta) del proce
 ---
 
 ### Fase 1: le funzioni candidate
-<mark style="background: #FFB8EBA6;">L'insieme delle funzioni candidate</mark> per una specifica chiamata di funzione è un sottoinsieme delle funzioni che sono state dichiarate all'interno dell'unità di traduzione. In particolare, le funzioni candidate:
+<mark style="background: #FFB8EBA6;">L'insieme delle funzioni candidate</mark> per una specifica chiamata di funzione è un sottoinsieme delle funzioni che sono state dichiarate all'interno dell'unità di traduzione. 
+In particolare, le funzioni candidate:
 1. hanno lo stesso nome della funzione chiamata
 2. sono visibili nel punto della chiamata
 
@@ -105,10 +106,7 @@ t.foo(5);
 // non va in overloading, perché viene nascosta (hiding);
 ```
 
-  4. <mark style="background: #FF5582A6;">Attenzione ad eventuali dichiarazioni e direttive di using</mark>, che modificano la visibilità delle dichiarazioni
-    Esempio:
-      nell'esempio precedente, se nella classe T fosse aggiunto `using S::foo`; 
-      allora `S::foo` e `T::foo` sarebbero entrambe visibili e andrebbero in overloading.
+  4. <mark style="background: #FF5582A6;">Attenzione ad eventuali dichiarazioni e direttive di using</mark>, che modificano la visibilità delle dichiarazioni: nell'esempio precedente, se nella classe T fosse aggiunto `using S::foo;`  allora `S::foo` e `T::foo` sarebbero entrambe visibili e andrebbero in overloading.
   
   5. <mark style="background: #FF5582A6;">Attenzione all'ADL (Argument Dependent Lookup)</mark>
 
@@ -140,19 +138,19 @@ int main() {
 }
 ```
 
-Per la chiamata 1, <mark style="background: #ABF7F7A6;">si applica la regola ADL</mark>, perché il nome foo non è qualificato e l'argomento `s` ha tipo `struct S` definito dall'utente all'interno del `namespace N`. 
+1. Per la chiamata 1, <mark style="background: #ABF7F7A6;">si applica la regola ADL</mark>, perché il nome `foo` non è qualificato e l'argomento `s` ha tipo `struct S` definito dall'utente all'interno del `namespace N`. 
 Quindi il `namespace N` viene "aperto" rendendo visibile la dichiarazione di `N::foo(S)` nel punto della chiamata (e quindi rendendola candidata).
 
-In contrasto, per la chiamata 2, <mark style="background: #ABF7F7A6;">NON si applica la regola ADL</mark>, perché l'argomento ha tipo `int` (che non è definito dall'utente) e quindi non viene aperto nessun namespace.
+2. In contrasto, per la chiamata 2, <mark style="background: #ABF7F7A6;">NON si applica la regola ADL</mark>, perché l'argomento ha tipo `int` (che non è definito dall'utente) e quindi non viene aperto nessun namespace.
 
-> NOTA BENE: la regola ADL è quella che consente al programma `"Hello, world!"` di funzionare come ci si aspetta. 
+> <mark style="background: #FF5582A6;">NOTA BENE:</mark> la regola ADL è quella che consente al programma `"Hello, world!"` di funzionare come ci si aspetta. 
 > La chiamata `std::cout << "Hello, world!"` corrisponde alla invocazione di funzione `operator<<(std::cout, "Hello, world!")`
 > La chiamata non è qualificata e il primo argomento ha tipo `std::ostream`, che è un tipo definito dall'utente all'interno del `namespace std`.
 > Quindi, il `namespace std` viene "aperto" e tutte le funzioni di nome `operator<<` dichiarate al suo interno diventano visibili (e quindi candidate).
 
 [_Torna all'indice_](#overloading)
 
-----------------------------------------------------------------------
+---
 
 ### Fase 2: selezione delle funzioni utilizzabili
 Effettuata la scelta delle funzioni candidate, <mark style="background: #FFB8EBA6;">occorre verificare quali di queste funzioni potrebbero essere effettivamente utilizzabili</mark> (*viable*) per risolvere la specifica chiamata considerata.
@@ -163,9 +161,9 @@ Per decidere se una funzione candidata è utilizzabile, <mark style="background:
 
 Con riferimento alla compatibilità del numero di argomenti:
   - attenzione ad eventuali valori di default per i parametri;
-  - attenzione all'argomento implicito (this) nelle chiamate di metodi non statici.
+  - attenzione all'argomento implicito (`this`) nelle chiamate di metodi non statici.
 
-Con riferimento alla compatibilità dei tipi argomento/parametro, occorre tenere conto che, oltre al caso della corrispondenza perfetta tra i due tipi (chiamata *conversione identità* o *match perfetto*, anche se tecnicamente in questo caso non si effettua nessuna conversione), è applicabile tutta una serie di conversioni implicite che potrebbero consentire di convertire il tipo dell'argomento nella chiamata nel tipo del parametro nella dichiarazione di funzione.
+Con riferimento alla compatibilità dei tipi argomento/parametro, occorre tenere conto che, oltre al caso della corrispondenza perfetta tra i due tipi (chiamata <u>conversione identità</u> o <u>match perfetto</u>, anche se tecnicamente in questo caso non si effettua nessuna conversione), è applicabile tutta una serie di conversioni implicite che potrebbero consentire di convertire il tipo dell'argomento nella chiamata nel tipo del parametro nella dichiarazione di funzione.
 
 Si coglie l'occasione per ricordare la classificazione delle conversioni implicite in:
 1. corrispondenze esatte (identità, trasformazioni di lvalue, qualificazioni);
@@ -174,6 +172,8 @@ Si coglie l'occasione per ricordare la classificazione delle conversioni implici
 4. conversioni definite dall'utente.
 
 [_Torna all'indice_](#overloading)
+
+---
 
 #### Sequenza di conversioni
 Quando si verifica se una funzione è utilizzabile, per ogni argomento della chiamata è possibile effettuare una <mark style="background: #FFB86CA6;">sequenza di conversioni</mark> (i.e., non ci si limita ad usare una sola conversione implicita).
@@ -191,8 +191,9 @@ void foo(int);     // funzione che accetta un intero per valore
 
 foo(d); // chiamata
 ```
-la funzione void foo(int), se candidata, è anche utilizzabile;
-si applica prima una trasformazione di lvalue (nello specifico, una trasformazione da lvalue a rvalue, che corrisponde alla lettura del valore contenuto nella locazione d) e quindi una conversione standard (da double a int).
+la funzione `void foo(int)`, se candidata, è anche utilizzabile.
+
+Si applica prima una trasformazione di lvalue (nello specifico, una trasformazione da lvalue a rvalue, che corrisponde alla lettura del valore contenuto nella locazione d) e quindi una conversione standard (da double a int).
 
 <mark style="background: #BBFABBA6;">Una sequenza di conversione "utente"</mark> è composta da:
 $$
@@ -239,6 +240,6 @@ Una conversione `X_worst` vince sulla conversione `Y_worst` se ha un "rank" migl
 
 2) Vale la pena sottolineare che, quando si scelgono le funzioni candidate per una chiamata, il numero e il tipo dei parametri della funzione NON sono considerati in alcun modo (entrano in gioco solo nella seconda fase, quando si restringe l'insieme delle candidate al sottoinsieme delle funzioni utilizzabili).
 
-3) Analogamente, è opportuno sottolineare che, nel caso di invocazione di un metodo di una classe, il fatto che tale metodo sia dichiarato con accesso public, private o protected NON ha nessun impatto sul processo di risoluzione dell'overloading. Il processo determina la migliore funzione utilizzabile (se esiste); in seguito, se la funzione scelta non è accessibile per il chiamante, verrà segnalato un errore di compilazione, che però NON ha nulla a che fare con la risoluzione dell'overloading (in particolare, la migliore funzione utilizzabile ma non accessibile NON viene mai sostituita da un'altra funzione utilizzabile e accessibile).
+3) Analogamente, è opportuno sottolineare che, nel caso di invocazione di un metodo di una classe, il fatto che tale metodo sia dichiarato con accesso `public`, `private` o `protected` NON ha nessun impatto sul processo di risoluzione dell'overloading. Il processo determina la migliore funzione utilizzabile (se esiste); in seguito, se la funzione scelta non è accessibile per il chiamante, verrà segnalato un errore di compilazione, che però NON ha nulla a che fare con la risoluzione dell'overloading (in particolare, la migliore funzione utilizzabile ma non accessibile NON viene mai sostituita da un'altra funzione utilizzabile e accessibile).
 
 [_Torna all'indice_](#overloading)
