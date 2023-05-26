@@ -24,13 +24,13 @@ Tenendo a mente il *"duck typing"*, ci dovremmo quindi chiedere quali sono i mod
 
 In altre parole, ci chiediamo quali siano i tipi di dato concreti ammessi per il parametro funzione `pred`, cioè quelli che consentono di compilare correttamente il test
 ```cpp
-if (pred(*first, *next)) ...
+if (pred(*first, *next)) //...
 ```
 dove `first` e `next` sono due iteratori dello stesso tipo.
 
 Considerando un caso un po' meno specifico, ci chiediamo quali siano i tipi di dato `Fun` che consentono (ai propri valori `fun`) di essere intuitivamente utilizzati come nomi di funzione in una chiamata:
 ```cpp
-fun(arg1, .., argN);
+fun(arg1, ..., argN);
 ```
 L'insieme di questi tipi di dato forma il concetto *"callable"* (i tipi "chiamabili", cioè "invocabili" come le funzioni):
   * puntatori a funzione
@@ -50,7 +50,7 @@ bool pari(int i);
 ```
 per istanziare il predicato unario della `std::find_if`, il parametro typename `UnaryPred` viene legato al tipo concreto `bool (*)(int)` (puntatore ad una funzione che prende un argomento intero per valore e restituisce un bool).
 
-> NOTA: da un punto di vista tecnico, sarebbe pure possibile passare le funzioni per riferimento (invece che per valore), evitando il type decay ed ottenendo quindi un riferimento invece che un puntatore. Siccome questa alternativa NON porta alcun beneficio concreto (anzi, complica solo la comprensione del codice), è considerato pessimo stile.
+> Da un punto di vista tecnico, sarebbe pure possibile passare le funzioni per riferimento (invece che per valore), evitando il type decay ed ottenendo quindi un riferimento invece che un puntatore. Siccome questa alternativa NON porta alcun beneficio concreto (anzi, complica solo la comprensione del codice), è considerato pessimo stile.
 
 [_Torna all'indice_](#callable)
 
@@ -237,6 +237,8 @@ Il consiglio è di effettuare sempre catture esplicite, per maggiore leggibilit�
 
 [_Torna all'indice_](#callable)
 
+---
+
 #### Esempio
 Modifichiamo la lambda dell'esempio per tenere traccia del numero di sue invocazioni.
 ```cpp
@@ -270,7 +272,7 @@ struct Nome_Univoco {
 
 Nel caso vengano effettuate catture per riferimento, occorre prestare attenzione a NON usare la funzione lambda dopo che il tempo di vita della variabile catturata è terminato (si incorrerebbe in undefined behavior).
 
-> NOTA: come detto, l'espressione lambda crea un oggetto funzione anonimo di tipo anonimo. E' comunque possibile dare un nome all'oggetto lambda, anche se non se ne conosce il tipo, sfruttando `auto` per effettuare la deduzione del tipo. 
+> <mark style="background: #FF5582A6;">NOTA:</mark> come detto, l'espressione lambda crea un oggetto funzione anonimo di tipo anonimo. E' comunque possibile dare un nome all'oggetto lambda, anche se non se ne conosce il tipo, sfruttando `auto` per effettuare la deduzione del tipo. 
 
 Nell'esempio seguente, diamo un nome alla lambda per poterla usare più volte:
 

@@ -1,10 +1,9 @@
   
 ```toc
 ```
-
+---
 
 ## Precondizioni e postcondizioni
-
 Una corretta definizione dell'interfaccia di una classe prevede la stesura di una sorta di contratto tra lo sviluppatore della classe e l'utilizzatore della classe. Per ogni funzionalità fornita, il contratto stabilisce quali
 sono le *precondizioni* che l'utilizzatore deve soddisfare per potere invocare la funzionalità e quali sono le *postcondizioni* che l'implementatore deve garantire in seguito all'esecuzione della funzionalità.
 
@@ -40,17 +39,15 @@ Analogamente, la postcondizione "al netto delle invarianti" richiede che il valo
 
 ---
 
-## Contratti narrow e contratti wide
-
-#### Contratti narrow
-
+## Contratti narrow
 Un operatore di divisione come specificato sopra è un esempio di "contratto narrow" (stretto): nei contratti narrow, l'implementatore si impegna a fornire la funzionalità solo quando ha senso farlo, cioè quando i valori forniti in input sono legittimi; l'onere di verificare tale legittimità è lasciato all'utilizzatore.
 
 I contratti di tipo narrow sono molto comuni in C++, sia nel linguaggio in senso stretto (per esempio, quando si accede ad un elemento di un array, l'onere di controllare la validità dell'indice è a carico del programmatore), sia a livello di libreria standard (per esempio, spetta all'utente controllare che un std::vector non sia vuoto
 prima di eliminare l'ultimo elemento usando il metodo pop_back).
 
-#### Contratti wide
+---
 
+## Contratti wide
 Un caso ben diverso si verifica nel caso dei "contratti wide" (ampi), nei quali l'onere di verificare la legittimità delle invocazioni ricade sull'implementatore. Scegliere un contratto wide equivale quindi a spostare alcuni elementi del contratto dal lato della precondizione al lato della postcondizione.
 
 Esempio di operatore di divisione con contratto wide:
@@ -79,7 +76,7 @@ l'eccezione DivByZero quando y è uguale a zero.
 
 I contratti wide sono quindi più onerosi (sia in termini di efficienza che in termini di codice da scrivere) per l'implementatore della classe.
 
---------------------------------------------------------------------------
+---
 
 ## I contratti per il linguaggio C++ e la libreria standard
 
