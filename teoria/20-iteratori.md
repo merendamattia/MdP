@@ -14,6 +14,8 @@ Gli iteratori si possono classificare in 5 categorie distinte (che corrispondono
   * iteratori random access
   * iteratori di output
 
+[_Torna all'indice_](#iteratori)
+
 ---
 
 ### Iteratori di input
@@ -46,7 +48,7 @@ int main() {
 }
 ```
 
-> Nota: nel caso degli istream, l'iteratore che indica l'inizio della sequenza si costruisce passando l'input stream (`std::cin`), mentre quello che indica la fine della sequenza si ottiene col costruttore di default.
+> Nel caso degli istream, l'iteratore che indica l'inizio della sequenza si costruisce passando l'input stream (`std::cin`), mentre quello che indica la fine della sequenza si ottiene col costruttore di default.
 
 Quando si opera con un iteratore di input occorre tenere presente che l'operazione di incremento potrebbe invalidare eventuali altri iteratori definiti sulla sequenza. 
 Per esempio:
@@ -112,7 +114,7 @@ iter--
 ```
 
 Esempi di iteratori bidirezionali sono quelli resi disponibili dal contenitore `std::list`. 
-Altri esempi sono gli iteratori resi disponibili dai contenitori associativi (`std::set`, `std::map`, ...).
+Altri esempi sono gli iteratori resi disponibili dai contenitori associativi (`std::set`, `std::map`, ecc..).
 
 ```cpp
 #include <list>
@@ -151,7 +153,7 @@ int main() {
 ### Iteratori random access
 Consentono di effettuare tutte le operazioni supportate dagli iteratori bidirezionali (e quindi anche quelle dei forward e degli input iterator).
 
-Sono inoltre supportate le seguenti operazioni (n è un valore intero):
+Sono inoltre supportate le seguenti operazioni (`n` è un valore intero):
 - `iter += n`: sposta iter di n posizioni (in avanti se n è positivo, all'indietro se n è negativo).
 - `iter -= n`: analogo, ma sposta nella direzione opposta.
 - `iter + n`: calcola un iteratore spostato di n posizioni (senza modificare iter).
@@ -164,7 +166,7 @@ Sono inoltre supportate le seguenti operazioni (n è un valore intero):
 - `iter1 <= iter2`
 - `iter1 >= iter2`
 
-Esempi di iteratori random access sono i puntatori (per esempio sugli *array builtin*) e gli iteratori forniti da `std::vector`, `std::deque`, `std::array`, `std::string`, `std::bitset`, ...
+Esempi di iteratori random access sono i puntatori (per esempio sugli *array built-in*) e gli iteratori forniti da `std::vector`, `std::deque`, `std::array`, `std::string`, `std::bitset`, ...
 
 ```cpp
 #include <vector>
@@ -197,7 +199,7 @@ Le uniche operazioni consentite sono quindi le seguenti:
 
 > Si noti che NON viene data la possibilità di confrontare iteratori di output tra di loro, in quanto NON è necessario farlo: un iteratore di output assume che vi sia sempre spazio nella sequenza per potere fare le sue scritture; è compito di chi lo usa fornire questa garanzia e, se la proprietà è violata, si otterrà un undefined behavior.
 
-Un esempio di iteratore di output è dato dagli iteratori definiti sugli stream di output std::ostream, attraverso i quali è possibile scrivere valori di un determinato tipo sullo stream.
+Un esempio di iteratore di output è dato dagli iteratori definiti sugli stream di output `std::ostream`, attraverso i quali è possibile scrivere valori di un determinato tipo sullo stream.
 
 ```cpp
 #include <iterator>
@@ -221,9 +223,12 @@ int main() {
 
 [_Torna all'indice_](#iteratori)
 
---------------------------------------------------------------------------
+---
 
-## Il template di classe std::iterator_traits
+## Il template di classe iterator_traits
+```cpp
+std::iterator_traits
+```
 Come si è sottolineato, alcune categorie di iteratori implementano un sovrainsieme delle operazioni e garanzie fornite da altre categorie: ciò significa che ogni volta che, nella documentazione di una funzione generica, si afferma che il parametro di tipo `Iter` è richiesto essere (per esempio) un *iteratore forward*, l'utente può istanziare correttamente quel parametro di template usando un qualunque iteratore concreto delle categorie forward, bidirezionale e random access.
 
 L'utente commetterebbe però un errore se istanziasse il parametro `Iter` con uno `std::istream_iterator`, perché questi sono (solo) iteratori di input.
@@ -238,6 +243,8 @@ La necessità di usare nomi canonici è avvertita anche quando si scrivono algor
 - `iterator_category`: un tipo "tag" (marcatore), che indica la categoria dell'iteratore.
 
 [_Torna all'indice_](#iteratori)
+
+---
 
 ### Osservazioni
 Non sono forniti i `const_reference` e `const_pointer`, perché è l'iteratore che decide se il `value_type` è o meno in sola lettura; per esempio, se da un vettore vi di tipo `const std::vector<int>&` estraggo un iteratore usando il metodo `begin()`, otterrò un `std::vector<int>::const_iterator` il cui alias reference è `const int&` e il cui alias pointer è `const int*`.
@@ -266,10 +273,10 @@ Queste conversioni codificano le relazioni esistenti tra le categorie di iterato
 Questi tag types possono quindi essere usati per codificare versioni alternative di un algoritmo generico scelte in base alla categoria dell'iteratore (come esempi concreti, vedere le funzioni generiche `std::advance` e `std::distance`).
 
 Abbiamo detto che in linea di principio ogni iteratore concreto dovrebbe fornire gli alias di tipo descritti sopra. 
-Ma come farlo? Non possiamo adottare banalmente la tecnica usata per i contenitori standard, perché tra gli nostri iteratori ci sono anche tipi che NON sono classi (i puntatori) e che quindi NON consentono di essere interrogati mediante la sintassi che usa l'operatore di scope
+Ma come farlo? Non possiamo adottare banalmente la tecnica usata per i contenitori standard, perché tra i nostri iteratori ci sono anche tipi che NON sono classi (i puntatori) e che quindi NON consentono di essere interrogati mediante la sintassi che usa l'operatore di scope:
 
 ```cpp
-Iter::value_type  //(con un typename prefisso, se necessario)
+Iter::value_type  // con un typename prefisso, se necessario
 ```
 
 Il problema si risolve usando il template di classe `std::iterator_traits`: invece di interrogare direttamente il tipo iteratore, si interroga la classe traits ottenuta istanziando  il template con quel tipo iteratore.
