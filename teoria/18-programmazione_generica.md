@@ -4,13 +4,13 @@
 ---
 
 I template vengono usati in C++ per realizzare il <mark style="background: #FFB86CA6;">polimorfismo statico:</mark>
-* si parla di "*polimorfismo*" in quanto si scrive una sola versione del codice (template) che però viene utilizzata per generare tante varianti (istanze) e quindi può assumere tante forme concrete;
-* il polimorfismo è "*statico*" in quanto la scelta delle istanze da generare avviene staticamente, a tempo di compilazione; cioè non avviene a run-time, come nel caso del polimorfismo "dinamico", che affronteremo in un'altra parte del corso.
+* Si parla di "*polimorfismo*" in quanto si scrive una sola versione del codice (template) che però viene utilizzata per generare tante varianti (istanze) e quindi può assumere tante forme concrete.
+* Il polimorfismo è "*statico*" in quanto la scelta delle istanze da generare avviene staticamente, a tempo di compilazione; cioè non avviene a run-time, come nel caso del polimorfismo "dinamico", che affronteremo in un'altra parte del corso.
 
-La programmazione generica (in C++) è una metodologia di programmazione fortemente basata sul polimorfismo statico (ovvero sui template).
+La programmazione generica (in $C$++) è una metodologia di programmazione fortemente basata sul polimorfismo statico (ovvero sui template).
 Sarebbe però sbagliato pensare che la programmazione generica sia semplicemente basata su definizione e uso di template di classe e funzione: i maggiori benefici della programmazione generica si ottengono solo quando un certo numero di template sono progettati in maniera coordinata, allo scopo di fornire interfacce comuni e facilmente estendibili.
 
-Per comprendere meglio questo punto è utile studiare quella parte della libreria standard del C++ che fornisce i contenitori e gli algoritmi, cercando di capire come questi riescano ad inteargire tra di loro.
+Per comprendere meglio questo punto è utile studiare quella parte della libreria standard del $C$++ che fornisce i contenitori e gli algoritmi, cercando di capire come questi riescano ad inteargire tra di loro.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
@@ -41,10 +41,10 @@ I contenitori sequenziali standard sono:
 ```cpp
 std::vector < T >
 ```
-Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati in modo contiguo. Fornisce accesso ad un qualunque elemento in tempo costante.
+Sequenza di `T` di dimensione variabile (a tempo di esecuzione), memorizzati in modo contiguo. Fornisce accesso ad un qualunque elemento in tempo costante.
 Inserimenti e rimozioni di elementi sono (ragionevolmente) efficienti se fatti in fondo alla sequenza; altrimenti è necessario effettuare un numero lineare di spostamenti di elementi per creare (eliminare) lo spazio per effettuare l'inserimento (rimozione).
 
-> Nota: è presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array
+> È presente un metodo per ottenere un puntatore al primo elemento della sequenza così da permettere l'integrazione con funzioni che lavorano con un puntatore ad un array.
 
 ---
 
@@ -53,8 +53,7 @@ Inserimenti e rimozioni di elementi sono (ragionevolmente) efficienti se fatti i
 std::deque < T >
 ```
 Una "double-ended queue" è una coda a doppia entrata, nella quale inserimenti e rimozioni efficienti possono essere effettuati sia in fondo alla sequenza (come nel caso dei vector) che all'inizio della sequenza. 
-Per poterlo fare, si rinuncia alla garanzia di memorizzazione contigua degli elementi (intutivamente, gli elementi vengono memorizzati in "blocchi"). 
-Fornisce accesso ad un qualunque elemento in tempo costante.
+Per poterlo fare, si rinuncia alla garanzia di memorizzazione contigua degli elementi (intutivamente, gli elementi vengono memorizzati in "blocchi"). Fornisce accesso ad un qualunque elemento in tempo costante.
 
 ---
 
@@ -62,7 +61,7 @@ Fornisce accesso ad un qualunque elemento in tempo costante.
 ```cpp
 std::list < T >
 ```
-Sequenza di T di dimensione variabile (a tempo di esecuzione), memorizzati (in modo non contiguo) in una struttura a lista doppiamente concatenata. La doppia concatenazione consente lo scorrimento della lista sia in avanti che all'indietro (bidirezionale). 
+Sequenza di `T` di dimensione variabile (a tempo di esecuzione), memorizzati (in modo non contiguo) in una struttura a lista doppiamente concatenata. La doppia concatenazione consente lo scorrimento della lista sia in avanti che all'indietro (bidirezionale). 
 Per accedere ad un elemento occorre "raggiungerlo" seguendo i link della lista.
 Inserimenti e rimozioni possono essere effettuati in tempo costante (nella posizione corrente), perché non occorre spostare elementi.
 
@@ -92,8 +91,8 @@ Oltre ai veri contenitori sequenziali, ve ne sono alcuni che sono detto "*pseudo
 ```cpp
 std::array < T,  N >
 ```
-Sequenza di T di dimensione N, fissata a tempo di compilazione.
-> Nota: N è un parametro valore, non è un typename).
+Sequenza di `T` di dimensione `N`, fissata a tempo di compilazione.
+> Nota: `N` è un parametro valore, non è un typename.
 
 Intuitivamente corrisponde ad un array del linguaggio, ma è immune dalle problematiche relative al type decay e consente di conoscere facilmente il numero di elementi.
 
@@ -112,8 +111,8 @@ Può essere visto come una sequenza di caratteri (char).
 ```cpp
 std::bitset < N >
 ```
-Una sequenza di esattamente $N$ bit.
-> Nota: $N$ è un parametro *valore*, non è un typename.
+Una sequenza di esattamente `N` bit.
+> Nota: `N` è un parametro *valore*, non è un typename.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
 
@@ -209,9 +208,9 @@ In altre parole, per questo algoritmo di ricerca, il tipo contenitore può esser
 
 Un modo per rappresentare una <mark style="background: #BBFABBA6;">sequenza</mark> dalla quale vogliamo leggere è quello di utilizzare una coppia di iteratori (convenzionalmente chiamati first e last), che servono ad indicare la posizione iniziale della sequenza (first) e la posizione subito dopo l'ultima (last). 
 Si tratta quindi di sequenze "semi-aperte", spesso informalmente indicate con la notazione degli intervalli:
-```
-[first, last)
-```
+
+$$[\;first,\; last\;)$$
+
 dove la parentesi quadra iniziale ci informa che l'elemento indicato da first è compreso nella sequenza, mentre la parentesi tonda finale ci informa che l'elemento indicato da last è escluso dalla sequenza.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)
@@ -246,7 +245,8 @@ int main() {
 ```
 
 L'algoritmo di ricerca mostrato sopra funziona solo per i puntatori a interi; per aumentarne l'applicabilità, dovremmo fare la templatizzazione delle funzione "cerca". 
-Ma in che modo?
+
+### Ma in che modo?
 Un primo tentativo potrebbe essere quello di effettuare la ricerca usando dei `T*` (puntatori ad un tipo qualunque), nel modo seguente:
 ```cpp
 template <typename T>
@@ -271,17 +271,17 @@ Iter cerca(Iter first, Iter last, T elem) {
 ```
 
 Quali sono i requisiti per potere istanziare correttamente il tipo `Iter` nell'algoritmo generico qui sopra?
-1) Iter deve supportare la copia (passato e restituito per valore)
-2) Iter deve supportare il confronto binario (`first != last`), per capire se la sequenza è terminata o meno
-3) Iter deve supportare il preincremento (`++first`), per avanzare di una posizione nella sequenza
-4) Iter deve consentire la dereferenziazione (`*first`), per poter leggere il valore "puntato"
-5) Il tipo dei valori puntati da `Iter` deve essere confrontabile con il tipo `T` (usando l'operatore `==`)
+1) `Iter` deve supportare la copia (passato e restituito per valore).
+2) `Iter` deve supportare il confronto binario (`first != last`), per capire se la sequenza è terminata o meno.
+3) `Iter` deve supportare il preincremento (`++first`), per avanzare di una posizione nella sequenza.
+4) `Iter` deve consentire la dereferenziazione (`*first`), per poter leggere il valore "puntato".
+5) Il tipo dei valori puntati da `Iter` deve essere confrontabile con il tipo `T` (usando l'operatore `==`).
 
 <mark style="background: #ABF7F7A6;">Qualunque tipo di dato concreto, che sia o meno un puntatore, se soddisfa questi requisiti (sintattici e semantici) allora può essere usato per instanziare il mio algoritmo</mark>. Si dice che i template applicano delle regole di tipo "strutturali" (in contrapposizione alle regole "nominali"): non importa l'identità del tipo, importa la sua struttura (ovvero le operazioni che rende disponibili e la loro semantica).
 
 Un altro modo di dire le stesse cose (informale e tecnicamente non completamente appropriato) è quello di dire che i template implementano il "duck typing", ovvero un sistema di tipi basato sul "test dell'anatra":
 
-> *"If it walks like a duck and it quacks like a duck, then it must be a duck"*
+> *"If it walks like a duck and it quacks like a duck, then it must be a duck."*
 
 L'anatra quindi è un concetto astratto: qualunque entità che cammina come un'anatra e fa il verso dell'anatra, è un'anatra.
 
@@ -309,7 +309,7 @@ I contenitori associativi sono contenitori che organizzano gli elementi al loro 
   std::unordered_multimap<Key, Mapped, Hash, Equal>
 ```
 
-Questi 8 tipologie di contenitori si ottengono combinando (in tutti i modi possibili) tre distinte proprietà:
+Queste 8 tipologie di contenitori si ottengono combinando (in tutti i modi possibili) tre distinte proprietà:
 
 1. La presenza (o assenza) negli elementi di ulteriori informazioni, oltre alla chiave usata per effettuare le associazioni.
 
@@ -321,9 +321,9 @@ Questi 8 tipologie di contenitori si ottengono combinando (in tutti i modi possi
 
 3. Il fatto che l'organizzazione interna del contenitore sia ottenuta mediante un criterio di ordinamento delle chiavi (il tipo `Cmp`) oppure attraverso una opportuna funzione di hasing (il tipo `Hash`).
 
-Nel primo caso, abbiamo la possibilità di scorrere gli elementi nel contenitore in base al criterio di ordinamento; l'implementazione interna deve garantire che la ricerca di un valore con una determinata chiave possa essere effettuata eseguendo un numero di confronti $O(log(n))$, al più logaritmico nel numero n di elementi contenuti (l'implementazione è tipicamente basata su una qualche forma di albero di ricerca bilanciato).
+Nel primo caso, abbiamo la possibilità di scorrere gli elementi nel contenitore in base al criterio di ordinamento; l'implementazione interna deve garantire che la ricerca di un valore con una determinata chiave possa essere effettuata eseguendo un numero di confronti $O(log(n))$, al più logaritmico nel numero $n$ di elementi contenuti (l'implementazione è tipicamente basata su una qualche forma di albero di ricerca bilanciato).
 
-Nel secondo caso (funzione di hashing) si ottengono invece i contenitori "unordered": questi organizzano gli elementi in una tabella hash per cui quando si scorrono non si presentano secondo un criterio di ordinamento "naturale". L'implementazione interna garantisce che la ricerca di un valore con una determinata chiave abbia nel caso medio un costo costante: per fare questo, la funzione di hashing calcola una posizione "presunta" nella tabella hash e poi, usando la funzione di confronto per uguaglianza (il tipo Equal) si controlla se vi sono stati clash. 
+Nel secondo caso (funzione di hashing) si ottengono invece i contenitori "unordered": questi organizzano gli elementi in una tabella hash per cui quando si scorrono non si presentano secondo un criterio di ordinamento "naturale". L'implementazione interna garantisce che la ricerca di un valore con una determinata chiave abbia nel caso medio un costo costante: per fare questo, la funzione di hashing calcola una posizione "presunta" nella tabella hash e poi, usando la funzione di confronto per uguaglianza (il tipo `Equal`) si controlla se vi sono stati clash. 
 
 > Eventualmente facendo più confronti fino a raggiungere l'elemento cercato o stabilire che non è presente.
 
@@ -334,10 +334,10 @@ Nel secondo caso (funzione di hashing) si ottengono invece i contenitori "unorde
 ## Gli adattatori (per contenitori della STL)
 Oltre ai contenitori, nella libreria sono forniti gli "adattatori"; questi forniscono ad un contenitore esistente una interfaccia specifica per usarlo "come se" fosse un determinato tipo di dato.
 
-Esempi di adattatori sono `std::stack<T, C>` e `std::queue<T, C>`, che forniscono le classiche strutture dati di pila (LIFO) e coda (FIFO). Al loro interno, usano un altro contenitore standard (il tipo C; la scelta di default è `std::deque<T>`, sia per le pile che per le code).
+Esempi di adattatori sono `std::stack<T, C>` e `std::queue<T, C>`, che forniscono le classiche strutture dati di pila (LIFO) e coda (FIFO). Al loro interno, usano un altro contenitore standard (il tipo `C`; la scelta di default è `std::deque<T>`, sia per le pile che per le code).
 
-Esiste anche l'adattatore `std::priority_queue<T, C, Cmp>` per le code con priorità (la classica struttura dati heap), nelle quali la priorità tra gli elementi è stabilita dal criterio di confronto Cmp. In questo caso, il contenitore C usato per default è uno `std::vector<T>`.
+Esiste anche l'adattatore `std::priority_queue<T, C, Cmp>` per le code con priorità (la classica struttura dati heap), nelle quali la priorità tra gli elementi è stabilita dal criterio di confronto `Cmp`. In questo caso, il contenitore `C` usato per default è uno `std::vector<T>`.
 
-> NOTA BENE: gli adattatori **NON** implementano il concetto di sequenza; in particolare, **NON** forniscono i tipi iteratore e i corrispondenti metodi `begin()` e `end()`.
+> <mark style="background: #FF5582A6;">NOTA BENE:</mark> gli adattatori **NON** implementano il concetto di sequenza; in particolare, **NON** forniscono i tipi iteratore e i corrispondenti metodi `begin()` e `end()`.
 
 [_Torna all'indice_](#programmazione%20generica%20in%20c++)

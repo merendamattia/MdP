@@ -49,7 +49,7 @@ const TT&&         // NON è una universal reference (è un rvalue reference)
 std::vector<TT>&&  // NON è una universal reference (è un rvalue reference)
 ```
 
-Il nome *"universal"* reference indica il fatto che, sebbene venga usata la sintassi per i riferimenti a rvalue, può essere dedotto per `PT` un riferimento a rvalue oppure a lvalue, a seconda del tipo `te` di `expr`.
+Il nome *"universal reference"* indica il fatto che, sebbene venga usata la sintassi per i riferimenti a rvalue, può essere dedotto per `PT` un riferimento a rvalue oppure a lvalue, a seconda del tipo `te` di `expr`.
 
 Negli esempi si assume:
 ```cpp
@@ -150,10 +150,10 @@ A partire dallo standard $C$++11, nel linguaggio è stata introdotta la possibil
 
 Esempio:
 ```cpp
-auto i = 5;              // i ha tipo int
-const auto d = 5.3;      // d ha tipo const double
-auto ii = i * 2.0;       // ii ha tipo double
-const auto p = "Hello";  // p ha tipo const char* const
+auto i = 5;              // `i` ha tipo int
+const auto d = 5.3;      // `d` ha tipo const double
+auto ii = i * 2.0;       // `ii` ha tipo double
+const auto p = "Hello";  // `p` ha tipo const char* const
 ```
 
 La auto type deduction segue (in larga misura) le stesse regole elencate sopra per la template type deduction.
@@ -173,7 +173,7 @@ Per `auto` si deduce il tipo `const int` e quindi per `ri` si deduce il tipo `co
 
 La forma sintattica `auto&&` indica una universal reference, che potrebbe dedurre sia un rvalue o un lvalue reference a seconda del tipo dell'inizializzatore.
 
-<mark style="background: #ABF7F7A6;">La auto template deduction differisce però dalla template</mark> type deduction quando l'inizializzatore è indicato mediante la sintassi che prevede le parentesi graffe, come nell'esempio:
+<mark style="background: #ABF7F7A6;">La auto template deduction differisce però dalla template type deduction</mark> quando l'inizializzatore è indicato mediante la sintassi che prevede le parentesi graffe, come nell'esempio:
 
 ```cpp
 auto i = { 1 };
