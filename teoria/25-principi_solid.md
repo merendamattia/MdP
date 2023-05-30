@@ -24,11 +24,12 @@ I principi SOLID non sono stati "inventati" o "proposti" contemporaneamente: l'a
 L'ordine in cui sono elencati i principi NON corrisponde ad una qualche relazione di priorità tra questi, ma è solo funzionale a creare l'acrostico. Di conseguenza, verranno presentati in un ordine diverso.
 
 Si parla di "principi" e non di "tecniche" o "metodi", perché non sono immediatamente applicabili (e a maggior ragione non è opportuno immaginare che vengano applicati in maniera sistematica e/o automatica).
+
 La loro applicazione richiede uno sforzo per valutare se sia o meno opportuno applicarli nei vari contesti concreti che si presentano, in quanto ogni beneficio (conseguente all'adozione di una modifica di progetto che favorisca uno dei principi) spesso comporta anche un corrispondente costo (in termini di comprensibilità del codice da parte del programmatore e/o in termini di modifiche da applicare a codice esistente).
 
 In linea di massima, il progettista dovrebbe individuare quelle parti del software che:
-  - sono in contrasto con alcuni di questi principi
-  - in futuro potrebbero beneficiare dall'applicazione di una ristrutturazione del codice in linea con i principi
+  - sono in contrasto con alcuni di questi principi;
+  - in futuro potrebbero beneficiare dall'applicazione di una ristrutturazione del codice in linea con i principi;
 
 e quindi applicare le azioni correttive del caso.
 
@@ -83,7 +84,7 @@ In altre parole, il codice è aperto alle estensioni, ma è solo parzialmente ch
 ### Variante oo-style
 Nella variante oo-style, invece, abbiamo una classe astratta Animale; questa fornisce l'interfaccia, ma non mostra alcun dettaglio implementativo.
 Il codice è aperto alle estensioni: per aggiungere un animale è sufficiente creare una nuova classe che implementa (mediante derivazione pubblica "IS-A") l'interfaccia astratta. Il codice è anche chiuso alle modifiche, perché queste aggiunte non hanno nessun impatto sul codice che genera la strofa e nemmeno sulle classi che implementano tutti gli altri animali.
-Quando si aggunge un animale, non c'è nemmeno bisogno di ricompilare il codice che genera la strofa: deve essere solo ricollegato.
+Quando si aggiunge un animale, non c'è nemmeno bisogno di ricompilare il codice che genera la strofa: deve essere solo ricollegato.
 In linea di principio, team di sviluppatori diversi potrebbero generare varianti diverse degli animali, senza dovere condividere il codice sorgente (solo l'interfaccia astratta).
 
 Quindi, fissato il tipo di modifica "aggiunta di nuovi animali concreti", possiamo affermare che il progetto oo-style soddisfa il principio OCP in misura maggiore rispetto al progetto old-style.
@@ -100,18 +101,18 @@ Nella formulazione di Martin, il principio di inversione delle dipendenze viene 
 
 > "*I moduli di alto livello non devono dipendere da quelli di basso livello: entrambi devono dipendere da astrazioni. Le astrazioni non devono dipendere dai dettagli. Sono i dettagli che dipendono dalle astrazioni.*"
 
-Il principio opera una classificazione sulle dipendenze tra moduli software (classi, funzioni, ecc.), stabilendo che alcune di queste dipendenze sono ammesse (in quanto inevitabili e tutto sommato innocue), mentre altre dipendenze sono da evitare (in quanto dannose). Intuitivamente, le dipendenze "buone" sono quelle verso i concetti astratti; le dipendenze "cattive" sono quelle verso i dettagli implementativi.
+Il principio opera una classificazione sulle dipendenze tra moduli software (classi, funzioni, ecc.), stabilendo che alcune di queste dipendenze sono ammesse (in quanto inevitabili e tutto sommato innocue), mentre altre dipendenze sono da evitare (in quanto dannose). 
+
+<u>Intuitivamente, le dipendenze "buone" sono quelle verso i concetti astratti; le dipendenze "cattive" sono quelle verso i dettagli implementativi.</u>
 
 Rimane da capire come mai il nome del principio parla di "inversione" delle dipendenze: è un punto importante, in quanto mette in evidenza l'aspetto metodologico nello sviluppo del software.
 
 L'osservazione chiave è che, molto spesso, il software viene progettato e sviluppato seguendo un approccio top-down: partendo dal problema generale da risolvere, lo si suddivide in sottoproblemi più piccoli; la soluzione del problema generale si ottiene effettuando una opportuna composizione delle soluzioni dei sottoproblemi. Il processo viene ripetuto sui sottoproblemi, arrivando ad una stratificazione del codice, nella quale i moduli a livello più alto usano (e quindi *dipendono* da) i moduli a livello più basso. Si creano quindi naturalmente delle dipendenze (dall'astratto verso il concreto) che il principio DIP classifica come "cattive". Il principio DIP suggerisce quindi di "invertire" queste dipendenze, sostituendole con altre che invece non creano problemi (perché vanno dal concreto verso l'astratto).
 
-A tale scopo, si individano alcune interfacce astratte, che non dipendono dai dettagli implementativi: <mark style="background: #BBFABBA6;">i moduli di alto livello vengono modificati per usare</mark> (dipendere da) le <mark style="background: #BBFABBA6;">interfacce astratte</mark>; analogamente,<mark style="background: #FFF3A3A6;"> i moduli a basso livello</mark> vengono modificati per <mark style="background: #FFF3A3A6;">implementare</mark> (dipendere da) <mark style="background: #FFF3A3A6;">le interfacce astratte</mark> (realizzando quindi l'inversione).
+A tale scopo, si individano alcune interfacce astratte, che non dipendono dai dettagli implementativi: <mark style="background: #BBFABBA6;">i moduli di alto livello vengono modificati per usare</mark> (dipendere da) <mark style="background: #BBFABBA6;">le interfacce astratte</mark>; analogamente,<mark style="background: #FFF3A3A6;"> i moduli a basso livello</mark> vengono modificati per <mark style="background: #FFF3A3A6;">implementare</mark> (dipendere da) <mark style="background: #FFF3A3A6;">le interfacce astratte</mark> (realizzando quindi l'inversione).
 Complessivamente, si è eliminata la dipendenza dei moduli a alto livello dai moduli a basso livello. In particolare, si è migliorata anche l'aderenza del progetto al principio OCP, in quanto è ora possibile estendere il software, per esempio, consentendo la scelta di implementazioni alternative dell'interfaccia astratta senza influenzare i moduli ad alto livello.
 
 Siccome il DIP si concentra sulle dipendenze tra moduli e queste dipendenze sono spesso rispecchiate dalla suddivisione in file del software (in particolare, dalle inclusioni di header file), a volte si dice che il principio DIP può essere visto come una reinterpretazione del principio OCP che si concentra sugli aspetti "sintattici".
-
-> Nota: per un esempio concreto di violazione del DIP e di applicazione delle contromisure si rimanda all'esercitazione corrispondente.
 
 [_Torna all'indice_](#Principi%20progettazione%20object%20oriented)
 
@@ -181,7 +182,7 @@ public:
 ```
 
 Ad un certo punto viene richiesto di creare la classe Quadrato, dotata di una interfaccia simile. Siccome un quadrato è un tipo particolare di rettangolo, un programmatore (pigro) potrebbe pensare di implementare la classe quadrato usando l'ereditarietà pubblica e il polimorfismo dinamico.
-Le uniche accortezze tecniche sono quelle di dichiarare i metodi di Rettangolo come virtual (non puri, in quanto è una classe base concreta), di aggiungere il distruttore virtual e, infine, di fare l'override dei metodi set_larghezza e set_lunghezza, per assicurarsi che quando si modifica una dimensione sia modificata anche l'altra, così da mantenere l'invariante della classe Quadrato.
+Le uniche accortezze tecniche sono quelle di dichiarare i metodi di Rettangolo come virtual (non puri, in quanto è una classe base concreta), di aggiungere il distruttore virtual e, infine, di fare l'override dei metodi `set_larghezza` e `set_lunghezza`, per assicurarsi che quando si modifica una dimensione sia modificata anche l'altra, così da mantenere l'invariante della classe Quadrato.
 
 ```cpp
 class Quadrato : public Rettangolo {
@@ -217,18 +218,19 @@ void raddoppia_area(Rettangolo& r) {
 }
 ```
 
-Se però alla funzione viene passato un riferimento a un Quadrato, il metodo set_lunghezza() raddoppierà sia la lunghezza che la larghezza e, di conseguenza, avremo una violazione dell'asserzione (perché a_dopo == 4 * a_prima).
+Se però alla funzione viene passato un riferimento a un Quadrato, il metodo `set_lunghezza()` raddoppierà sia la lunghezza che la larghezza e, di conseguenza, avremo una violazione dell'asserzione (perché `a_dopo == 4 * a_prima`).
 
 [_Torna all'indice_](#Principi%20progettazione%20object%20oriented)
 
 ### Cosa è successo?
 Semplicemente, <mark style="background: #FF5582A6;">la classe Quadrato ha violato il contratto (stabilito dalla classe Rettangolo) del metodo set_lunghezza</mark>.  
-Il contratto stabilisce (nelle sue postcondizioni) che il metodo modifica *solo* la lunghezza del rettangolo, mentre l'overriding definito nella classe Quadrato modifica sia la lunghezza che la larghezza.
+Il contratto stabilisce (nelle sue post-condizioni) che il metodo modifica *solo* la lunghezza del rettangolo, mentre l'overriding definito nella classe Quadrato modifica sia la lunghezza che la larghezza.
+
 Si potrebbe obiettare: ma un quadrato deve avere i lati uguali. L'obiezione è sensata, ma sta ad indicare che la classe Quadrato NON può essere in relazione IS-A con la classe Rettangolo, ovvero che un Quadrato NON è un Rettangolo. Quando facciamo questa affermazione, chiaramente, non stiamo ragionando in puri termini geometrici, ma stiamo piuttosto considerando l'aspetto "behavioral" dei corrispondenti tipi di dato: un Quadrato non è un Rettangolo perché esistono dei contesti (vedi la funzione di sopra) in cui un Quadrato NON si comporta come si comporterebbe un Rettangolo.
 
-La classe base stabilisce un contratto per ognuno dei suoi metodi, in termini di precondizioni e postcondizioni. Cosa deve fare la classe derivata per soddisfare tale contratto?
+La classe base stabilisce un contratto per ognuno dei suoi metodi, in termini di pre-condizioni e post-condizioni. Cosa deve fare la classe derivata per soddisfare tale contratto?
 Non è necessario che il contratto stabilito dalla classe derivata sia identico, ma la classe derivata deve fornire come minimo tutte le garanzie fornite dalla classe base. Quindi, la classe derivata può *indebolire* le precondizioni (cioè fornire una implementazione per più casi rispetto a quelli previsti dalla classe base) e può *rafforzare* le postcondizioni (cioè fornire all'utente garanzie ulteriori oltre a quelle garantite dalla classe base).
-Nel caso analizzato nell'esempio, le postcondizioni dei metodi set_lunghezza e set_larghezza sono state modificate (rendendole incompatibili, non rafforzandole), da cui la violazione del contratto e, di conseguenza, del principio di sostituibilità di Liskov.
+Nel caso analizzato nell'esempio, le post-condizioni dei metodi `set_lunghezza` e `set_larghezza` sono state modificate (rendendole incompatibili, non rafforzandole), da cui la violazione del contratto e, di conseguenza, del principio di sostituibilità di Liskov.
 
 [_Torna all'indice_](#Principi%20progettazione%20object%20oriented)
 
