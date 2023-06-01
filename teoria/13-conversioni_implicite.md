@@ -24,6 +24,7 @@ Le corrispondenze esatte si possono suddividere nelle seguenti sottoclassi:
 In realtà, questa *NON* è una conversione, perché tipo di partenza e tipo di destinazione coincidono; è comunque comodo includerla come caso speciale nella classificazione, per poter ragionare in modo più semplice durante la risoluzione dell'overloading.
 
 Esempio: (si assumono le dichiarazioni `int i; const int& r = i;`)
+
 | tipo parametro | argomento |
 |:--------------:| --------- |
 |      int       | 5         |
@@ -34,6 +35,7 @@ Esempio: (si assumono le dichiarazioni `int i; const int& r = i;`)
 
 #### 1b. Trasformazioni di lvalue
 Esempio: (si assumono le dichiarazioni `int a[10];` e `void foo();`)
+
 | tipo parametro | argomento                     |
 | -------------- | ------------------------------ |
 | int            | i (da lvalue a rvalue)         |
@@ -43,6 +45,7 @@ Esempio: (si assumono le dichiarazioni `int a[10];` e `void foo();`)
 #### 1c. Conversioni di qualificazione
 Viene aggiunto il qualificatore `const`.
 Esempio:
+
 | tipo parametro | argomento |
 | -------------- | --------- |
 | const int&     | i         |
