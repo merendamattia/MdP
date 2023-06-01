@@ -1,0 +1,1 @@
+### In ogni cartella che contiene l'esame corrispondente, sono presenti sottocartelle con le varie versioni dei contributori di questa repository.
