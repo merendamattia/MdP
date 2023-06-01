@@ -106,3 +106,10 @@ Domande:
 2. Perchè "Chiamata #11: Funzione #5 Funzione #11" ? 
 3. Perchè "Chiamata #10: Funzione #10" e non "Chiamata #10: Funzione #11" ?
 */
+
+/*
+Risposte (Simone):
+1.
+2.
+3. Perché c dichiarata alla prima riga del main non è costante quindi c'è un match perfetto con la funzione 10
+*/
