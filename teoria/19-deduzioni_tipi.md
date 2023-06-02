@@ -125,7 +125,7 @@ template <typename TT>
 void f(TT param);
 ```
 
-Siccome abbiamo un passaggio per valore, argomento e parametro sono due oggetti distinti: eventuali riferimenti e qualificazioni const (a livello esterno) dell'argomento NON si propagano al parametro.
+Siccome abbiamo un passaggio per valore, argomento e parametro sono due oggetti distinti: eventuali riferimenti e qualificazioni const (a livello esterno, quelli a destra di `*`) dell'argomento NON si propagano al parametro.
 
 Esempio 3.1:
 ```cpp
