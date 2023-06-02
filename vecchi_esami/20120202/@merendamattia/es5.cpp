@@ -8,16 +8,9 @@ private:
 
     void ottieni_risorse() {
         if(pi == nullptr && pd == nullptr) {
+            pi = new int;
             try {
-                pi = new int;
-
-                try {
-                    pd = new double;
-                } catch(...) {
-                    delete pd;
-                    throw;
-                }
-
+                pd = new double;
             } catch(...) {
                 delete pi;
                 throw;
@@ -27,10 +20,13 @@ private:
 
     void rilascio_risorse() {
         try {
-            delete pi;
-            delete pd;
+            if(pi != nullptr)
+                delete pi;
+            if(pd != nullptr)
+                delete pd;
         } catch(...) {
-            delete pd;
+            if(pd != nullptr)
+                delete pd;
         }
     }
 

@@ -87,7 +87,7 @@ int main() {
 
 01) CAND:1,2    UTIL:2      BEST:none (errore: è un metodo privato)
 02) CAND:1      UTIL:1      BEST:none (errore: è un metodo privato)
-03) CAND:3,4    UTIL:4      BEST:4
+03) CAND:3,4    UTIL:3      BEST:3
 04) CAND:3,4    UTIL:3      BEST:3
 05) CAND:2      UTIL:2      BEST:2
 06) CAND:none   UTIL:none   BEST:none (errore: f2 deve essere const)
