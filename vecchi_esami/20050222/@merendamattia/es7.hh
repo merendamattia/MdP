@@ -8,7 +8,7 @@ private:
     unsigned int sz;
 public:
     Container() : sz(0), ps(nullptr);
-    Container(int size) : sz(size), ps(new T[size]);
+    explicit Container(int size) : sz(size), ps(new T[size]);
     explicit Container(const Container& other);
     explicit Container(Container&& other);
     Container& operator=(const Container& other);
