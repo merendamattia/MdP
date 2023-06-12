@@ -160,7 +160,7 @@ void bar(){
 	foo(true, 3.7);
 }
 ```
-In questo caso, alla prima chiamata della funzione `foo(3.7, true)` si presenta una conversione implicita di un float (3.7) ad un intero.
+In questo caso, alla prima chiamata della funzione `foo(3.7, true)` si presenta una conversione implicita di un `float (3.7)` ad un intero.
 Nella seconda chiamata `foo(true, 3.7)` si presenta una conversione implicita di un booleano ad un intero, e di un float ad un booleano.
 
 È importante notare che le conversioni implicite possono portare a comportamenti indesiderati o a errori di runtime se non si tiene conto delle regole di conversione. Pertanto, è consigliabile evitare le conversioni implicite quando possibile e utilizzare invece le conversioni esplicite tramite cast quando necessario.

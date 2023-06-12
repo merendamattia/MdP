@@ -94,7 +94,7 @@ _[Torna all'indice](#dichiarazioni%20e%20definizioni)_
 
 ## Funzioni
 Come identifico una funzione (in ordine di importanza)? 
-1. Identifico il `namespace`;.
+1. Identifico il `namespace`.
 2. Identifico il nome.
 3. Identifico il numero e tipo di argomenti.
 4. Come sono stanziati i parametri del `template`.  
