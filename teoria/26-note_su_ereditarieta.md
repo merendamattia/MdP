@@ -68,7 +68,7 @@ struct F {
 
 Così facendo, l'utente potrebbe istanziare un numero grande a piacere di funzioni virtuali `foo()`, il che significherebbe una grandezza arbitraria della **V-Table** (tabella dei metodi virtuali). 
 
-### Funzioni membro (non statica) di classi templatiche (SI)
+### Funzioni membro (non statiche) di classi templatiche (SI)
 Una volta scelto il tipo templatico della classe in questione, l'insieme delle funzioni virtuali è finito e numerabile, quindi è ammissibile:
 
 ``` c++
