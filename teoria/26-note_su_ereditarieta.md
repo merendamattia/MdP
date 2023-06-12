@@ -33,7 +33,7 @@ Al momento della creazione, <mark style="background: #D2B3FFA6;">non esiste anco
 ### Distruttori (SI, tipicamente obbligatorio)
 Vogliamo eliminare correttamente l'oggetto nella sua interezza; inoltre deve essere implementato in quanto verrà sicuramente invocato nella catena di chiamate ai distruttori (dall'oggetto di tipo `Derived` a quello `Base`).
 
-``` c++
+```cpp
 struct A {
 	~A() { }
 };
@@ -43,8 +43,8 @@ struct B : public A {
 };
 
 {
-A* pa_b = new B;
-delete pa_b; // errore: non chiama ~B()
+	A* pa_b = new B;
+	delete pa_b; // errore: non chiama ~B()
 }
 ```
 
@@ -57,7 +57,7 @@ Sono funzioni che fanno riferimento alla classe, non hanno il puntatore `this`, 
 ### Template di funzioni membro, non statiche (NO)
 Il `this` esiste, quindi in linea teorica <mark style="background: #ABF7F7A6;">sarebbe legittimo</mark> dichiararle virtuali; si è deciso però di non implementare questa possibilità, per efficienza. Facciamo un esempo:
 
-``` c++
+```cpp
 struct F {
 	virtual void do() = 0; // OK
 
@@ -71,7 +71,7 @@ Così facendo, l'utente potrebbe istanziare un numero grande a piacere di funzio
 ### Funzioni membro (non statica) di classi templatiche (SI)
 Una volta scelto il tipo templatico della classe in questione, l'insieme delle funzioni virtuali è finito e numerabile, quindi è ammissibile:
 
-``` c++
+```cpp
 template <typename T>
 class Animale {
 public:
@@ -87,7 +87,7 @@ public:
 ## Copia di un oggetto concreto
 Intuitivamente serve un metodo virtuale che costruisca correttamente un nuovo oggetto a partire dal riferimento/puntatore passato: il metodo `clone()`.
 
-``` c++
+```cpp
 class Animale {
 	virtual void verso() const = 0;
 	virtual Animale* clone() const = 0;
@@ -112,7 +112,7 @@ Questi metodi vengono detti <mark style="background: #FFB86CA6;">costruttori vir
 ## Invocazione di funzione virtuale in un costruttore/distruttore
 La risoluzione dell'overriding in questo caso specifico funziona in maniera differente. Fino al `c++98` si adottava l'approccio classico, ed era possibile incorrere in evidenti problematiche: al momento della costruzione di un oggetto Derived, se il costruttore di Base facesse una chiamata ad un metodo virtuale, ci sarebbe accesso a memoria non ancora inizializzata e possibile _undefined behaviour_:
 
-``` c++
+```cpp
 struct Base {
 	Base() {
 		foo();
@@ -142,7 +142,7 @@ Il costruttore di `Derived` chiama implicitamente quello di `Base`, la chiamata 
 Dallo standard `c++11` il supporto a tempo di esecuzione cambia <mark style="background: #FF5582A6;">incrementalmente</mark> il tipo dinamico dell'oggetto in questione: al momento della costruzione della parte `Base` di un oggetto di tipo `Derived`, quello stesso oggetto viene considerato di tipo `Base` e viene invocata correttamente `Base::foo()`; a questo punto, il tipo dinamico dell'oggetto cambia in `Derived` e viene invocata `Derived::foo()`.
 
 Stampa:
-``` c++
+```cpp
 Base::foo();
 7
 ```
@@ -154,7 +154,7 @@ Nei distruttori si ha lo stesso comportamento.
 ## Ereditarietà multipla con classi non interfaccia
 Utilizzando più classi base con lo stesso campo, potrebbero esserci oggetti ripetuti:
 
-``` c++
+```cpp
 struct B1 {
 	int a;
 };
@@ -171,7 +171,7 @@ struct D : public B1, public B2 {
 
 Supponiamo ora un altro caso:
 
-``` c++
+```cpp
 struct B0 {
 	int a;
 };
@@ -186,7 +186,7 @@ struct D : public B1, public B2 {
 
 È possibile avere una struct `B0` condivisa tra `B1` e `B2` nella struct `D` ? Si, utilizzando l'ereditarietà di tipo `virtual`. 
 
-``` c++
+```cpp
 struct B1 : virtual public B0 {
 };
 struct B2 : virtual public B0 {
@@ -197,7 +197,7 @@ Si genera uno schema _a diamante_ in cui la classe `D` deriva da altre due class
 
 > Conosciuto come _DDD_ problem (Dreadful Diamond on Derivation)
 
-``` bash
+```bash
 	 B0
    /   \
   B1   B2
