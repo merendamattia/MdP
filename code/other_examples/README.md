@@ -1,0 +1,2 @@
+# Cosa contiene la cartella `altri_esempi`?
+Esempi interessanti sviluppati in preparazione all'esame. Alcuni di questi esempi traggono spunto da codice visto a lezione. Ogni esempio ha al suo interno il comando per la compilazione e i necessari commenti.
