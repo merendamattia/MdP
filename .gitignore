@@ -2,4 +2,5 @@
 **/.DS_Store
 **/.vscode/**
 **/bin/**
+**/src/**
 *.out
