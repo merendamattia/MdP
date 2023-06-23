@@ -19,7 +19,8 @@ T max(T a, T b) {
 }
 ```
 
-Nell'esempio precedente abbiamo prima dichiarato e poi definito un template di funzione di nome "max" (nota: come al solito, la definizione è anche una dichiarazione).
+Nell'esempio precedente abbiamo prima dichiarato e poi definito un template di funzione di nome `max`. 
+> Come al solito, la definizione è anche una dichiarazione.
 
 Nell'esempio, `T` è un parametro di template: il parametro viene dichiarato essere un `typename`(nome di tipo) nella lista dei parametri del template.
 La parola chiave "*typename*" può essere sostituita da "*class*", ma in ogni caso indica un qualunque tipo di dato, anche built-in (quindi per  coerenza si dovrebbe preferire l'uso di "typename").
