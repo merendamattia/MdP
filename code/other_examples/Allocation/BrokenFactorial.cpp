@@ -1,4 +1,5 @@
 /*
+    (Ubuntu) sudo apt-get install libgmp-dev
     g++ -Wall -Wextra BrokenFactorial.cpp BrokenFactorial -lgmpxx -lgmp
                                                             ^         ^
                                                             |         |
