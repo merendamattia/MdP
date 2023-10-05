@@ -39,6 +39,7 @@ struct T;
 T* t_ptr; // un puntatore "opaco" a T
 ```
 
+
 Ci si potrebbe anche chiedere perché il linguaggio insista, nel caso di dichiarazioni pure, a richiedere che il programmatore dichiari se il nome introdotto è un tipo o un valore (cioè, perché occorre indicare la parola _`struct` / `class`_ per dire che è un tipo).  
 
 La risposta è che questa informazione è essenziale per poter fare il *parsing* (cioè l'analisi sintattica) del codice. Consideriamo infatti una variante dell'esempio precedente:
@@ -72,6 +73,7 @@ _[Torna all'indice](#dichiarazioni%20e%20definizioni)_
 ## Variabili
 Dichiarazione pura di variabile (globale):
 
+La parola chiave extern vuole dire: Non creare lo spazio per inizializzare la variabile, lo farà qualcun altro 
 ```cpp
 extern int a;
 ```
@@ -104,6 +106,7 @@ Il tipo di ritorno non serve ad identificare una funzione.
 Dichiarazioni pure di funzioni:
 ```cpp
 void foo(int a);
+//poco usato
 extern void foo(int a);
 // Sono due ri-dichiarazioni della stessa funzione
 ```
@@ -117,7 +120,7 @@ void foo(int a) {
 
 > La parola chiave `extern` è opzionale e, in pratica, è usata raramente: _le definizioni hanno il corpo._
 
-Possiamo anche interfacciarci al mondo interno cambiando le regole di collegamento; in questo caso la funzione `foo` utilizzerà i metodi del $C$ e non $C$++:
+Possiamo anche interfacciarci al mondo interno cambiando le regole di collegamento; in questo caso la funzione `foo` utilizzerà i metodi del $C$ e non $C$++:  
 
 ```cpp
 extern "C" void foo(int a);
