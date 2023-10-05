@@ -98,6 +98,8 @@ In senso lato, il processo di compilazione prende in input file sorgente e/o lib
 	Quando <mark style="background: #ABF7F7A6;">NON</mark> si specifica nessuna delle opzioni `-E`, `-S`, `-c`, il compilatore termina dopo avere effettuato il collegamento, utilizzando il linker (ld), producendo il file eseguibile `hello` (senza suffisso, come consuetudine per l'ambiente Linux).
 	In questo caso, avendo un solo file oggetto, il collegamento avviene tra questo file e i file che formano la libreria standard del $C$++ (che vengono coinvolti implicitamente, senza doverli specificare come argomenti per il compilatore). 
 	In altri casi, si può indicare il percorso degli headers da includere con l'opzione `-I`.
+	Esempio:
+
 
 _[Torna all'indice](#hello%20world)_
 
@@ -125,8 +127,7 @@ I nomi di questi file (e la loro posizione nel filesystem) si possono ottenere o
 # 1 "/usr/include/c++/9/iostream" 1 3
 ...
 # 1 "/usr/include/x86_64-linux-gnu/c++/9/bits/basic_ios.h" 1 3
-...
-# 1 "/usr/include/features.h" 1 3 4
+brav# 1 "/usr/include/features.h" 1 3 4
 ...
 ```
 
