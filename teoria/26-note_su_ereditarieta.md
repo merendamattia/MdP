@@ -55,7 +55,7 @@ Sono le classiche funzioni membro di una classe standard.
 Sono funzioni che fanno riferimento alla classe, non hanno il puntatore `this`, non c'è nessun modo che permetta al RTTI (_Run Time Type Identification_) di effettuare una qualche forma di dispatching della funzione in questione.
 
 ### Template di funzioni membro, non statiche (NO)
-Il `this` esiste, quindi in linea teorica <mark style="background: #ABF7F7A6;">sarebbe legittimo</mark> dichiararle virtuali; si è deciso però di non implementare questa possibilità, per efficienza. Facciamo un esempo:
+Il `this` esiste, quindi in linea teorica <mark style="background: #ABF7F7A6;">sarebbe legittimo</mark> dichiararle virtuali; si è deciso però di non implementare questa possibilità, per efficienza. Facciamo un esempio:
 
 ```cpp
 struct F {
