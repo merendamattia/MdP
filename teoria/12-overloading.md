@@ -57,7 +57,7 @@ Daremo una descrizione abbastanza dettagliata (ma comunque incompleta) del proce
 ### Fase 1: le funzioni candidate
 <mark style="background: #FFB8EBA6;">L'insieme delle funzioni candidate</mark> per una specifica chiamata di funzione è un sottoinsieme delle funzioni che sono state dichiarate all'interno dell'unità di traduzione. 
 In particolare, le funzioni candidate:
-1. hanno lo stesso nome della funzione chiamata
+1. hanno lo stesso nome della funzione chiamata (non importa numero e tipo degli argomenti)
 2. sono visibili nel punto della chiamata
 
 Nella valutazione del primo punto (*nome*) occorre comunque tenere presente che, per gli operatori, la sintassi della chiamata di funzione può variare nella forma:
@@ -78,7 +78,7 @@ struct S { /* ... */ };
 struct T : public S { /* ... */ };
 S* ptr = new T;
 ptr->foo(); // chiamata
-// ptr ha tipo statico S* e tipo dinamico T*
+// ptr ha tipo statico S* e tipo dinamico T* (esempio Java Quadr./Rett.)
 // quindi la ricerca di foo avviene a partire dallo scope di S
 // (eventuali funzioni T::foo non sono visibili nel punto di chiamata)
 ```

@@ -4,7 +4,7 @@
 ---
 
 ## Array
-Quando si usa una espressione di tipo array di `T`, viene applicato il <mark style="background: #FFB86CA6;">*type decay*</mark> e si ottiene il puntatore al primo elemento dell'array. Questa conversione (trasformazione di lvalue) è necessaria per evitare l'uso di copie costose quando un array viene passato come argomento ad una funzione: si passa (per valore) il puntatore.
+Quando si usa una espressione di tipo array di `T`, viene applicato il <mark style="background: #FFB86CA6;">*type decay*</mark>  e si ottiene il puntatore al primo elemento dell'array. Questa conversione (trasformazione di lvalue) è necessaria per evitare l'uso di copie costose quando un array viene passato come argomento ad una funzione: si passa (per valore) il puntatore.
 
 Il legame tra array e puntatori è molto forte: basti considerare che la sintassi dell'indicizzazione di un array non è altro che una abbreviazione per un utilizzo semplificato dell'aritmetica dei puntatori.
 

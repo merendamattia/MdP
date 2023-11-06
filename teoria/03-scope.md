@@ -124,7 +124,7 @@ Qual è la differenza tra `struct` e `class`?
 Che le classi garantiscono l**'information hiding** (l'utente può gestire metodi e attributi con `public` e `private`), mentre le struct no. 
 Per le struct la visibilità di default è *public* mentre nelle classi è *private*.
 
-I <u>membri</u> di una classe (tipi, dati, metodi) sono <u>visibili all'interno della classe indipendentemente dal punto di dichiarazione</u>.
+I <u>membri</u> di una classe (tipi, dati, metodi) sono <u>visibili all'interno della classe indipendentemente dal punto di dichiarazione</u>. 
 
 ```cpp
 struct S {
