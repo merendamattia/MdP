@@ -18,6 +18,17 @@ f(const ContainerFirst& ci, ContainerOut& out) {
     }
 }
 
+// Meno elegante, simile al testo del compito
+template <typename CC, typename C>
+void f1 (const CC &cc, C &c) {
+    using OC = typename CC::value_type; // direttiva using preferita rispetto 'typedef typename' (C11)
+    for (typename CC::const_iterator cc_i = cc.begin(),
+    cc_end = cc.end(); cc_i != cc_end; ++cc_i)
+        for (typename OC::const_iterator i = cc_i->begin(),
+        i_end = cc_i->end(); i != i_end; ++i)
+            c.push_back(*i); // NB: push_back() deve esistere nel codice della classe di Container
+}
+
 // Versione 2
 template <typename IterIn, typename IterOut>
 void
